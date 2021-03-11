@@ -1,4 +1,4 @@
-#include "twopairverifier.h"
+#include "verifiers/twopairverifier.h"
 
 TwoPairVerifier::TwoPairVerifier(){
     this->rank = 2;

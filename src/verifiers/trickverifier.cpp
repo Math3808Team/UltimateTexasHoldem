@@ -1,4 +1,4 @@
-#include "trickverifier.h"
+#include "verifiers/trickverifier.h"
 
 TrickVerifier::TrickVerifier()
 {

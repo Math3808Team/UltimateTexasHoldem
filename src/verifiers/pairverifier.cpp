@@ -1,4 +1,4 @@
-#include "pairverifier.h"
+#include "verifiers/pairverifier.h"
 
 PairVerifier::PairVerifier(){
     this->rank = 1;

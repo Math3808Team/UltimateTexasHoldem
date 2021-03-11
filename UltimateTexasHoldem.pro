@@ -35,9 +35,10 @@ SOURCES += \
 
 HEADERS += \
         include/ultimatetexasholdem.h \
-    include/trickverifier.h \
-    include/pairverifier.h \
-    include/twopairverifier.h
+    include/verifiers/trickverifier.h \
+    include/verifiers/pairverifier.h \
+    include/verifiers/twopairverifier.h \
+    include/verifiers/threeofakindverifier.h
 
 FORMS += \
         forms/ultimatetexasholdem.ui
