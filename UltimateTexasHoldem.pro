@@ -27,10 +27,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
-        src/ultimatetexasholdem.cpp
+        src/ultimatetexasholdem.cpp \
+    src/verifiers/trickverifier.cpp \
+    src/verifiers/pairverifier.cpp \
+    src/verifiers/twopairverifier.cpp \
+    src/verifiers/threeofakindverifier.cpp
 
 HEADERS += \
-        include/ultimatetexasholdem.h
+        include/ultimatetexasholdem.h \
+    include/trickverifier.h \
+    include/pairverifier.h \
+    include/twopairverifier.h
 
 FORMS += \
         forms/ultimatetexasholdem.ui
