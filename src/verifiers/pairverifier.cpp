@@ -9,6 +9,6 @@ PairVerifier::PairVerifier(){
  *  @param hand is a instance of Hand
  *  @returns {true] iff the hand contains 1 pair.
  */
-bool PairVerifier::verifyHand(const Hand &hand) {
+void PairVerifier::verifyHand(const Hand &hand) {
 
 }

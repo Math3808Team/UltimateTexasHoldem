@@ -9,6 +9,6 @@ ThreeOfAKindVerifier::ThreeOfAKindVerifier(){
  *  @param hand is a instance of Hand
  *  @returns {true] iff the hand contains 3 of a kind.
  */
-bool ThreeOfAKindVerifier::verifyHand(const Hand &hand) {
+void ThreeOfAKindVerifier::verifyHand(const Hand &hand) {
 
 }
