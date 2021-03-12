@@ -3,16 +3,17 @@
 
 #include <vector>
 #include <initializer_list>
+#include <random>
 #include "card.h"
 
 class Deck {
 public:
+    Deck();
     Card getCard();
-    void addCard(const Card& card);
-    void addCards(const std::vector<Card>& othercards);
 private:
     unsigned short numCards;
     std::vector<Card> cards;
+    std::mt19937 rng_generator;
 };
 
 #endif // DECK_H

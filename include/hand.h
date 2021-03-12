@@ -11,7 +11,7 @@ public:
     std::vector<Card> getCards() const;
     void addCard(const Card& card);
 
-    unsigned short rank;
+    unsigned short rank = 0;
 private:
     std::vector<Card> cards;
 };
