@@ -27,10 +27,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         src/main.cpp \
-        src/ultimatetexasholdem.cpp
+        src/ultimatetexasholdem.cpp \
+    src/verifiers/pairverifier.cpp \
+    src/verifiers/twopairverifier.cpp \
+    src/verifiers/threeofakindverifier.cpp \
+    src/verifiers/flushverifier.cpp \
+    src/verifiers/fourofakindverifier.cpp \
+    src/verifiers/fullhouseverifier.cpp \
+    src/verifiers/royalflushverifier.cpp \
+    src/verifiers/straightverifier.cpp \
+    src/verifiers/straightflushverifier.cpp \
+    src/handranker.cpp
 
 HEADERS += \
-        include/ultimatetexasholdem.h
+        include/ultimatetexasholdem.h \
+    include/verifiers/trickverifier.h \
+    include/verifiers/pairverifier.h \
+    include/verifiers/twopairverifier.h \
+    include/verifiers/threeofakindverifier.h \
+    include/verifiers/straightverifier.h \
+    include/verifiers/flushverifier.h \
+    include/verifiers/fullhouseverifier.h \
+    include/verifiers/fourofakindverifier.h \
+    include/verifiers/straightflushverifier.h \
+    include/verifiers/royalflushverifier.h \
+    include/handranker.h
 
 FORMS += \
         forms/ultimatetexasholdem.ui
