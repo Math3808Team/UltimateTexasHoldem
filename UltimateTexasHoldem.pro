@@ -26,32 +26,44 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        src/bets.cpp \
+        src/card.cpp \
+        src/deck.cpp \
+        src/hand.cpp \
         src/main.cpp \
+        src/handranker.cpp \
+        src/player.cpp \
         src/ultimatetexasholdem.cpp \
-    src/verifiers/pairverifier.cpp \
-    src/verifiers/twopairverifier.cpp \
-    src/verifiers/threeofakindverifier.cpp \
-    src/verifiers/flushverifier.cpp \
-    src/verifiers/fourofakindverifier.cpp \
-    src/verifiers/fullhouseverifier.cpp \
-    src/verifiers/royalflushverifier.cpp \
-    src/verifiers/straightverifier.cpp \
-    src/verifiers/straightflushverifier.cpp \
-    src/handranker.cpp
+        src/verifiers/pairverifier.cpp \
+        src/verifiers/twopairverifier.cpp \
+        src/verifiers/threeofakindverifier.cpp \
+        src/verifiers/flushverifier.cpp \
+        src/verifiers/fourofakindverifier.cpp \
+        src/verifiers/fullhouseverifier.cpp \
+        src/verifiers/royalflushverifier.cpp \
+        src/verifiers/straightverifier.cpp \
+        src/verifiers/straightflushverifier.cpp \
 
 HEADERS += \
+        include/bets.h \
+        include/card.h \
+        include/deck.h \
+        include/hand.h \
+        include/house.h \
+        include/player.h \
+        include/ultimatetexasholdem.h
         include/ultimatetexasholdem.h \
-    include/verifiers/trickverifier.h \
-    include/verifiers/pairverifier.h \
-    include/verifiers/twopairverifier.h \
-    include/verifiers/threeofakindverifier.h \
-    include/verifiers/straightverifier.h \
-    include/verifiers/flushverifier.h \
-    include/verifiers/fullhouseverifier.h \
-    include/verifiers/fourofakindverifier.h \
-    include/verifiers/straightflushverifier.h \
-    include/verifiers/royalflushverifier.h \
-    include/handranker.h
+        include/verifiers/trickverifier.h \
+        include/verifiers/pairverifier.h \
+        include/verifiers/twopairverifier.h \
+        include/verifiers/threeofakindverifier.h \
+        include/verifiers/straightverifier.h \
+        include/verifiers/flushverifier.h \
+        include/verifiers/fullhouseverifier.h \
+        include/verifiers/fourofakindverifier.h \
+        include/verifiers/straightflushverifier.h \
+        include/verifiers/royalflushverifier.h \
+        include/handranker.h
 
 FORMS += \
         forms/ultimatetexasholdem.ui
