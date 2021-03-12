@@ -37,7 +37,13 @@ HEADERS += \
     include/verifiers/trickverifier.h \
     include/verifiers/pairverifier.h \
     include/verifiers/twopairverifier.h \
-    include/verifiers/threeofakindverifier.h
+    include/verifiers/threeofakindverifier.h \
+    include/verifiers/straightverifier.h \
+    include/verifiers/flushverifier.h \
+    include/verifiers/fullhouseverifier.h \
+    include/verifiers/fourofakindverifier.h \
+    include/verifiers/straightflushverifier.h \
+    include/verifiers/royalflushverifier.h
 
 FORMS += \
         forms/ultimatetexasholdem.ui
