@@ -26,10 +26,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+        src/card.cpp \
+        src/deck.cpp \
+        src/hand.cpp \
         src/main.cpp \
         src/ultimatetexasholdem.cpp
 
 HEADERS += \
+        include/bets.h \
+        include/card.h \
+        include/deck.h \
+        include/hand.h \
         include/ultimatetexasholdem.h
 
 FORMS += \
