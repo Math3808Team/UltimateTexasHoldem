@@ -36,7 +36,8 @@ SOURCES += \
     src/verifiers/fullhouseverifier.cpp \
     src/verifiers/royalflushverifier.cpp \
     src/verifiers/straightverifier.cpp \
-    src/verifiers/straightflushverifier.cpp
+    src/verifiers/straightflushverifier.cpp \
+    src/handranker.cpp
 
 HEADERS += \
         include/ultimatetexasholdem.h \
@@ -49,7 +50,8 @@ HEADERS += \
     include/verifiers/fullhouseverifier.h \
     include/verifiers/fourofakindverifier.h \
     include/verifiers/straightflushverifier.h \
-    include/verifiers/royalflushverifier.h
+    include/verifiers/royalflushverifier.h \
+    include/handranker.h
 
 FORMS += \
         forms/ultimatetexasholdem.ui
