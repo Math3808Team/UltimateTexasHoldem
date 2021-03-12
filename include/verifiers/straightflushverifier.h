@@ -3,7 +3,7 @@
 
 #include "trickverifier.h"
 
-class StraightRoyalFlushVerifier: TrickVerifier {
+class StraightFlushVerifier: TrickVerifier {
 
 public:
     virtual void verifyHand(Hand &hand) override;

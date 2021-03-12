@@ -7,7 +7,7 @@ TwoPairVerifier::TwoPairVerifier(){
 /*
  *  Verifies that a given Hand contains exactly two pairs.
  *  @param hand is a instance of Hand
- *  @returns {true] iff the hand contains 2 pairs.
+ *  @returns {true} iff the hand contains 2 pairs.
  */
 void TwoPairVerifier::verifyHand(const Hand &hand) {
 

@@ -30,7 +30,13 @@ SOURCES += \
         src/ultimatetexasholdem.cpp \
     src/verifiers/pairverifier.cpp \
     src/verifiers/twopairverifier.cpp \
-    src/verifiers/threeofakindverifier.cpp
+    src/verifiers/threeofakindverifier.cpp \
+    src/verifiers/flushverifier.cpp \
+    src/verifiers/fourofakindverifier.cpp \
+    src/verifiers/fullhouseverifier.cpp \
+    src/verifiers/royalflushverifier.cpp \
+    src/verifiers/straightverifier.cpp \
+    src/verifiers/straightflushverifier.cpp
 
 HEADERS += \
         include/ultimatetexasholdem.h \
