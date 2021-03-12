@@ -51,7 +51,6 @@ HEADERS += \
         include/hand.h \
         include/house.h \
         include/player.h \
-        include/ultimatetexasholdem.h
         include/ultimatetexasholdem.h \
         include/verifiers/trickverifier.h \
         include/verifiers/pairverifier.h \
