@@ -5,7 +5,7 @@
 
 class Player {
 public:
-    unsigned long money;
+    unsigned long money = 10000;
 
 private:
     Hand hand;

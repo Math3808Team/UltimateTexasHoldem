@@ -2,6 +2,7 @@
 #define HAND_H
 
 #include <vector>
+#include <algorithm>
 #include <card.h>
 
 class Hand {
@@ -10,6 +11,8 @@ public:
 
     std::vector<Card> getCards() const;
     void addCard(const Card& card);
+
+    bool contains(int v, char s);
 
     unsigned short rank = 0;
 private:

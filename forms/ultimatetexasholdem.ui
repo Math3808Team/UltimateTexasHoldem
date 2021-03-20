@@ -801,22 +801,5 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections>
-  <connection>
-   <sender>anteSpinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>blindSpinBox</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>40</x>
-     <y>243</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>151</x>
-     <y>245</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
