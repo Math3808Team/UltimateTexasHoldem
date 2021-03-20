@@ -43,6 +43,7 @@ SOURCES += \
         src/verifiers/royalflushverifier.cpp \
         src/verifiers/straightverifier.cpp \
         src/verifiers/straightflushverifier.cpp \
+    src/verifiers/trickverifier.cpp
 
 HEADERS += \
         include/bets.h \

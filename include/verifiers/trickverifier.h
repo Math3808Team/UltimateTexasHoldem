@@ -2,8 +2,7 @@
 #define TRICKVERIFIER_H
 
 #include <QHash>
-
-class Hand; //temp until Hand is made
+#include "hand.h"
 
 class TrickVerifier {
 

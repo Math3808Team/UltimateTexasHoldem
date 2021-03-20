@@ -9,11 +9,11 @@ FourOfAKindVerifier::FourOfAKindVerifier(){
  *  @param hand is a instance of Hand
  */
 void FourOfAKindVerifier::verifyHand(Hand &hand) {
-    QHash valueTable = getTableOfValues(hand);
+    QHash<int,int> valueTable = getTableOfValues(hand);
     QHash<int,int> ::iterator it;
     for(it = valueTable.begin(); it != valueTable.end(); it++){
         if(it.value() == 4){
-            hand->rank = rank;
+            hand.rank = rank;
         }
     }
 }
