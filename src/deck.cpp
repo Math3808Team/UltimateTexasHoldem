@@ -10,20 +10,20 @@
 */
 Deck::Deck() : rng_generator(std::random_device()()) {
     // add all 52 cards here.
-    /*for (auto suitIt = Card::suits.begin(); suitIt != Card::suits.end(); ++suitIt) {
+    for (auto suitIt = Card::suits.begin(); suitIt != Card::suits.end(); ++suitIt) {
         char suit = *suitIt;
         for (auto valueIt = Card::values.begin(); valueIt != Card::values.end(); ++valueIt) {
-            char value = *valueIt;
-            cards.emplace_back(Card(suit, value));
+            unsigned short value = *valueIt;
+            cards.emplace_back(suit, value);
         }
-    }*/
+    }
 }
 
 /* Function gets a random card from the list of cards
  * @returns a Card object taken from the list; removes the card from the list
  */
 Card Deck::getCard() {
-    std::uniform_int_distribution<> distr(0, cards.size());
+    std::uniform_int_distribution<> distr(0, static_cast<int>(cards.size()));
     int k = distr(rng_generator);
     // note we don't have checks for when the deck is empty, okay for now
     Card card = cards.at(k);
