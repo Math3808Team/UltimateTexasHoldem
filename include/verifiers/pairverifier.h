@@ -7,6 +7,6 @@ class PairVerifier: TrickVerifier {
 
 public:
     virtual void verifyHand(Hand &hand) override;
-}
+};
 
 #endif // PAIRVERIFIER_H

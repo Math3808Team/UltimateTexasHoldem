@@ -7,6 +7,6 @@ class StraightFlushVerifier: TrickVerifier {
 
 public:
     virtual void verifyHand(Hand &hand) override;
-}
+};
 
 #endif // STRAIGHTFLUSHVERIFIER_H

@@ -7,6 +7,6 @@ class FourOfAKindVerifier: TrickVerifier {
 
 public:
     virtual void verifyHand(Hand &hand) override;
-}
+};
 
 #endif // FOUROFAKINDVERIFIER_H
