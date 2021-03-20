@@ -9,5 +9,11 @@ FlushVerifier::FlushVerifier(){
  *  @param hand is a instance of Hand
  */
 void FlushVerifier::verifyHand(Hand &hand) {
-
+    QHash<char,int> suitTable = getTableOfSuits(hand);
+    QHash<char,int>::iterator it;
+    for(it = suitTable.begin(); it != suitTable.end(); it++){
+        if(it.value() >= 5){
+            hand.rank = rank;
+        }
+    }
 }

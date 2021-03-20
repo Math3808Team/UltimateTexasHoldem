@@ -10,6 +10,8 @@ public:
 
     std::vector<Card> getCards() const;
     void addCard(const Card& card);
+    bool contains(int v);
+    bool contains(int v, char suit);
 
     unsigned short rank = 0;
 private:

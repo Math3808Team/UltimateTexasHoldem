@@ -9,5 +9,4 @@ FullHouseVerifier::FullHouseVerifier(){
  *  @param hand is a instance of Hand
  */
 void FullHouseVerifier::verifyHand(Hand &hand) {
-
 }
