@@ -172,7 +172,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -201,7 +201,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>740</x>
@@ -301,7 +301,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>640</x>
@@ -325,6 +325,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="checkButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="text">
           <string>Check</string>
          </property>
@@ -332,6 +335,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="foldButton">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="text">
           <string>Fold</string>
          </property>
@@ -400,12 +406,12 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>100</y>
-      <width>171</width>
+      <width>185</width>
       <height>180</height>
      </rect>
     </property>
@@ -435,7 +441,17 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox"/>
+          <widget class="QSpinBox" name="tripSpinBox">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximum">
+            <number>1000</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -475,7 +491,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="anteSpinBox"/>
+            <widget class="QSpinBox" name="anteSpinBox">
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -533,7 +559,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="blindSpinBox"/>
+            <widget class="QSpinBox" name="blindSpinBox">
+             <property name="minimumSize">
+              <size>
+               <width>50</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -602,7 +638,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -649,7 +685,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -694,7 +730,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -746,7 +782,7 @@
      <x>0</x>
      <y>0</y>
      <width>948</width>
-     <height>26</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
