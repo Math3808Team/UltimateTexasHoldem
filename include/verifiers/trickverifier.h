@@ -12,6 +12,8 @@ public:
 
 protected:
     unsigned short rank;
+    QHash <int,int> getTableOfValues(Hand &hand);
+    QHash <int,int> getTableOfSuits(Hand &hand);
 };
 
 

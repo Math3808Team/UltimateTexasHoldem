@@ -9,5 +9,11 @@ PairVerifier::PairVerifier(){
  *  @param hand is a instance of Hand
  */
 void PairVerifier::verifyHand(Hand &hand) {
-
+    QHash valueTable = getTableOfValues(hand);
+    QHash<int,int> ::iterator it;
+    for(it = valueTable.begin(); it != valueTable.end(); it++){
+        if(it.value() == 2){
+            hand->rank = rank;
+        }
+    }
 }
