@@ -10,13 +10,13 @@
 */
 Deck::Deck() : rng_generator(std::random_device()()) {
     // add all 52 cards here.
-    for (auto suitIt = Card::suits.begin(); suitIt != Card::suits.end(); ++suitIt) {
+    /*for (auto suitIt = Card::suits.begin(); suitIt != Card::suits.end(); ++suitIt) {
         char suit = *suitIt;
         for (auto valueIt = Card::values.begin(); valueIt != Card::values.end(); ++valueIt) {
             char value = *valueIt;
-            cards.emplace_back(suit, value);
+            cards.emplace_back(Card(suit, value));
         }
-    }
+    }*/
 }
 
 /* Function gets a random card from the list of cards

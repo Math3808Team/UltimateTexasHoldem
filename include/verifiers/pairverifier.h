@@ -3,10 +3,11 @@
 
 #include "trickverifier.h"
 
-class PairVerifier: TrickVerifier {
+class PairVerifier: public TrickVerifier {
 
 public:
+    PairVerifier();
     virtual void verifyHand(Hand &hand) override;
-}
+};
 
 #endif // PAIRVERIFIER_H

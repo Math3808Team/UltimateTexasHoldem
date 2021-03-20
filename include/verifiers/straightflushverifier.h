@@ -3,10 +3,11 @@
 
 #include "trickverifier.h"
 
-class StraightFlushVerifier: TrickVerifier {
+class StraightFlushVerifier: public TrickVerifier {
 
 public:
+    StraightFlushVerifier();
     virtual void verifyHand(Hand &hand) override;
-}
+};
 
 #endif // STRAIGHTFLUSHVERIFIER_H

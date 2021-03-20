@@ -3,10 +3,11 @@
 
 #include "trickverifier.h"
 
-class FourOfAKindVerifier: TrickVerifier {
+class FourOfAKindVerifier: public TrickVerifier {
 
 public:
+    FourOfAKindVerifier();
     virtual void verifyHand(Hand &hand) override;
-}
+};
 
 #endif // FOUROFAKINDVERIFIER_H
