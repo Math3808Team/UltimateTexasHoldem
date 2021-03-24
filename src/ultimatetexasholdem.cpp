@@ -63,6 +63,7 @@ void UltimateTexasHoldem::setUiToInitalDeal() {
 
 void UltimateTexasHoldem::on_dealButton_clicked() {
     unsigned long long totalBets = ui->anteSpinBox->value() + ui->blindSpinBox->value() + ui->tripSpinBox->value();
+    // may not be a good idea to have the game logic in here.
     if (totalBets > player.money) {
         QMessageBox msgBox;
         msgBox.setText("You do not have enough money!");
