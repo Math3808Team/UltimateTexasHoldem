@@ -16,7 +16,6 @@ class UltimateTexasHoldem : public QMainWindow
     Q_OBJECT
 
 public:
-    enum class State;
     explicit UltimateTexasHoldem(QWidget *parent = 0);
     ~UltimateTexasHoldem();
 
@@ -41,12 +40,18 @@ private:
     Hand hand;
     HandRanker handranker;
 
-    State state;
+    int numOfChecks = 0;
     Ui::UltimateTexasHoldem *ui;
 
     void setUiConnections();
+    void revealOneCommunityCard();
+    void revealAllCommunityCards();
+    void revealUserCards();
+    void revealDealerCards();
+
 };
 
+/*
 // Sequence:
 // BETTING -> INITALDEAL always, then
 //  if Betx3 or Bet4x -> Done
@@ -62,8 +67,6 @@ private:
 enum class UltimateTexasHoldem::State {
     BETTING = 0, // where the user can place bets, can set trips, ante and blind
     INITALDEAL = 0, // where the user is dealt the first two cards with both community and dealer cards down.
-
-
 };
-
+*/
 #endif // ULTIMATETEXASHOLDEM_H
