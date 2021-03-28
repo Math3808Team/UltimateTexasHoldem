@@ -1,15 +1,18 @@
 #ifndef TRICKVERIFIER_H
 #define TRICKVERIFIER_H
 
-class Hand; //temp until Hand is made
+#include <QHash>
+#include "hand.h"
 
 class TrickVerifier {
 
 public:
-    virtual void verifyHand(const Hand &hand) = 0;
+    virtual void verifyHand(Hand &hand) = 0;
 
 protected:
-    const unsigned short rank;
+    unsigned short rank;
+    QHash <int,int> getTableOfValues(Hand &hand);
+    QHash <int,int> getTableOfSuits(Hand &hand);
 };
 
 

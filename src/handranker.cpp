@@ -1,15 +1,15 @@
 #include "handranker.h"
 
 HandRanker::HandRanker(){
-    trickVerifiers.push_back(PairVerifier());
-    trickVerifiers.push_back(TwoPairVerifier());
-    trickVerifiers.push_back(ThreeOfAKindVerifier());
-    trickVerifiers.push_back(StraightVerifier());
-    trickVerifiers.push_back(FlushVerifier());
-    trickVerifiers.push_back(FullHouseVerifier());
-    trickVerifiers.push_back(FourOfAKindVerifier());
-    trickVerifiers.push_back(StraightFlushVerifier());
-    trickVerifiers.push_back(RoyalFlushVerifier());
+    trickVerifiers.append(new PairVerifier());
+    trickVerifiers.append(new TwoPairVerifier());
+    trickVerifiers.append(new ThreeOfAKindVerifier());
+    trickVerifiers.append(new StraightVerifier());
+    trickVerifiers.append(new FlushVerifier());
+    trickVerifiers.append(new FullHouseVerifier());
+    trickVerifiers.append(new FourOfAKindVerifier());
+    trickVerifiers.append(new StraightFlushVerifier());
+    trickVerifiers.append(new RoyalFlushVerifier());
 }
 
 /*
@@ -18,7 +18,9 @@ HandRanker::HandRanker(){
  */
 void HandRanker::rankHand(Hand &hand) {
     //Go through each verifier in-order to override the rank of the hand to the highest one.
-    for(Hand curHand : trickVerifiers) {
-        curHand.verifyHand(hand);
+    QListIterator<TrickVerifier*> i(trickVerifiers);
+    while(i.hasNext()) {
+        i.next()->verifyHand(hand);
     }
+
 }

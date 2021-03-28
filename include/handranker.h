@@ -1,7 +1,7 @@
 #ifndef HANDRANKER_H
 #define HANDRANKER_H
 
-#include <vector>
+#include <QList>
 #include "verifiers/trickverifier.h"
 #include "verifiers/pairverifier.h"
 #include "verifiers/twopairverifier.h"
@@ -18,10 +18,12 @@ class Hand;
 class HandRanker {
 
 public:
-    void rankHand(Hand hand);
+    HandRanker();
+
+    void rankHand(Hand &hand);
 
 private:
-    std::vector<TrickVerifier> trickVerifiers;
-}
+    QList<TrickVerifier*> trickVerifiers;
+};
 
 #endif // HANDRANKER_H

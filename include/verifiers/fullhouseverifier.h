@@ -3,11 +3,12 @@
 
 #include "trickverifier.h"
 
-class FullHouseVerifier: TrickVerifier {
+class FullHouseVerifier: public TrickVerifier {
 
 public:
+    FullHouseVerifier();
     virtual void verifyHand(Hand &hand) override;
 
-}
+};
 
 #endif // FULLHOUSEVERIFIER_H
