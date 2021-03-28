@@ -381,6 +381,13 @@
           </spacer>
          </item>
          <item>
+          <widget class="QPushButton" name="bet1XButton">
+           <property name="text">
+            <string>Bet1X</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="bet2XButton">
            <property name="text">
             <string>Bet2X</string>

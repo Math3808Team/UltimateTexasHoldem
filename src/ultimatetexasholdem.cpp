@@ -26,10 +26,16 @@ void UltimateTexasHoldem::setUiConnections() {
 
 }
 
+/**
+ * @brief UltimateTexasHoldem::setUiToBetting
+ * Makes the UI go to the betting stage where all cards are down
+ * And the user can place bets
+ * This is a hard reset of the UI
+ */
 void UltimateTexasHoldem::setUiToBetting() {
-    state = State::BETTING;
     // dealing buttons
     ui->dealButton->setEnabled(true);
+    ui->bet1XButton->setEnabled(false);
     ui->bet2XButton->setEnabled(false);
     ui->bet3XButton->setEnabled(false);
     ui->bet4XButton->setEnabled(false);
@@ -42,12 +48,18 @@ void UltimateTexasHoldem::setUiToBetting() {
     ui->tripSpinBox->setEnabled(true);
 
     // reset cards here to all back cards
+
 }
 
+/**
+ * @brief UltimateTexasHoldem::setUiToInitalDeal
+ * Makes the UI go to the first stage of dealing, where all cards are down
+ * But the user can now check and perform checking or betting xn amonts
+ * This is a hard reset of the UI
+ */
 void UltimateTexasHoldem::setUiToInitalDeal() {
-    state = State::INITALDEAL;
-
     ui->dealButton->setEnabled(false);
+    ui->bet1XButton->setEnabled(false);
     ui->bet2XButton->setEnabled(false);
     ui->bet3XButton->setEnabled(true);
     ui->bet4XButton->setEnabled(true);
@@ -97,4 +109,18 @@ void UltimateTexasHoldem::slotEqualAnteBlindBoxes(int arg1)
 {
     ui->anteSpinBox->setValue(arg1);
     ui->blindSpinBox->setValue(arg1);
+}
+
+
+void UltimateTexasHoldem::revealOneCommunityCard() {
+
+}
+void UltimateTexasHoldem::revealAllCommunityCards() {
+
+}
+void UltimateTexasHoldem::revealUserCards() {
+
+}
+void UltimateTexasHoldem::revealDealerCards() {
+
 }
