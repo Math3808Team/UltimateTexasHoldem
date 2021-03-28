@@ -21,8 +21,9 @@ UltimateTexasHoldem::~UltimateTexasHoldem()
 }
 
 void UltimateTexasHoldem::setUiConnections() {
-    connect(ui->anteSpinBox, &QSpinBox::valueChanged, this, &UltimateTexasHoldem::on_anteorblindSpinBox_valueChanged);
-    connect(ui->blindSpinBox, &QSpinBox::valueChanged, this, &UltimateTexasHoldem::on_anteorblindSpinBox_valueChanged);
+    connect(ui->anteSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
+    connect(ui->blindSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
+
 }
 
 void UltimateTexasHoldem::setUiToBetting() {
@@ -92,7 +93,7 @@ void UltimateTexasHoldem::on_bet3XButton_clicked()
     setUiToBetting(); // for now
 }
 
-void UltimateTexasHoldem::on_anteorblindSpinBox_valueChanged(int arg1)
+void UltimateTexasHoldem::slotEqualAnteBlindBoxes(int arg1)
 {
     ui->anteSpinBox->setValue(arg1);
     ui->blindSpinBox->setValue(arg1);

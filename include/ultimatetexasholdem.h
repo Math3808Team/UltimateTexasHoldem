@@ -32,7 +32,7 @@ private slots:
 
     void on_bet3XButton_clicked();
 
-    void on_anteorblindSpinBox_valueChanged(int arg1);
+    void slotEqualAnteBlindBoxes(int arg1);
 
 private:
 
