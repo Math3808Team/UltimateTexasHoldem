@@ -4,8 +4,8 @@ FlushVerifier::FlushVerifier(){
     this->rank = 5;
 }
 
-/*
- *  Verifies that a given Hand is a flush. That is: any 5 cards in the hand have the same suit.
+/**
+ *  @brief Verifies that a given Hand is a flush. That is: any 5 cards in the hand have the same suit.
  *  @param hand is a instance of Hand
  */
 void FlushVerifier::verifyHand(Hand &hand) {
@@ -14,6 +14,7 @@ void FlushVerifier::verifyHand(Hand &hand) {
     for(it = suitTable.begin(); it != suitTable.end(); it++){
         if(it.value() >= 5){
             hand.rank = rank;
+            break;
         }
     }
 }

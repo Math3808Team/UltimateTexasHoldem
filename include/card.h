@@ -2,6 +2,7 @@
 #define CARD_H
 #include <string>
 #include <array>
+#include <cctype>
 
 class Card {
 public:
@@ -11,8 +12,8 @@ public:
     char suit;
     unsigned short value;
 
-    static constexpr std::array<char, 4> suits = {'C', 'S', 'D', 'H'};
-    static constexpr std::array<unsigned short, 13> values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+    static std::array<char, 4> suits;
+    static std::array<unsigned short, 13> values;
 };
 
 bool operator==(const Card& lhs, const Card& rhs);

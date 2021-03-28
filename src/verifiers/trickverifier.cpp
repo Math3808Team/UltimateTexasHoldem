@@ -7,7 +7,7 @@ QHash<int,int> TrickVerifier::getTableOfValues(Hand &hand) {
     std::vector<Card> cards = hand.getCards();
 
     for (unsigned int i = 0; i < cards.size(); i++) {
-        int cardValue = cards[0].value;
+        int cardValue = cards[i].value;
 
         if (valueTable.contains(cardValue))
             valueTable.insert(cardValue, *valueTable.find(cardValue) + 1);
@@ -22,7 +22,7 @@ QHash<char,int> TrickVerifier::getTableOfSuits(Hand &hand) {
     std::vector<Card> cards = hand.getCards();
 
     for (unsigned int i = 0; i < cards.size(); i++) {
-        char cardSuit = cards[0].suit;
+        char cardSuit = cards[i].suit;
 
         if (suitTable.contains(cardSuit))
             suitTable.insert(cardSuit, *suitTable.find(cardSuit) + 1);
