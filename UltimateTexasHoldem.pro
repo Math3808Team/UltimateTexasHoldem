@@ -69,3 +69,6 @@ FORMS += \
         forms/ultimatetexasholdem.ui
 
 INCLUDEPATH += include/
+
+RESOURCES += \
+    resources.qrc
