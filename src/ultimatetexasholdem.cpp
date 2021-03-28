@@ -124,3 +124,6 @@ void UltimateTexasHoldem::revealUserCards() {
 void UltimateTexasHoldem::revealDealerCards() {
 
 }
+void UltimateTexasHoldem::hideAllCards() {
+
+}

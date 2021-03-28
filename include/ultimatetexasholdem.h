@@ -44,10 +44,13 @@ private:
     Ui::UltimateTexasHoldem *ui;
 
     void setUiConnections();
+
+    // UI functions
     void revealOneCommunityCard();
     void revealAllCommunityCards();
     void revealUserCards();
     void revealDealerCards();
+    void hideAllCards();
 
 };
 
