@@ -5,7 +5,6 @@
 #include <QDebug>
 
 #include "handranker.h"
-#include <QDebug>
 
 UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     QMainWindow(parent),
