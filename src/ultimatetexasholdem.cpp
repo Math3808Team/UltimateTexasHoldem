@@ -109,7 +109,6 @@ void UltimateTexasHoldem::on_checkButton_clicked()
         ++numOfChecks;
         break;
     case 1:
-        ui->
         break;
     case 2:
         break;
