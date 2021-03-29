@@ -4,9 +4,9 @@
 #include "deck.h"
 #include "card.h"
 
-/*
- * First initalizes our random generator by a random seed(by a random device)
- * Our deck is filled with 52 cards
+/**
+ * @brief First initalizes our random generator by a random seed(by a random device)
+ *        Our deck is filled with 52 cards
 */
 Deck::Deck() : rng_generator(std::random_device()()) {
     // add all 52 cards here.
@@ -19,7 +19,8 @@ Deck::Deck() : rng_generator(std::random_device()()) {
     }
 }
 
-/* Function gets a random card from the list of cards
+/**
+ * @brief Function gets a random card from the list of cards
  * @returns a Card object taken from the list; removes the card from the list
  */
 Card Deck::getCard() {

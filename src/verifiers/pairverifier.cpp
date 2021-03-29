@@ -4,8 +4,8 @@ PairVerifier::PairVerifier(){
     this->rank = 1;
 }
 
-/*
- *  Verifies that a given Hand contains exactly one pair.
+/**
+ *  @brief Verifies that a given Hand contains exactly one pair.
  *  @param hand is a instance of Hand
  */
 void PairVerifier::verifyHand(Hand &hand) {
@@ -14,6 +14,7 @@ void PairVerifier::verifyHand(Hand &hand) {
     for(it = valueTable.begin(); it != valueTable.end(); it++){
         if(it.value() == 2){
             hand.rank = rank;
+            break;
         }
     }
 }
