@@ -46,7 +46,9 @@ private:
     void setUiConnections();
 
     // UI functions
-    void revealOneCommunityCard();
+    void revealThreeCommunityCard();
+    void revealFourthCommunityCard();
+    void revealFifthCommunityCard();
     void revealAllCommunityCards();
     void revealUserCards();
     void revealDealerCards();

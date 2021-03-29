@@ -49,6 +49,8 @@ void UltimateTexasHoldem::setUiToBetting() {
 
     // reset cards here to all back cards
 
+
+    numOfChecks = 0;
 }
 
 /**
@@ -87,12 +89,32 @@ void UltimateTexasHoldem::on_dealButton_clicked() {
     player.money -= totalBets;
     ui->money->setText(QString::number(player.money));
     setUiToInitalDeal();
+    revealUserCards();
 }
 
 
 void UltimateTexasHoldem::on_checkButton_clicked()
 {
-    setUiToBetting(); // for now
+    // At this point: Atleast the user cards are displayed.
+    switch(numOfChecks) {
+    // No community cards at set
+    case 0:
+        ui->bet4XButton->setEnabled(false);
+        ui->bet3XButton->setEnabled(false);
+        ui->bet2XButton->setEnabled(true);
+        for(int i = 0; i != 3; ++i)
+            revealThreeCommunityCard();
+        ++numOfChecks;
+        break;
+    case 1:
+        ui->
+        break;
+    case 2:
+        break;
+    default:
+        qDebug() << "Check button pressed with more than three checks\n";
+        break;
+    }
 }
 
 void UltimateTexasHoldem::on_bet4XButton_clicked()
@@ -112,10 +134,22 @@ void UltimateTexasHoldem::slotEqualAnteBlindBoxes(int arg1)
 }
 
 
-void UltimateTexasHoldem::revealOneCommunityCard() {
+void UltimateTexasHoldem::revealThreeCommunityCard() {
 
 }
+
+void UltimateTexasHoldem::revealFourthCommunityCard() {
+
+}
+
+void UltimateTexasHoldem::revealFifthCommunityCard() {
+
+}
+
 void UltimateTexasHoldem::revealAllCommunityCards() {
+    revealThreeCommunityCard();
+    revealFourthCommunityCard();
+    revealFifthCommunityCard();
 
 }
 void UltimateTexasHoldem::revealUserCards() {
