@@ -12,8 +12,8 @@ HandRanker::HandRanker(){
     trickVerifiers.append(new RoyalFlushVerifier());
 }
 
-/*
- *  Gives the proper rank to the hand passed in.
+/**
+ *  @brief Gives the proper rank to the hand passed in.
  *  @param hand is a instance of Hand
  */
 void HandRanker::rankHand(Hand &hand) {

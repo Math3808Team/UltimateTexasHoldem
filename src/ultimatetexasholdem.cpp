@@ -4,6 +4,8 @@
 #include <QMessageBox>
 #include <QDebug>
 
+#include "handranker.h"
+
 UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::UltimateTexasHoldem)

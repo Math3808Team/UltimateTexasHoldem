@@ -178,7 +178,7 @@
       <x>10</x>
       <y>70</y>
       <width>121</width>
-      <height>18</height>
+      <height>19</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -195,7 +195,7 @@
      <item>
       <widget class="QLabel" name="money">
        <property name="text">
-        <string/>
+        <string>1000</string>
        </property>
       </widget>
      </item>
@@ -204,9 +204,9 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>740</x>
+      <x>690</x>
       <y>10</y>
-      <width>201</width>
+      <width>251</width>
       <height>371</height>
      </rect>
     </property>
@@ -418,7 +418,7 @@
      <rect>
       <x>10</x>
       <y>100</y>
-      <width>185</width>
+      <width>180</width>
       <height>180</height>
      </rect>
     </property>
@@ -789,7 +789,7 @@
      <x>0</x>
      <y>0</y>
      <width>948</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
