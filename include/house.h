@@ -4,9 +4,10 @@
 #include "hand.h"
 
 class House {
+
 public:
-private:
     Hand hand;
+
 };
 
 #endif // HOUSE_H

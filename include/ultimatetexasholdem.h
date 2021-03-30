@@ -35,9 +35,12 @@ private slots:
 
 private:
 
+    const int CARD_WIDTH  = 100;
+    const int CARD_HEIGHT = 140;
+
     Deck deck;
     Player player;
-    Hand hand;
+    House house;
     HandRanker handranker;
 
     int numOfChecks = 0;
@@ -53,6 +56,10 @@ private:
     void revealUserCards();
     void revealDealerCards();
     void hideAllCards();
+
+    //GAME functions
+    void dealCards();
+    QPixmap getPixmapOfCard(Card card);
 
 };
 

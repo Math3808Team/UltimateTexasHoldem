@@ -6,9 +6,8 @@
 class Player {
 public:
     unsigned long money = 10000;
-
-private:
     Hand hand;
+
 };
 
 #endif // PLAYER_H
