@@ -6,20 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>951</width>
-    <height>568</height>
+    <width>996</width>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>UltimateTexasHoldem</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow#UltimateTexasHoldem {
-	
-	background-color: white
-}
-
-QWidget#centralWidget {
+   <string notr="true">QWidget#centralWidget {
 	
 	background-color: qradialgradient(spread:pad, cx:0.489592, cy:0.449, radius:1.23, fx:0.494796, fy:0, stop:0 rgba(110, 158, 116, 255), stop:1 rgba(0, 223, 55, 255));
 }
@@ -36,6 +31,41 @@ QListWidget#BlindPayouts {
 	color: white;
 }
 
+QFrame#BetsFrame{
+	background-color: rgba(19, 114, 51, 190);
+}
+QLabel#TripsMessage {
+	color:white;
+}
+QLabel#AnteMessage {
+	color:white;
+}
+QLabel#BlindMessage {
+	color:white;
+}
+QLabel#PlayMessage {
+	color:white;
+}
+
+QLabel#PushMessage {
+	color:white;
+}
+QLabel#DealerHandMessage{
+	color:white;
+}
+QLabel#PlayerHandMessage{
+	color:white;
+}
+QLabel#CommunityMessage{
+	color:white;
+}
+QLabel#MoneyMessage{
+	color:white;
+}
+QLabel#money{
+	color:white;
+}
+
 
 </string>
   </property>
@@ -43,8 +73,8 @@ QListWidget#BlindPayouts {
    <widget class="QWidget" name="layoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>240</y>
+      <x>280</x>
+      <y>260</y>
       <width>141</width>
       <height>22</height>
      </rect>
@@ -64,7 +94,13 @@ QListWidget#BlindPayouts {
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="dealerHand">
+      <widget class="QLabel" name="DealerHandMessage">
+       <property name="font">
+        <font>
+         <family>URW Bookman L</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Dealer's Hand</string>
        </property>
@@ -88,8 +124,8 @@ QListWidget#BlindPayouts {
    <widget class="QWidget" name="layoutWidget_8">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>240</y>
+      <x>520</x>
+      <y>260</y>
       <width>141</width>
       <height>22</height>
      </rect>
@@ -109,7 +145,13 @@ QListWidget#BlindPayouts {
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="playerHand">
+      <widget class="QLabel" name="PlayerHandMessage">
+       <property name="font">
+        <font>
+         <family>URW Bookman L</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Player's Hand</string>
        </property>
@@ -134,9 +176,9 @@ QListWidget#BlindPayouts {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>70</y>
-      <width>121</width>
-      <height>19</height>
+      <y>40</y>
+      <width>181</width>
+      <height>51</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="Money">
@@ -144,7 +186,15 @@ QListWidget#BlindPayouts {
       <number>5</number>
      </property>
      <item>
-      <widget class="QLabel" name="MoneyLabel">
+      <widget class="QLabel" name="MoneyMessage">
+       <property name="font">
+        <font>
+         <family>URW Bookman L</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>Money:  $</string>
        </property>
@@ -152,6 +202,14 @@ QListWidget#BlindPayouts {
      </item>
      <item>
       <widget class="QLabel" name="money">
+       <property name="font">
+        <font>
+         <family>URW Bookman L</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
         <string>1000</string>
        </property>
@@ -162,7 +220,7 @@ QListWidget#BlindPayouts {
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>730</x>
       <y>10</y>
       <width>251</width>
       <height>371</height>
@@ -262,7 +320,7 @@ QListWidget#BlindPayouts {
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>684</x>
+      <x>710</x>
       <y>390</y>
       <width>276</width>
       <height>102</height>
@@ -374,219 +432,7 @@ QListWidget#BlindPayouts {
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>100</y>
-      <width>176</width>
-      <height>180</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="Bets">
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <spacer name="horizontalSpacer_7">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>Trips</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="tripSpinBox">
-           <property name="minimumSize">
-            <size>
-             <width>50</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximum">
-            <number>1000</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_8">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QLabel" name="label_10">
-           <property name="text">
-            <string>Ante</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_13">
-           <item>
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>$</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="anteSpinBox">
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_8">
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="text">
-          <string> =</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QLabel" name="label_14">
-           <property name="text">
-            <string>Blind</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_16">
-           <item>
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>$</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="blindSpinBox">
-             <property name="minimumSize">
-              <size>
-               <width>50</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximum">
-              <number>1000</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
-       <item>
-        <spacer name="horizontalSpacer_9">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_4">
-         <item>
-          <widget class="QLabel" name="label_11">
-           <property name="text">
-            <string>Play</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_17">
-           <item>
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>$</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="playBet">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_10">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
+      <x>280</x>
       <y>10</y>
       <width>381</width>
       <height>22</height>
@@ -607,7 +453,13 @@ QListWidget#BlindPayouts {
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label_16">
+      <widget class="QLabel" name="CommunityMessage">
+       <property name="font">
+        <font>
+         <family>URW Bookman L</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>Community Cards</string>
        </property>
@@ -632,9 +484,9 @@ QListWidget#BlindPayouts {
     <property name="geometry">
      <rect>
       <x>250</x>
-      <y>210</y>
-      <width>381</width>
-      <height>22</height>
+      <y>201</y>
+      <width>431</width>
+      <height>31</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="Message">
@@ -652,14 +504,17 @@ QListWidget#BlindPayouts {
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="PushMessage">
        <property name="font">
         <font>
          <family>URW Bookman L</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Ante pushes if dealerhas less than a pair</string>
+        <string>Ante pushes if dealer has less than a pair</string>
        </property>
       </widget>
      </item>
@@ -681,7 +536,7 @@ QListWidget#BlindPayouts {
    <widget class="QFrame" name="CommunityCards">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>220</x>
       <y>30</y>
       <width>501</width>
       <height>161</height>
@@ -804,8 +659,8 @@ QListWidget#BlindPayouts {
    <widget class="QFrame" name="DealerCards">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>260</y>
+      <x>240</x>
+      <y>280</y>
       <width>211</width>
       <height>161</height>
      </rect>
@@ -870,8 +725,8 @@ QListWidget#BlindPayouts {
    <widget class="QFrame" name="PlayerCards">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>260</y>
+      <x>480</x>
+      <y>280</y>
       <width>211</width>
       <height>161</height>
      </rect>
@@ -909,13 +764,273 @@ QListWidget#BlindPayouts {
      </layout>
     </widget>
    </widget>
+   <widget class="QFrame" name="BetsFrame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>201</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>60</y>
+       <width>176</width>
+       <height>180</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="Bets">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <spacer name="horizontalSpacer_7">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QLabel" name="TripsMessage">
+            <property name="font">
+             <font>
+              <family>URW Bookman L</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Trips</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="tripSpinBox">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QLabel" name="AnteMessage">
+            <property name="font">
+             <font>
+              <family>URW Bookman L</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Ante</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_13">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>$</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="anteSpinBox">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximum">
+               <number>1000</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string> =</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QLabel" name="BlindMessage">
+            <property name="font">
+             <font>
+              <family>URW Bookman L</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Blind</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_16">
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>$</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="blindSpinBox">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximum">
+               <number>1000</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <spacer name="horizontalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QLabel" name="PlayMessage">
+            <property name="font">
+             <font>
+              <family>URW Bookman L</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>Play</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_17">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>$</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="playBet">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_10">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>951</width>
+     <width>996</width>
      <height>22</height>
     </rect>
    </property>
