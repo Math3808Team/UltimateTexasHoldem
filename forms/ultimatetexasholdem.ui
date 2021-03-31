@@ -13,6 +13,32 @@
   <property name="windowTitle">
    <string>UltimateTexasHoldem</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow#UltimateTexasHoldem {
+	
+	background-color: white
+}
+
+QWidget#centralWidget {
+	
+	background-color: qradialgradient(spread:pad, cx:0.489592, cy:0.449, radius:1.23, fx:0.494796, fy:0, stop:0 rgba(110, 158, 116, 255), stop:1 rgba(0, 223, 55, 255));
+}
+
+QListWidget#AntePayouts {
+	background-color: rgba(19, 114, 51, 190);
+	font: 75 10pt &quot;URW Bookman L&quot;;
+	color: white;
+}
+
+QListWidget#BlindPayouts {
+	background-color: rgba(19, 114, 51, 190);
+	font: 75 10pt &quot;URW Bookman L&quot;;
+	color: white;
+}
+
+
+</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="layoutWidget_4">
     <property name="geometry">
@@ -23,7 +49,7 @@
       <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_11">
+    <layout class="QHBoxLayout" name="Dealer">
      <item>
       <spacer name="horizontalSpacer_15">
        <property name="orientation">
@@ -68,7 +94,7 @@
       <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_15">
+    <layout class="QHBoxLayout" name="Player">
      <item>
       <spacer name="horizontalSpacer_19">
        <property name="orientation">
@@ -113,12 +139,12 @@
       <height>19</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="Money">
      <property name="rightMargin">
       <number>5</number>
      </property>
      <item>
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="MoneyLabel">
        <property name="text">
         <string>Money:  $</string>
        </property>
@@ -144,7 +170,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <widget class="QListWidget" name="listWidget">
+      <widget class="QListWidget" name="AntePayouts">
        <item>
         <property name="text">
          <string>TRIPS PAYOUT</string>
@@ -152,12 +178,12 @@
        </item>
        <item>
         <property name="text">
-         <string>ROYAL FLUSH............ 50 to 1</string>
+         <string>ROYAL FLUSH................ 50 to 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>STRAIGHT FLUSH.... 40 to 1</string>
+         <string>STRAIGHT FLUSH.......... 40 to 1</string>
         </property>
        </item>
        <item>
@@ -172,7 +198,7 @@
        </item>
        <item>
         <property name="text">
-         <string>FLUSH............................... 6 to 1</string>
+         <string>FLUSH............................ 6 to 1</string>
         </property>
        </item>
        <item>
@@ -182,13 +208,13 @@
        </item>
        <item>
         <property name="text">
-         <string>TRIPS................................. 3 to 1</string>
+         <string>TRIPS.............................. 3 to 1</string>
         </property>
        </item>
       </widget>
      </item>
      <item>
-      <widget class="QListWidget" name="listWidget_3">
+      <widget class="QListWidget" name="BlindPayouts">
        <item>
         <property name="text">
          <string>BLIND PAYOUT</string>
@@ -196,12 +222,12 @@
        </item>
        <item>
         <property name="text">
-         <string>ROYAL FLUSH............ 500 to 1</string>
+         <string>ROYAL FLUSH................... 500 to 1</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>STRAIGHT FLUSH....... 50 to 1</string>
+         <string>STRAIGHT FLUSH.............. 50 to 1</string>
         </property>
        </item>
        <item>
@@ -216,7 +242,7 @@
        </item>
        <item>
         <property name="text">
-         <string>FLUSH.................................. 3 to 2</string>
+         <string>FLUSH............................... 3 to 2</string>
         </property>
        </item>
        <item>
@@ -226,7 +252,7 @@
        </item>
        <item>
         <property name="text">
-         <string>TRIPS....................................... Push</string>
+         <string>TRIPS................................. Push</string>
         </property>
        </item>
       </widget>
@@ -238,11 +264,11 @@
      <rect>
       <x>684</x>
       <y>390</y>
-      <width>261</width>
+      <width>276</width>
       <height>102</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+    <layout class="QHBoxLayout" name="Buttons">
      <property name="rightMargin">
       <number>5</number>
      </property>
@@ -354,7 +380,7 @@
       <height>180</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout_8">
+    <layout class="QVBoxLayout" name="Bets">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_7">
        <item>
@@ -566,7 +592,7 @@
       <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_9">
+    <layout class="QHBoxLayout" name="Community">
      <item>
       <spacer name="horizontalSpacer_11">
        <property name="orientation">
@@ -611,7 +637,7 @@
       <height>22</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_12">
+    <layout class="QHBoxLayout" name="Message">
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
@@ -627,6 +653,11 @@
      </item>
      <item>
       <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <family>URW Bookman L</family>
+        </font>
+       </property>
        <property name="text">
         <string>Ante pushes if dealerhas less than a pair</string>
        </property>
