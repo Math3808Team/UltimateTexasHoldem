@@ -18,6 +18,7 @@ public:
     unsigned short rank = 0;
 private:
     std::vector<Card> cards;
+    std::vector<Card> fiveBestCards;
 };
 
 #endif // HAND_H

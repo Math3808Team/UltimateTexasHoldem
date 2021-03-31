@@ -8,6 +8,7 @@ class ThreeOfAKindVerifier: public TrickVerifier {
 public:
     ThreeOfAKindVerifier();
     virtual void verifyHand(Hand &hand) override;
+    virtual int breakTie(Player player, House house) override;
 };
 
 #endif // THREEOFAKINDVERIFIER_H

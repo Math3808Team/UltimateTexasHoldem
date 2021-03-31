@@ -12,6 +12,8 @@
 #include "verifiers/fullhouseverifier.h"
 #include "verifiers/straightflushverifier.h"
 #include "verifiers/royalflushverifier.h"
+#include "player.h"
+#include "house.h"
 
 class Hand;
 
@@ -21,6 +23,7 @@ public:
     HandRanker();
 
     void rankHand(Hand &hand);
+    int breakTie(Player player, House house);
 
 private:
     QList<TrickVerifier*> trickVerifiers;

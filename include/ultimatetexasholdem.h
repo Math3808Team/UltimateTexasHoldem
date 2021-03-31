@@ -24,13 +24,9 @@ public:
     void setUiToInitalDeal();
 private slots:
     void on_dealButton_clicked();
-
     void on_checkButton_clicked();
-
     void on_bet4XButton_clicked();
-
     void on_bet3XButton_clicked();
-
     void slotEqualAnteBlindBoxes(int arg1);
 
 private:
@@ -41,7 +37,7 @@ private:
     Deck deck;
     Player player;
     House house;
-    HandRanker handranker;
+    HandRanker handRanker;
 
     int numOfChecks = 0;
     Ui::UltimateTexasHoldem *ui;
@@ -59,6 +55,7 @@ private:
 
     //GAME functions
     void dealCards();
+    int determineWinner();
     QPixmap getPixmapOfCard(Card card);
 
 };

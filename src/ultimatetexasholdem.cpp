@@ -101,7 +101,6 @@ void UltimateTexasHoldem::on_checkButton_clicked()
 {
     // At this point: Atleast the user cards are displayed.
     switch(numOfChecks) {
-    // No community cards at set
     case 0:
         ui->bet4XButton->setEnabled(false);
         ui->bet3XButton->setEnabled(false);
@@ -111,11 +110,14 @@ void UltimateTexasHoldem::on_checkButton_clicked()
         break;
     case 1:
         revealFourthCommunityCard();
+        revealFifthCommunityCard();
         ++numOfChecks;
         break;
     case 2:
-        revealFifthCommunityCard();
         revealDealerCards();
+        determineWinner();
+        //Create popup window that shows payouts and determine payout based on player's hand rank and who won.
+        //Also update a label under player and house cards saying what hand they have
         setUiToBetting();
         deck = Deck(); //reset the containts of the deck (shuffle)
         break;
@@ -128,11 +130,15 @@ void UltimateTexasHoldem::on_checkButton_clicked()
 
 void UltimateTexasHoldem::on_bet4XButton_clicked()
 {
+    revealAllCommunityCards();
+    revealDealerCards();
     setUiToBetting(); // for now
 }
 
 void UltimateTexasHoldem::on_bet3XButton_clicked()
 {
+    revealAllCommunityCards();
+    revealDealerCards();
     setUiToBetting(); // for now
 }
 
@@ -208,6 +214,28 @@ void UltimateTexasHoldem::dealCards() {
         player.hand.addCard(communityCard);
         house.hand.addCard(communityCard);
     }
+}
+
+/**
+ * @brief UltimateTexasHoldem::determineWinner will determine the winner of the round.
+ * @returns 1 if the player won, 2 if the house won, and 0 if it was a tie.
+ */
+int UltimateTexasHoldem::determineWinner() {
+    handRanker.rankHand(player.hand);
+    handRanker.rankHand(house.hand);
+
+
+    if (player.hand.rank > house.hand.rank) {
+        qInfo() << "player won";
+        return 1;
+    } else if (player.hand.rank < house.hand.rank) {
+        qInfo() << "house won";
+        return 2;
+    } else {
+        qInfo() << "tie being tested";
+        return handRanker.breakTie(player,house);
+    }
+
 }
 
 QPixmap UltimateTexasHoldem::getPixmapOfCard(Card card) {

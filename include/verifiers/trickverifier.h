@@ -3,11 +3,14 @@
 
 #include <QHash>
 #include "hand.h"
+#include "player.h"
+#include "house.h"
 
 class TrickVerifier {
 
 public:
     virtual void verifyHand(Hand &hand) = 0;
+    virtual int breakTie(Player player, House house);
 
 protected:
     unsigned short rank;
