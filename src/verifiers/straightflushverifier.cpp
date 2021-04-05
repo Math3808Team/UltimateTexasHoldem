@@ -23,7 +23,7 @@ void StraightFlushVerifier::verifyHand(Hand &hand) {
     }
 
     int consecutiveCount = 0;
-    std::vector<Card> fiveBest(5);
+    std::vector<Card> fiveBest;
     const std::vector<Card>& handCards = hand.getCards();
 
     if (hand.contains(14, suitOfFlush)) { //if the hand has an ace, add to the count (since it also acts as a 1)
