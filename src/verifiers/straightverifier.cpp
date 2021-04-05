@@ -10,22 +10,26 @@ StraightVerifier::StraightVerifier(){
  */
 void StraightVerifier::verifyHand(Hand &hand) {
     int consecutiveCount = 0;
-
+    std::vector<Card> fiveBest(5);
+    const std::vector<Card>& cards = hand.getCards();
     if (hand.contains(14)) //if the hand has an ace, add to the count (since it also acts as a 1)
         ++consecutiveCount;
 
     for (int i = 2; i < 15; i++) {
         if (hand.contains(i)) {
             ++consecutiveCount;
-
+            fiveBest.push_back(*std::find_if(cards.cbegin(), cards.cend(), [&](const Card& c ){return c.value == i;}));
             if (consecutiveCount == 5) {
                 hand.rank = rank;
+                hand.setFiveBestCards(fiveBest);
                 break;
             }
         } else {
             consecutiveCount = 0;
+            fiveBest.clear();
         }
     }
+
 }
 
 /**

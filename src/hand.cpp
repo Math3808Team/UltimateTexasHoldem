@@ -9,8 +9,17 @@ Hand::Hand() {
  * @brief Function returns the cards from the hand
  * @return a vector of all cards from this hand
 */
-std::vector<Card> Hand::getCards() const {
+const std::vector<Card>& Hand::getCards() const {
     return cards;
+}
+
+const std::vector<Card>& Hand::getFiveBestCards() const {
+    return fiveBestCards;
+}
+
+void Hand::setFiveBestCards(std::vector<Card> cards) {
+    // copy swap idiom
+    std::swap(fiveBestCards, cards);
 }
 
 /**

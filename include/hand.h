@@ -9,8 +9,10 @@ class Hand {
 public:
     Hand();
 
-    std::vector<Card> getCards() const;
+    const std::vector<Card>& getCards() const;
+    const std::vector<Card>& getFiveBestCards() const;
     void addCard(const Card& card);
+    void setFiveBestCards(std::vector<Card> cards);
     void clear();
     bool contains(int v);
     bool contains(int v, char s);
