@@ -24,7 +24,7 @@ Deck::Deck() : rng_generator(std::random_device()()) {
  * @returns a Card object taken from the list; removes the card from the list
  */
 Card Deck::getCard() {
-    std::uniform_int_distribution<> distr(0, static_cast<int>(cards.size()));
+    std::uniform_int_distribution<> distr(0, static_cast<int>(cards.size()) - 1);
     int k = distr(rng_generator);
     // note we don't have checks for when the deck is empty, okay for now
     Card card = cards.at(k);

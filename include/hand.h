@@ -11,12 +11,14 @@ public:
 
     std::vector<Card> getCards() const;
     void addCard(const Card& card);
+    void clear();
     bool contains(int v);
     bool contains(int v, char s);
 
     unsigned short rank = 0;
 private:
     std::vector<Card> cards;
+    std::vector<Card> fiveBestCards;
 };
 
 #endif // HAND_H

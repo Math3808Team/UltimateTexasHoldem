@@ -32,7 +32,6 @@ SOURCES += \
         src/hand.cpp \
         src/main.cpp \
         src/handranker.cpp \
-        src/player.cpp \
         src/ultimatetexasholdem.cpp \
         src/verifiers/pairverifier.cpp \
         src/verifiers/twopairverifier.cpp \

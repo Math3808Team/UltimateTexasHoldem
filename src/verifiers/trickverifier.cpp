@@ -1,5 +1,12 @@
 #include "verifiers/trickverifier.h"
 
+TrickVerifier::TrickVerifier() {
+
+}
+
+TrickVerifier::~TrickVerifier() {
+
+}
 
 QHash<int,int> TrickVerifier::getTableOfValues(Hand &hand) {
 

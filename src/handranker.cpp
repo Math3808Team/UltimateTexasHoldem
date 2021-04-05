@@ -21,6 +21,10 @@ void HandRanker::rankHand(Hand &hand) {
     QListIterator<TrickVerifier*> i(trickVerifiers);
     while(i.hasNext()) {
         i.next()->verifyHand(hand);
-    }
+    }   
 
+}
+
+int HandRanker::breakTie(Player player, House house) {
+    return trickVerifiers.at(player.hand.rank - 1)->breakTie(player, house);
 }

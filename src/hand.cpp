@@ -22,6 +22,13 @@ void Hand::addCard(const Card& card) {
 }
 
 /**
+ * @brief Function clears all cards in hand
+ */
+void Hand::clear() {
+    cards.clear();
+}
+
+/**
  * @brief Function that returns true if the int value is a value in the deck
  * @param v, The value of the card to search for
  */

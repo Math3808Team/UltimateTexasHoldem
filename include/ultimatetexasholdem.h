@@ -24,21 +24,20 @@ public:
     void setUiToInitalDeal();
 private slots:
     void on_dealButton_clicked();
-
     void on_checkButton_clicked();
-
     void on_bet4XButton_clicked();
-
     void on_bet3XButton_clicked();
-
     void slotEqualAnteBlindBoxes(int arg1);
 
 private:
 
+    const int CARD_WIDTH  = 100;
+    const int CARD_HEIGHT = 140;
+
     Deck deck;
     Player player;
-    Hand hand;
-    HandRanker handranker;
+    House house;
+    HandRanker handRanker;
 
     int numOfChecks = 0;
     Ui::UltimateTexasHoldem *ui;
@@ -46,11 +45,18 @@ private:
     void setUiConnections();
 
     // UI functions
-    void revealOneCommunityCard();
+    void revealThreeCommunityCard();
+    void revealFourthCommunityCard();
+    void revealFifthCommunityCard();
     void revealAllCommunityCards();
     void revealUserCards();
     void revealDealerCards();
     void hideAllCards();
+
+    //GAME functions
+    void dealCards();
+    int determineWinner();
+    QPixmap getPixmapOfCard(Card card);
 
 };
 
