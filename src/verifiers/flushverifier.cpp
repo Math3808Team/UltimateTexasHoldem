@@ -9,11 +9,13 @@ FlushVerifier::FlushVerifier(){
  *  @param hand is a instance of Hand
  */
 void FlushVerifier::verifyHand(Hand &hand) {
+    vector<Card> bestFiveOfSuit;
     QHash<char,int> suitTable = getTableOfSuits(hand);
     QHash<char,int>::iterator it;
     for(it = suitTable.begin(); it != suitTable.end(); it++){
         if(it.value() >= 5){
             hand.rank = rank;
+            hand.setTopFiveCards(getBestFiveCards(hand, it.key()));
             break;
         }
     }
@@ -27,4 +29,9 @@ void FlushVerifier::verifyHand(Hand &hand) {
  */
 int FlushVerifier::breakTie(Player player, House house) {
     return 0;
+}
+
+
+std::vector<Card> getBestFiveCards(Hand &hand, char suit) {
+    //loop through all possible cards (13) of that suit in order of best to worst, seeing if the hand contains it, add it it to the result list util 5 cards have been added
 }

@@ -13,6 +13,18 @@ std::vector<Card> Hand::getCards() const {
     return cards;
 }
 
+void Hand::setTopFiveCards(std::vector<Card> topFive) {
+    topFiveCards = topFive;
+}
+
+/**
+ * @brief
+ * @return
+*/
+std::vector<Card> Hand::getTopFiveCards() const {
+    return topFiveCards;
+}
+
 /**
  * @brief Function adds a card to a deck
  * @param card, the card to add to the deck
