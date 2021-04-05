@@ -21,17 +21,17 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     ui->money->setText(QString::number(player.money));
     Player player;
     player.hand.addCard(Card('s', 2));
-    player.hand.addCard(Card('h', 3));
+    player.hand.addCard(Card('s', 3));
     House house;
-    house.hand.addCard(Card('s', 7));
-    house.hand.addCard(Card('s', 7));
+    house.hand.addCard(Card('s', 10));
+    house.hand.addCard(Card('s', 11));
 
     auto addSame = [](Hand& hand) {
-      hand.addCard(Card('s', 2));
-      hand.addCard(Card('2', 4));
-      hand.addCard(Card('s', 5));
-      hand.addCard(Card('s', 6));
-      hand.addCard(Card('s', 7));
+      hand.addCard(Card('c', 2));
+      hand.addCard(Card('c', 4));
+      hand.addCard(Card('c', 5));
+      hand.addCard(Card('c', 6));
+      hand.addCard(Card('c', 7));
     };
     addSame(player.hand);
     addSame(house.hand);

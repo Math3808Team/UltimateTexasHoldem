@@ -12,9 +12,10 @@ void StraightVerifier::verifyHand(Hand &hand) {
     int consecutiveCount = 0;
     std::vector<Card> fiveBest;
     const std::vector<Card>& cards = hand.getCards();
-    if (hand.contains(14)) //if the hand has an ace, add to the count (since it also acts as a 1)
+    if (hand.contains(14)) {//if the hand has an ace, add to the count (since it also acts as a 1)
         ++consecutiveCount;
-
+         fiveBest.push_back(*std::find_if(cards.cbegin(), cards.cend(), [&](const Card& c ){return c.value == 14;}));
+    }
     for (int i = 2; i < 15; i++) {
         if (hand.contains(i)) {
             ++consecutiveCount;
@@ -51,6 +52,5 @@ int StraightVerifier::breakTie(Player player, House house) {
 
     if (playerSum > houseSum) return 1;
     else if (houseSum > playerSum) return 2;
-    return 0;
     return 0;
 }
