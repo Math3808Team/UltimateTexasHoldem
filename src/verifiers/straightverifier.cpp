@@ -40,5 +40,5 @@ void StraightVerifier::verifyHand(Hand &hand) {
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
 int StraightVerifier::breakTie(Player player, House house) {
-    return breakStraightTypes(player, house);
+    return breakStraightTypeTie(player, house);
 }
