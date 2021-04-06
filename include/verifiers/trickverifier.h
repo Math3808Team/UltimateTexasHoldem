@@ -19,6 +19,7 @@ protected:
     QHash <int,int> getTableOfValues(Hand &hand);
     QHash <char,int> getTableOfSuits(Hand &hand);
 
+    int breakStraightTypes(const Player& player, const House& house) const;
 };
 
 

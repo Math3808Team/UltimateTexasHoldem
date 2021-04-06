@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "verifiers/trickverifier.h"
 
 TrickVerifier::TrickVerifier() {
@@ -38,4 +39,24 @@ QHash<char,int> TrickVerifier::getTableOfSuits(Hand &hand) {
     }
 
     return suitTable;
+}
+
+
+int TrickVerifier::breakStraightTypeTie(const Player& player, const House& house) const {
+    if (player.hand.rank != house.hand.rank ||
+            (player.hand.rank != 8 && player.hand.rank != 4))
+        throw std::runtime_error("Bad function call, function only callable by Straight tie breaker types");
+
+    auto acumCards = [&](const Hand& hand) -> int {
+        const std::vector<Card>& cards = hand.getTopFiveCards();
+        int sum = std::accumulate(cards.cbegin(), cards.cend(), 0, [](int accumulator, const Card& card){
+            return accumulator + card.value;
+        });
+        return sum;
+    };
+    int playerSum = acumCards(player.hand), houseSum = acumCards(house.hand);
+
+    if (playerSum > houseSum) return 1;
+    else if (houseSum > playerSum) return 2;
+    return 0;
 }

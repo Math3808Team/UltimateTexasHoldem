@@ -59,17 +59,5 @@ void StraightFlushVerifier::verifyHand(Hand &hand) {
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
 int StraightFlushVerifier::breakTie(Player player, House house) {
-    // same code as in StraightVerifier::breakTie
-    auto acumCards = [&](const Hand& hand) -> int {
-        const std::vector<Card>& cards = hand.getTopFiveCards();
-        int sum = std::accumulate(cards.cbegin(), cards.cend(), 0, [](int accumulator, const Card& card){
-            return accumulator + card.value;
-        });
-        return sum;
-    };
-    int playerSum = acumCards(player.hand), houseSum = acumCards(house.hand);
-
-    if (playerSum > houseSum) return 1;
-    else if (houseSum > playerSum) return 2;
-    return 0;
+    return breakStraightTypeTie(player, house);
 }
