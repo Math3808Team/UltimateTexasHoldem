@@ -41,7 +41,7 @@ void StraightFlushVerifier::verifyHand(Hand &hand) {
             }));
             if (consecutiveCount == 5) {
                 hand.rank = rank;
-                hand.setFiveBestCards(fiveBest);
+                hand.setTopFiveCards(fiveBest);
                 break;
             }
         } else {
@@ -61,7 +61,7 @@ void StraightFlushVerifier::verifyHand(Hand &hand) {
 int StraightFlushVerifier::breakTie(Player player, House house) {
     // same code as in StraightVerifier::breakTie
     auto acumCards = [&](const Hand& hand) -> int {
-        const std::vector<Card>& cards = hand.getFiveBestCards();
+        const std::vector<Card>& cards = hand.getTopFiveCards();
         int sum = std::accumulate(cards.cbegin(), cards.cend(), 0, [](int accumulator, const Card& card){
             return accumulator + card.value;
         });

@@ -13,13 +13,13 @@ const std::vector<Card>& Hand::getCards() const {
     return cards;
 }
 
-const std::vector<Card>& Hand::getFiveBestCards() const {
-    return fiveBestCards;
+const std::vector<Card>& Hand::getTopFiveCards() const {
+    return topFiveCards;
 }
 
-void Hand::setFiveBestCards(std::vector<Card> cards) {
+void Hand::setTopFiveCards(std::vector<Card> cards) {
     // copy swap idiom
-    std::swap(fiveBestCards, cards);
+    std::swap(topFiveCards, cards);
 }
 
 /**

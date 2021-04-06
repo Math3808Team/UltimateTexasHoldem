@@ -10,9 +10,9 @@ public:
     Hand();
 
     const std::vector<Card>& getCards() const;
-    const std::vector<Card>& getFiveBestCards() const;
+    void setTopFiveCards(std::vector<Card> cards);
+    const std::vector<Card>& getTopFiveCards() const;
     void addCard(const Card& card);
-    void setFiveBestCards(std::vector<Card> cards);
     void clear();
     bool contains(int v);
     bool contains(int v, char s);
@@ -20,7 +20,7 @@ public:
     unsigned short rank = 0;
 private:
     std::vector<Card> cards;
-    std::vector<Card> fiveBestCards;
+    std::vector<Card> topFiveCards;
 };
 
 #endif // HAND_H
