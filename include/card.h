@@ -8,6 +8,7 @@ class Card {
 public:
     Card() = delete;
     Card(const char& suit, const int& value);
+    Card(const int& value);
 
     char suit;
     unsigned short value;
