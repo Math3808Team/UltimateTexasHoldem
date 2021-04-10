@@ -24,6 +24,7 @@ public:
 
     void rankHand(Hand &hand);
     int breakTie(Player player, House house);
+    QString rankToString(int rank);
 
 private:
     QList<TrickVerifier*> trickVerifiers;

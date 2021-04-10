@@ -225,6 +225,8 @@ void UltimateTexasHoldem::dealCards() {
 
     player.hand.clear();
     house.hand.clear();
+    player.hand.rank = 0;
+    house.hand.rank = 0;
 
     //Add players's 2 unique cards
     player.hand.addCard(deck.getCard());
@@ -244,23 +246,36 @@ void UltimateTexasHoldem::dealCards() {
 }
 
 /**
- * @brief UltimateTexasHoldem::determineWinner will determine the winner of the round.
- * @returns 1 if the player won, 2 if the house won, and 0 if it was a tie.
+ * @brief UltimateTexasHoldem::determineWinner determines the winner of the round.
  */
-int UltimateTexasHoldem::determineWinner() {
+void UltimateTexasHoldem::determineWinner() {
     handRanker.rankHand(player.hand);
     handRanker.rankHand(house.hand);
 
 
     if (player.hand.rank > house.hand.rank) {
-        qInfo() << "player won";
-        return 1;
+        qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
+
     } else if (player.hand.rank < house.hand.rank) {
-        qInfo() << "house won";
-        return 2;
+        qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
+
     } else {
-        qInfo() << "tie being tested";
-        return handRanker.breakTie(player,house);
+        qInfo() << "tie being tested: ";
+
+        if (player.hand.rank == 0 && house.hand.rank == 0) {
+            //special case where no one has anything
+            qInfo() << "tie with nothing.";
+            return; //dont do any tie breaking
+        }
+
+
+       int tieResult = handRanker.breakTie(player,house);
+       if (tieResult == 1)
+           qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
+       else if (tieResult == 2)
+           qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
+       else
+           qInfo() << "tie with a " + handRanker.rankToString(player.hand.rank) + ".";
     }
 
 }

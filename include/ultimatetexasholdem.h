@@ -55,7 +55,7 @@ private:
 
     //GAME functions
     void dealCards();
-    int determineWinner();
+    void determineWinner();
     QPixmap getPixmapOfCard(Card card);
 
 };

@@ -43,7 +43,7 @@ void FourOfAKindVerifier::verifyHand(Hand &hand) {
     QHash<int,int> ::iterator it;
     for(it = valueTable.begin(); it != valueTable.end(); it++){
         if(it.value() == 4){
-            hand.setTopFiveCards(getBestFiveCardsWithFour(hand, it.value()));
+            hand.setTopFiveCards(getBestFiveCardsWithFour(hand, it.key()));
             hand.rank = rank;
             break;
         }

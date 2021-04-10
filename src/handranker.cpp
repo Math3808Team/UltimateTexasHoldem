@@ -28,3 +28,27 @@ void HandRanker::rankHand(Hand &hand) {
 int HandRanker::breakTie(Player player, House house) {
     return trickVerifiers.at(player.hand.rank  - 1)->breakTie(player, house);
 }
+
+QString HandRanker::rankToString(int rank) {
+    switch(rank) {
+        case 1:
+           return "pair";
+        case 2:
+           return "two pair";
+        case 3:
+           return "three of a kind";
+        case 4:
+           return "straight";
+        case 5:
+           return "flush";
+        case 6:
+           return "full house";
+        case 7:
+           return "four of a kind";
+        case 8:
+           return "straight flush";
+        case 9:
+           return "royal flush";
+    }
+    return "";
+}

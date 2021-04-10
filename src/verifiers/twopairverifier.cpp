@@ -58,11 +58,12 @@ void TwoPairVerifier::verifyHand(Hand &hand) {
         if(it.value() == 2){
 
             numPairs++;
+            if (numPairs == 1)
+                firstPairValue = it.key();
         }
-        if (numPairs == 1){
-            firstPairValue = it.value();
-        } else if(numPairs == 2){
-             hand.setTopFiveCards(getBestFiveCardsWithTwoPair(hand, firstPairValue, it.value()));
+
+        if(numPairs == 2){
+             hand.setTopFiveCards(getBestFiveCardsWithTwoPair(hand, firstPairValue, it.key()));
              hand.rank = rank;
              break;
         }

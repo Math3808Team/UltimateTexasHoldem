@@ -41,7 +41,7 @@ void PairVerifier::verifyHand(Hand &hand) {
     QHash<int,int>::iterator it;
     for(it = valueTable.begin(); it != valueTable.end(); it++){
         if(it.value() == 2){
-            hand.setTopFiveCards(getBestFiveCardsWithPair(hand, it.value()));
+            hand.setTopFiveCards(getBestFiveCardsWithPair(hand, it.key()));
             hand.rank = rank;
             break;
         }
