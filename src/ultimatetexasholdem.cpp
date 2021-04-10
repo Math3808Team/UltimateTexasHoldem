@@ -19,6 +19,30 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     setUiToBetting();
 
     ui->money->setText(QString::number(player.money));
+
+    Player player;
+    player.hand.addCard(Card('c', 7));
+    player.hand.addCard(Card('c', 10));
+    House house;
+    house.hand.addCard(Card('c', 14));
+    house.hand.addCard(Card('c', 10));
+
+    auto addSame = [](Hand& hand) {
+      hand.addCard(Card('d', 8));
+      hand.addCard(Card('c', 9));
+      hand.addCard(Card('h', 11));
+      hand.addCard(Card('c', 12));
+      hand.addCard(Card('k', 13));
+    };
+    addSame(player.hand);
+    addSame(house.hand);
+
+    HandRanker ranker;
+    ranker.rankHand(player.hand);
+    ranker.rankHand(house.hand);
+    qInfo() << player.hand.rank << " " << house.hand.rank;
+    int p = ranker.breakTie(player, house);
+    qInfo() << p;
 }
 
 UltimateTexasHoldem::~UltimateTexasHoldem()

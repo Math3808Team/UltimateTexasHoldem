@@ -13,8 +13,9 @@ const std::vector<Card>& Hand::getCards() const {
     return cards;
 }
 
-void Hand::setTopFiveCards(std::vector<Card> topFive) {
 
+void Hand::setTopFiveCards(std::vector<Card> topFive) {
+    // copy swap idiom
     std::swap(topFiveCards, topFive);
 }
 

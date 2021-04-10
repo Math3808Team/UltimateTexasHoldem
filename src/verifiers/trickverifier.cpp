@@ -1,3 +1,5 @@
+#include <stdexcept>
+#include <QDebug>
 #include "verifiers/trickverifier.h"
 
 TrickVerifier::TrickVerifier() {
@@ -44,4 +46,26 @@ QHash<char,int> TrickVerifier::getTableOfSuits(Hand &hand) {
     }
 
     return suitTable;
+}
+
+
+int TrickVerifier::breakStraightTypeTie(const Player& player, const House& house) const {
+
+    if (player.hand.rank != house.hand.rank ||
+            (player.hand.rank != 8 && player.hand.rank != 4)) {
+        qDebug() << "Bad function call, function only callable by Straight tie breaker types";
+        return 0;
+    }
+
+    const std::vector<Card>& playerTop5 = player.hand.getTopFiveCards();
+    const std::vector<Card>& houseTop5 = house.hand.getTopFiveCards();
+    Card playerFirst = playerTop5[0], houseFirst = houseTop5[0];
+    // Ace is at the front of the list, then it's actually counting as a 1 instead of an ace's 14.
+    if (playerFirst.value == 14) playerFirst.value = 1;
+    if (houseFirst.value == 14) houseFirst.value = 1;
+
+    // only need to compare the first card, it's the lowest card of the straight
+    if (playerFirst.value > houseFirst.value) return 1;
+    else if (playerFirst.value < houseFirst.value) return 2;
+    return 0;
 }

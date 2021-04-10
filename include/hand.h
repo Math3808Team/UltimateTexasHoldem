@@ -10,7 +10,7 @@ public:
     Hand();
 
     const std::vector<Card>& getCards() const;
-    void setTopFiveCards(std::vector<Card>);
+    void setTopFiveCards(std::vector<Card> cards);
     const std::vector<Card>& getTopFiveCards() const;
     void addCard(const Card& card);
     void clear();

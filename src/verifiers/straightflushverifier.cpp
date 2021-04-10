@@ -1,3 +1,4 @@
+#include <numeric>
 #include "verifiers/straightflushverifier.h"
 
 StraightFlushVerifier::StraightFlushVerifier(){
@@ -10,9 +11,10 @@ StraightFlushVerifier::StraightFlushVerifier(){
  */
 void StraightFlushVerifier::verifyHand(Hand &hand) {
 
-    char suitOfFlush;
+    char suitOfFlush = '\0';
     QHash<char,int> suitTable = getTableOfSuits(hand);
     QHash<char,int>::iterator it;
+
     for(it = suitTable.begin(); it != suitTable.end(); it++){
         if(it.value() >= 5){
             suitOfFlush = it.key(); //get the suit of the cards with the highest number of the same suit
@@ -21,22 +23,33 @@ void StraightFlushVerifier::verifyHand(Hand &hand) {
     }
 
     int consecutiveCount = 0;
+    std::vector<Card> fiveBest;
 
-    if (hand.contains(14, suitOfFlush)) //if the hand has an ace, add to the count (since it also acts as a 1)
+    if (hand.contains(14, suitOfFlush)) { //if the hand has an ace, add to the count (since it also acts as a 1)
         ++consecutiveCount;
+        fiveBest.push_back(Card(suitOfFlush, 14));
+    }
 
     for (int i = 2; i < 15; i++) {
         if (hand.contains(i, suitOfFlush)) { //add to the count only if the hand contains the number of in the range and is part of the flush suit
             ++consecutiveCount;
+            fiveBest.push_back(Card(suitOfFlush, i));
 
-            if (consecutiveCount == 5) {
+            if (consecutiveCount == 5)
                 hand.rank = rank;
+            else if (consecutiveCount > 5)
+                fiveBest.erase(fiveBest.begin()); // remove first
+
+        } else {
+            if (consecutiveCount >= 5) {
                 break;
             }
-        } else {
+            fiveBest.clear();
             consecutiveCount = 0;
         }
     }
+    if (hand.rank == rank)
+        hand.setTopFiveCards(fiveBest);
 }
 
 
@@ -47,5 +60,5 @@ void StraightFlushVerifier::verifyHand(Hand &hand) {
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
 int StraightFlushVerifier::breakTie(Player player, House house) {
-    return 0;
+    return breakStraightTypeTie(player, house);
 }

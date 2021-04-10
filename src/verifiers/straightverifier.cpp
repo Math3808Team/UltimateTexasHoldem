@@ -10,22 +10,29 @@ StraightVerifier::StraightVerifier(){
  */
 void StraightVerifier::verifyHand(Hand &hand) {
     int consecutiveCount = 0;
-
-    if (hand.contains(14)) //if the hand has an ace, add to the count (since it also acts as a 1)
+    std::vector<Card> fiveBest;
+    if (hand.contains(14)) {//if the hand has an ace, add to the count (since it also acts as a 1)
         ++consecutiveCount;
-
+         fiveBest.push_back(Card('s', 14)); // suit doesn't matter.
+    }
     for (int i = 2; i < 15; i++) {
         if (hand.contains(i)) {
             ++consecutiveCount;
-
-            if (consecutiveCount == 5) {
+            fiveBest.push_back(Card('s', i)); // suit doesn't matter
+            if (consecutiveCount == 5)
                 hand.rank = rank;
-                break;
-            }
+            else if (consecutiveCount >  5)
+                fiveBest.erase(fiveBest.begin()); // remove first
+
         } else {
+            if (consecutiveCount >= 5 ) break;
             consecutiveCount = 0;
+            fiveBest.clear();
         }
     }
+    if (hand.rank == rank)
+        hand.setTopFiveCards(fiveBest);
+
 }
 
 /**
@@ -35,5 +42,5 @@ void StraightVerifier::verifyHand(Hand &hand) {
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
 int StraightVerifier::breakTie(Player player, House house) {
-    return 0;
+    return breakStraightTypeTie(player, house);
 }

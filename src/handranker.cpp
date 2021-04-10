@@ -26,5 +26,5 @@ void HandRanker::rankHand(Hand &hand) {
 }
 
 int HandRanker::breakTie(Player player, House house) {
-    return trickVerifiers.at(player.hand.rank - 1)->breakTie(player, house);
+    return trickVerifiers.at(player.hand.rank  - 1)->breakTie(player, house);
 }
