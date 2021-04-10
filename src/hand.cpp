@@ -9,8 +9,21 @@ Hand::Hand() {
  * @brief Function returns the cards from the hand
  * @return a vector of all cards from this hand
 */
-std::vector<Card> Hand::getCards() const {
+const std::vector<Card>& Hand::getCards() const {
     return cards;
+}
+
+void Hand::setTopFiveCards(std::vector<Card> topFive) {
+
+    std::swap(topFiveCards, topFive);
+}
+
+/**
+ * @brief
+ * @return
+*/
+const std::vector<Card>& Hand::getTopFiveCards() const {
+    return topFiveCards;
 }
 
 /**

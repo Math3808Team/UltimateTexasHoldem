@@ -24,6 +24,12 @@ QHash<int,int> TrickVerifier::getTableOfValues(Hand &hand) {
 
     return valueTable;
 }
+
+/**
+ * @brief TrickVerifier::getTableOfSuits
+ * @param hand The hand being verified
+ * @return
+ */
 QHash<char,int> TrickVerifier::getTableOfSuits(Hand &hand) {
     QHash<char, int> suitTable;
     std::vector<Card> cards = hand.getCards();

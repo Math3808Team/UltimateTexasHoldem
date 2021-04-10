@@ -5,6 +5,31 @@ FlushVerifier::FlushVerifier(){
 }
 
 /**
+ * @brief getBestFiveCards loops through all possible cards (13) of that suit in order from best to worst, seeing if the hand contains it,
+ *                         adds it it to the result list util 5 cards have been added. This determines the best 5 cards in a hand which has a flush.
+ * @param hand The hand of 7 cards being considered
+ * @param suit The suit which was found to make a flush
+ * @return A vector of the cards which are the best five cards of the hand considering it has a flush.
+ */
+std::vector<Card> getBestFiveCards(Hand &hand, char suit) {
+
+    std::vector<Card> bestFiveOfSuit;
+    std::vector<Card> cards = hand.getCards();
+
+    for (auto valueIt = Card::values.rbegin(); valueIt != Card::values.rend(); ++valueIt) {
+        unsigned short value = *valueIt;
+        if (hand.contains(value,suit)) {
+            bestFiveOfSuit.push_back(Card(value,suit));
+
+            if (bestFiveOfSuit.size() == 5)
+                return bestFiveOfSuit;
+        }
+    }
+
+    return bestFiveOfSuit;
+}
+
+/**
  *  @brief Verifies that a given Hand is a flush. That is: any 5 cards in the hand have the same suit.
  *  @param hand is a instance of Hand
  */
@@ -14,6 +39,7 @@ void FlushVerifier::verifyHand(Hand &hand) {
     for(it = suitTable.begin(); it != suitTable.end(); it++){
         if(it.value() >= 5){
             hand.rank = rank;
+            hand.setTopFiveCards(getBestFiveCards(hand, it.key()));
             break;
         }
     }
@@ -26,5 +52,13 @@ void FlushVerifier::verifyHand(Hand &hand) {
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
 int FlushVerifier::breakTie(Player player, House house) {
+    std::vector<Card> playersCards = player.hand.getTopFiveCards();
+    std::vector<Card> housesCards = house.hand.getTopFiveCards();
+    for (int i = 0; i < 5; i++) {
+        if (playersCards[i].value > housesCards[i].value)
+            return 1;
+        else if (playersCards[i].value < housesCards[i].value)
+            return 2;
+    }
     return 0;
 }
