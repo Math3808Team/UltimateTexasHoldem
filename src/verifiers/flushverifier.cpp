@@ -11,7 +11,7 @@ FlushVerifier::FlushVerifier(){
  * @param suit The suit which was found to make a flush
  * @return A vector of the cards which are the best five cards of the hand considering it has a flush.
  */
-std::vector<Card> getBestFiveCards(Hand &hand, char suit) {
+std::vector<Card> getBestFiveCardsWithFlush(Hand &hand, char suit) {
 
     std::vector<Card> bestFiveOfSuit;
     std::vector<Card> cards = hand.getCards();
@@ -19,7 +19,7 @@ std::vector<Card> getBestFiveCards(Hand &hand, char suit) {
     for (auto valueIt = Card::values.rbegin(); valueIt != Card::values.rend(); ++valueIt) {
         unsigned short value = *valueIt;
         if (hand.contains(value,suit)) {
-            bestFiveOfSuit.push_back(Card(value,suit));
+            bestFiveOfSuit.push_back(Card(suit, value));
 
             if (bestFiveOfSuit.size() == 5)
                 return bestFiveOfSuit;
@@ -39,7 +39,7 @@ void FlushVerifier::verifyHand(Hand &hand) {
     for(it = suitTable.begin(); it != suitTable.end(); it++){
         if(it.value() >= 5){
             hand.rank = rank;
-            hand.setTopFiveCards(getBestFiveCards(hand, it.key()));
+            hand.setTopFiveCards(getBestFiveCardsWithFlush(hand, it.key()));
             break;
         }
     }

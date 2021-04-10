@@ -6,6 +6,10 @@ Card::Card(const char& suit, const int& value) {
     this->value = value;
 }
 
+Card::Card(const int& value) {
+    this->value = value;
+}
+
 std::array<char, 4> Card::suits = {'C', 'S', 'D', 'H'};
 std::array<unsigned short, 13> Card::values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 

@@ -19,12 +19,12 @@ void FullHouseVerifier::verifyHand(Hand &hand) {
     for(it = valueTable.begin(); it != valueTable.end(); it++){
         if (it.value() >= 3) {
             foundTriple = true;
-            topTwoValues.push_back(Card(it.value(),'H'));
+            topTwoValues.push_back(Card(it.value()));
 
         }
         else if(it.value() == 2){
             foundDouble = true;
-            topTwoValues.push_back(Card(it.value(),'H'));
+            topTwoValues.push_back(Card(it.value()));
         }
     }
 

@@ -6,6 +6,35 @@ ThreeOfAKindVerifier::ThreeOfAKindVerifier(){
 }
 
 /**
+ * @brief getBestFiveCards places the value of the cards that are apart of the triple first in the top five and then the best next 2 cards.
+ * @param hand The hand of 7 cards being considered
+ * @param valueOfTriple The value that makes up the triple in the list
+ * @return A vector of the cards which are the best five cards of the hand considering it has a triple.
+ */
+std::vector<Card> getBestFiveCardsWithTriple(Hand &hand, unsigned int valueOfTriple) {
+
+    std::vector<Card> bestFive;
+
+    //add the triple first since they have higher priority in ties
+    bestFive.push_back(Card(valueOfTriple));
+    bestFive.push_back(Card(valueOfTriple));
+    bestFive.push_back(Card(valueOfTriple));
+
+    //add the next highest 2 cards
+    for (auto valueIt = Card::values.rbegin(); valueIt != Card::values.rend(); ++valueIt) {
+        unsigned short value = *valueIt;
+        if (value != valueOfTriple && hand.contains(value)) {
+            bestFive.push_back(Card(value));
+
+            if (bestFive.size() == 5)
+                return bestFive;
+        }
+    }
+
+    return bestFive;
+}
+
+/**
  *  @brief Verifies that a given Hand contains 3 cards with the same face value (regardless of suit)
  *  @param hand is a instance of Hand
  */
@@ -14,6 +43,7 @@ void ThreeOfAKindVerifier::verifyHand(Hand &hand) {
     QHash<int,int> ::iterator it;
     for(it = valueTable.begin(); it != valueTable.end(); it++){
         if(it.value() == 3){
+            hand.setTopFiveCards(getBestFiveCardsWithTriple(hand, it.value()));
             hand.rank = rank;
             break;
         }
@@ -27,5 +57,14 @@ void ThreeOfAKindVerifier::verifyHand(Hand &hand) {
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
 int ThreeOfAKindVerifier::breakTie(Player player, House house) {
+    std::vector<Card> playersCards = player.hand.getTopFiveCards();
+    std::vector<Card> housesCards = house.hand.getTopFiveCards();
+
+    for (int i = 0; i < 5; i++) {
+        if (playersCards[i].value > housesCards[i].value)
+            return 1;
+        else if (playersCards[i].value < housesCards[i].value)
+            return 2;
+    }
     return 0;
 }
