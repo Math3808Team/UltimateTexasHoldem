@@ -133,6 +133,9 @@ void UltimateTexasHoldem::on_checkButton_clicked()
         ++numOfChecks;
         break;
     case 1:
+        ui->bet2XButton->setEnabled(false);
+        ui->bet1XButton->setEnabled(true);
+        ui->foldButton->setEnabled(true);
         revealFourthCommunityCard();
         revealFifthCommunityCard();
         ++numOfChecks;
