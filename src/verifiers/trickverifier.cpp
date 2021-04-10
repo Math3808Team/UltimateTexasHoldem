@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <QDebug>
 #include "verifiers/trickverifier.h"
 
 TrickVerifier::TrickVerifier() {
@@ -43,20 +44,22 @@ QHash<char,int> TrickVerifier::getTableOfSuits(Hand &hand) {
 
 
 int TrickVerifier::breakStraightTypeTie(const Player& player, const House& house) const {
+
     if (player.hand.rank != house.hand.rank ||
-            (player.hand.rank != 8 && player.hand.rank != 4))
-        throw std::runtime_error("Bad function call, function only callable by Straight tie breaker types");
+            (player.hand.rank != 8 && player.hand.rank != 4)) {
+        qDebug() << "Bad function call, function only callable by Straight tie breaker types";
+        return 0;
+    }
 
-    auto acumCards = [&](const Hand& hand) -> int {
-        const std::vector<Card>& cards = hand.getTopFiveCards();
-        int sum = std::accumulate(cards.cbegin(), cards.cend(), 0, [](int accumulator, const Card& card){
-            return accumulator + card.value;
-        });
-        return sum;
-    };
-    int playerSum = acumCards(player.hand), houseSum = acumCards(house.hand);
+    const std::vector<Card>& playerTop5 = player.hand.getTopFiveCards();
+    const std::vector<Card>& houseTop5 = house.hand.getTopFiveCards();
+    Card playerFirst = playerTop5[0], houseFirst = houseTop5[0];
+    // Ace is at the front of the list, then it's actually counting as a 1 instead of an ace's 14.
+    if (playerFirst.value == 14) playerFirst.value = 1;
+    if (houseFirst.value == 14) houseFirst.value = 1;
 
-    if (playerSum > houseSum) return 1;
-    else if (houseSum > playerSum) return 2;
+    // only need to compare the first card, it's the lowest card of the straight
+    if (playerFirst.value > houseFirst.value) return 1;
+    else if (playerFirst.value < houseFirst.value) return 2;
     return 0;
 }

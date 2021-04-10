@@ -24,31 +24,32 @@ void StraightFlushVerifier::verifyHand(Hand &hand) {
 
     int consecutiveCount = 0;
     std::vector<Card> fiveBest;
-    const std::vector<Card>& handCards = hand.getCards();
 
     if (hand.contains(14, suitOfFlush)) { //if the hand has an ace, add to the count (since it also acts as a 1)
         ++consecutiveCount;
-        fiveBest.push_back(*std::find_if(handCards.cbegin(), handCards.cend(), [&](const Card& c) {
-            return c.value == 14 && c.suit == suitOfFlush;
-        }));
+        fiveBest.push_back(Card(suitOfFlush, 14));
     }
 
     for (int i = 2; i < 15; i++) {
         if (hand.contains(i, suitOfFlush)) { //add to the count only if the hand contains the number of in the range and is part of the flush suit
             ++consecutiveCount;
-            fiveBest.push_back(*std::find_if(handCards.cbegin(), handCards.cend(), [&](const Card& c) {
-                return c.value == i && c.suit == suitOfFlush;
-            }));
-            if (consecutiveCount == 5) {
+            fiveBest.push_back(Card(suitOfFlush, i));
+
+            if (consecutiveCount == 5)
                 hand.rank = rank;
-                hand.setTopFiveCards(fiveBest);
+            else if (consecutiveCount > 5)
+                fiveBest.erase(fiveBest.begin()); // remove first
+
+        } else {
+            if (consecutiveCount >= 5) {
                 break;
             }
-        } else {
             fiveBest.clear();
             consecutiveCount = 0;
         }
     }
+    if (hand.rank == rank)
+        hand.setTopFiveCards(fiveBest);
 }
 
 
