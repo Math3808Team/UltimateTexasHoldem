@@ -27,7 +27,10 @@ private slots:
     void on_checkButton_clicked();
     void on_bet4XButton_clicked();
     void on_bet3XButton_clicked();
+    void on_bet2XButton_clicked();
     void slotEqualAnteBlindBoxes(int arg1);
+
+
 
 private:
 
@@ -58,6 +61,9 @@ private:
     void determineWinner();
     QPixmap getPixmapOfCard(Card card);
 
+    void determinePayoutPlayerWon(bool houseQualifies);
+    void determinePayoutPlayerLoss(bool houseQualifies);
+    void determinePayoutTie(bool houseQualifies);
 };
 
 /*

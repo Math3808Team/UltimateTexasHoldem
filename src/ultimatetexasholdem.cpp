@@ -19,7 +19,7 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     setUiToBetting();
 
     ui->money->setText(QString::number(player.money));
-
+/*
     Player player;
     player.hand.addCard(Card('c', 7));
     player.hand.addCard(Card('c', 10));
@@ -42,7 +42,7 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     ranker.rankHand(house.hand);
     qInfo() << player.hand.rank << " " << house.hand.rank;
     int p = ranker.breakTie(player, house);
-    qInfo() << p;
+    qInfo() << p;*/
 }
 
 UltimateTexasHoldem::~UltimateTexasHoldem()
@@ -157,6 +157,7 @@ void UltimateTexasHoldem::on_checkButton_clicked()
 
 void UltimateTexasHoldem::on_bet4XButton_clicked()
 {
+    ui->playBet->setText(QString::number(ui->anteSpinBox->value() * 4));
     revealAllCommunityCards();
     revealDealerCards();
     setUiToBetting(); // for now
@@ -164,6 +165,15 @@ void UltimateTexasHoldem::on_bet4XButton_clicked()
 
 void UltimateTexasHoldem::on_bet3XButton_clicked()
 {
+    ui->playBet->setText(QString::number(ui->anteSpinBox->value() * 3));
+    revealAllCommunityCards();
+    revealDealerCards();
+    setUiToBetting(); // for now
+}
+
+void UltimateTexasHoldem::on_bet2XButton_clicked()
+{
+    ui->playBet->setText(QString::number(ui->anteSpinBox->value() * 2));
     revealAllCommunityCards();
     revealDealerCards();
     setUiToBetting(); // for now
@@ -252,6 +262,9 @@ void UltimateTexasHoldem::determineWinner() {
     handRanker.rankHand(player.hand);
     handRanker.rankHand(house.hand);
 
+    bool houseQualifies = true;
+    if (house.hand.rank < 1)
+        houseQualifies = false;
 
     if (player.hand.rank > house.hand.rank) {
         qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
@@ -280,7 +293,29 @@ void UltimateTexasHoldem::determineWinner() {
 
 }
 
+void UltimateTexasHoldem::determinePayoutPlayerWon(bool houseQualifies) {
+    if (houseQualifies) {
+
+    }
+}
+
+void UltimateTexasHoldem::determinePayoutPlayerLoss(bool houseQualifies) {
+
+}
+
+void UltimateTexasHoldem::determinePayoutTie(bool) {
+    // regardless of the house qualifiing, all bets are pushed.
+    // but trips is optional, so it can change.
+    int ante = ui->anteSpinBox->value();
+    int blind = ui->blindSpinBox->value();
+    int trips = ui->tripSpinBox->value();
+    qDebug() << "All bets pushed";
+    player.money += ante + blind + trips;
+}
+
 QPixmap UltimateTexasHoldem::getPixmapOfCard(Card card) {
     QPixmap pixmap(QStringLiteral(":/cards/resources/%1%2.png").arg(card.value).arg(card.suit));
     return pixmap.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
 }
+
+
