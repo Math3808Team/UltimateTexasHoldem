@@ -7,7 +7,8 @@
 #include <string>
 #include <QTime>
 
-#include "handranker.h"
+#include "include/handranker.h"
+#include "include/endofrounddialogwindow.h"
 
 UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     QMainWindow(parent),
@@ -31,7 +32,7 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     ui->money->setText(QString::number(player.money));
 /*
     Player player;
-    player.hand.addCard(Card('c', 7));
+    player.hand.addCard(Card('c', 10));
     player.hand.addCard(Card('c', 10));
     House house;
     house.hand.addCard(Card('c', 14));
@@ -39,10 +40,10 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
 
     auto addSame = [](Hand& hand) {
       hand.addCard(Card('d', 8));
-      hand.addCard(Card('c', 9));
+      hand.addCard(Card('c', 8));
       hand.addCard(Card('h', 11));
       hand.addCard(Card('c', 12));
-      hand.addCard(Card('k', 13));
+      hand.addCard(Card('k', 12));
     };
     addSame(player.hand);
     addSame(house.hand);
@@ -60,10 +61,15 @@ UltimateTexasHoldem::~UltimateTexasHoldem()
     delete ui;
 }
 
+void createEndOfRoundDialog(RoundResult roundResult) {
+    EndOfRoundDialogWindow dialog(roundResult);
+    dialog.setModal(true); //dont allow context switching
+    dialog.exec();
+}
+
 void UltimateTexasHoldem::setUiConnections() {
     connect(ui->anteSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
     connect(ui->blindSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
-
 }
 
 /**
@@ -170,13 +176,18 @@ void UltimateTexasHoldem::on_checkButton_clicked()
         ++numOfChecks;
         break;
     case 2:
+    {
         revealDealerCards();
-        determineWinner();
+
+        RoundResult roundResult = determineWinner();
+        //determinePayout(roundResult);
         //Create popup window that shows payouts and determine payout based on player's hand rank and who won.
         //Also update a label under player and house cards saying what hand they have
+        createEndOfRoundDialog(roundResult);
         setUiToBetting();
-        deck = Deck(); //reset the containts of the deck (shuffle)
+        deck = Deck(); //reset the contents of the deck
         break;
+    }
 
     default:
         qDebug() << "Check button pressed with more than three checks\n";
@@ -330,8 +341,10 @@ void UltimateTexasHoldem::dealCards() {
 
 /**
  * @brief UltimateTexasHoldem::determineWinner determines the winner of the round.
+ * @returns 0 if the result was a tie, 1 if the player won, 2 if the house won.
  */
-void UltimateTexasHoldem::determineWinner(bool playerFolded) {
+RoundResult UltimateTexasHoldem::determineWinner(bool playerFolded) {
+    RoundResult result;
     handRanker.rankHand(player.hand);
     handRanker.rankHand(house.hand);
 
@@ -345,40 +358,43 @@ void UltimateTexasHoldem::determineWinner(bool playerFolded) {
 
     if (player.hand.rank > house.hand.rank) {
         qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
-        determinePayoutPlayerWon(houseQualifies);
-
+        result = determinePayoutPlayerWon(houseQualifies);
     } else if (player.hand.rank < house.hand.rank) {
         qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
-        determinePayoutPlayerLoss(houseQualifies);
-
+        result = determinePayoutPlayerLoss(houseQualifies);
     } else {
         qInfo() << "tie being tested: ";
 
         if (player.hand.rank == 0 && house.hand.rank == 0) {
             //special case where no one has anything
             qInfo() << "tie with nothing.";
-            return; //dont do any tie breaking
+            result.winner = 0;
+            return result;
         }
 
 
        int tieResult = handRanker.breakTie(player,house);
        if (tieResult == 1) {
            qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
-           determinePayoutPlayerWon(houseQualifies);
+           result = determinePayoutPlayerWon(houseQualifies);
        }
        else if (tieResult == 2) {
            qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
-           determinePayoutPlayerLoss(houseQualifies);
+           result = determinePayoutPlayerLoss(houseQualifies);
        }
        else {
            qInfo() << "tie with a " + handRanker.rankToString(player.hand.rank) + ".";
-           determinePayoutTie(houseQualifies);
+           result = determinePayoutTie(houseQualifies);
        }
-    }
 
+       return result;
+    }
+    return result;
 }
 
-void UltimateTexasHoldem::determinePayoutPlayerWon(bool houseQualifies) {
+RoundResult UltimateTexasHoldem::determinePayoutPlayerWon(bool houseQualifies) {
+    RoundResult result;
+    result.winner = 2;
     int anteAmount = ui->anteSpinBox->value();
     int blindAmount = ui->blindSpinBox->value();
     int tripsAmount = ui->tripSpinBox->value();
@@ -411,9 +427,13 @@ void UltimateTexasHoldem::determinePayoutPlayerWon(bool houseQualifies) {
 
     player.money += antePayout + blindPayout + playPayout + tripsPayout;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
+
+    return result;
 }
 
-void UltimateTexasHoldem::determinePayoutPlayerLoss(bool houseQualifies) {
+RoundResult UltimateTexasHoldem::determinePayoutPlayerLoss(bool houseQualifies) {
+    RoundResult result;
+    result.winner = 1;
     // even if the house qualifies, we still lose the blind and play bets.
 
     qInfo() << "Dealer does " << (!houseQualifies ? "not " : "") << "qualify";
@@ -429,9 +449,12 @@ void UltimateTexasHoldem::determinePayoutPlayerLoss(bool houseQualifies) {
 
     player.money += tripsPayout;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
+    return result;
 }
 
-void UltimateTexasHoldem::determinePayoutTie(bool) {
+RoundResult UltimateTexasHoldem::determinePayoutTie(bool) {
+    RoundResult result;
+    result.winner = 0;
     // regardless of the house qualifiing, all bets are pushed.
 
     // but trips is optional, so it can change.
@@ -455,6 +478,8 @@ void UltimateTexasHoldem::determinePayoutTie(bool) {
 
     player.money += antePayout + blindPayout + playPayout + tripsPayout;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
+
+    return result;
 }
 
 QPixmap UltimateTexasHoldem::getPixmapOfCard(Card card) {
