@@ -53,7 +53,7 @@ UltimateTexasHoldem::~UltimateTexasHoldem()
 
 void createEndOfRoundDialog(RoundResult roundResult) {
     EndOfRoundDialogWindow dialog(roundResult);
-    dialog.setModal(true);
+    dialog.setModal(true); //dont allow context switching
     dialog.exec();
 }
 
@@ -157,7 +157,7 @@ void UltimateTexasHoldem::on_checkButton_clicked()
         //Also update a label under player and house cards saying what hand they have
         createEndOfRoundDialog(roundResult);
         setUiToBetting();
-        deck = Deck(); //reset the containts of the deck (shuffle)
+        deck = Deck(); //reset the contents of the deck
         break;
     }
 
