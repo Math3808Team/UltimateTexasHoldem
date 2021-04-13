@@ -42,7 +42,8 @@ SOURCES += \
         src/verifiers/royalflushverifier.cpp \
         src/verifiers/straightverifier.cpp \
         src/verifiers/straightflushverifier.cpp \
-    src/verifiers/trickverifier.cpp
+        src/verifiers/trickverifier.cpp \
+        src/endofrounddialogwindow.cpp
 
 HEADERS += \
         include/bets.h \
@@ -62,10 +63,13 @@ HEADERS += \
         include/verifiers/fourofakindverifier.h \
         include/verifiers/straightflushverifier.h \
         include/verifiers/royalflushverifier.h \
-        include/handranker.h
+        include/handranker.h \
+        include/endofrounddialogwindow.h \
+    include/roundresult.h
 
 FORMS += \
-        forms/ultimatetexasholdem.ui
+        forms/ultimatetexasholdem.ui \
+        forms/endofrounddialogwindow.ui
 
 INCLUDEPATH += include/
 

@@ -6,6 +6,7 @@
 #include "house.h"
 #include "deck.h"
 #include "handranker.h"
+#include "roundresult.h"
 
 namespace Ui {
 class UltimateTexasHoldem;
@@ -55,7 +56,7 @@ private:
 
     //GAME functions
     void dealCards();
-    void determineWinner();
+    int determineWinner();
     QPixmap getPixmapOfCard(Card card);
 
 };

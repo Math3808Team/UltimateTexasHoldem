@@ -6,7 +6,8 @@
 #include <QPixmap>
 #include <string>
 
-#include "handranker.h"
+#include "include/handranker.h"
+#include "include/endofrounddialogwindow.h"
 
 UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     QMainWindow(parent),
@@ -50,10 +51,15 @@ UltimateTexasHoldem::~UltimateTexasHoldem()
     delete ui;
 }
 
+void createEndOfRoundDialog(RoundResult roundResult) {
+    EndOfRoundDialogWindow dialog(roundResult);
+    dialog.setModal(true);
+    dialog.exec();
+}
+
 void UltimateTexasHoldem::setUiConnections() {
     connect(ui->anteSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
     connect(ui->blindSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
-
 }
 
 /**
@@ -141,13 +147,19 @@ void UltimateTexasHoldem::on_checkButton_clicked()
         ++numOfChecks;
         break;
     case 2:
+    {
         revealDealerCards();
-        determineWinner();
+
+        RoundResult roundResult;
+        roundResult.winner = determineWinner();
+        //determinePayout(roundResult);
         //Create popup window that shows payouts and determine payout based on player's hand rank and who won.
         //Also update a label under player and house cards saying what hand they have
+        createEndOfRoundDialog(roundResult);
         setUiToBetting();
         deck = Deck(); //reset the containts of the deck (shuffle)
         break;
+    }
 
     default:
         qDebug() << "Check button pressed with more than three checks\n";
@@ -247,17 +259,20 @@ void UltimateTexasHoldem::dealCards() {
 
 /**
  * @brief UltimateTexasHoldem::determineWinner determines the winner of the round.
+ * @returns 0 if the result was a tie, 1 if the player won, 2 if the house won.
  */
-void UltimateTexasHoldem::determineWinner() {
+int UltimateTexasHoldem::determineWinner() {
     handRanker.rankHand(player.hand);
     handRanker.rankHand(house.hand);
 
 
     if (player.hand.rank > house.hand.rank) {
         qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
+        return 1;
 
     } else if (player.hand.rank < house.hand.rank) {
         qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
+        return 2;
 
     } else {
         qInfo() << "tie being tested: ";
@@ -265,7 +280,7 @@ void UltimateTexasHoldem::determineWinner() {
         if (player.hand.rank == 0 && house.hand.rank == 0) {
             //special case where no one has anything
             qInfo() << "tie with nothing.";
-            return; //dont do any tie breaking
+            return 0;
         }
 
 
@@ -276,6 +291,8 @@ void UltimateTexasHoldem::determineWinner() {
            qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
        else
            qInfo() << "tie with a " + handRanker.rankToString(player.hand.rank) + ".";
+
+       return tieResult;
     }
 
 }
