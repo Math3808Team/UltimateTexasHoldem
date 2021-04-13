@@ -32,6 +32,8 @@ private slots:
 
 
 
+    void on_foldButton_clicked();
+
 private:
 
     const int CARD_WIDTH  = 100;
@@ -58,12 +60,16 @@ private:
 
     //GAME functions
     void dealCards();
-    void determineWinner();
+    void determineWinner(bool playerFolded = false);
     QPixmap getPixmapOfCard(Card card);
 
     void determinePayoutPlayerWon(bool houseQualifies);
     void determinePayoutPlayerLoss(bool houseQualifies);
     void determinePayoutTie(bool houseQualifies);
+
+    QHash<int, int> tripsPayoutTable;
+    QHash<int, float> blindPayoutTable;
+
 };
 
 /*
