@@ -6,11 +6,11 @@
 class RoundResult {
 public:
     int winner;
-    QString antePayout;
-    QString blindPayout;
-    QString playPayout;
-    QString tripsPayout;
-    QString totalPayout;
+    int antePayout;
+    int blindPayout;
+    int playPayout;
+    int tripsPayout;
+    int totalPayout;
 
 };
 
