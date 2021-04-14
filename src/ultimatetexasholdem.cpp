@@ -5,7 +5,9 @@
 #include <QDebug>
 #include <QPixmap>
 #include <string>
+#include <QTime>
 
+#include "roundresultservice.h"
 #include "include/handranker.h"
 #include "include/endofrounddialogwindow.h"
 
@@ -20,7 +22,7 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     setUiToBetting();
 
     ui->money->setText(QString::number(player.money));
-
+/*
     Player player;
     player.hand.addCard(Card('c', 10));
     player.hand.addCard(Card('c', 10));
@@ -43,7 +45,7 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     ranker.rankHand(house.hand);
     qInfo() << player.hand.rank << " " << house.hand.rank;
     int p = ranker.breakTie(player, house);
-    qInfo() << p;
+    qInfo() << p;*/
 }
 
 UltimateTexasHoldem::~UltimateTexasHoldem()
@@ -86,6 +88,7 @@ void UltimateTexasHoldem::setUiToBetting() {
     // reset cards here to all back cards
 
     numOfChecks = 0;
+
 }
 
 /**
@@ -106,6 +109,8 @@ void UltimateTexasHoldem::setUiToInitalDeal() {
     ui->anteSpinBox->setEnabled(false);
     ui->blindSpinBox->setEnabled(false);
     ui->tripSpinBox->setEnabled(false);
+
+    ui->playBet->setText("");
 }
 
 void UltimateTexasHoldem::on_dealButton_clicked() {
@@ -115,6 +120,22 @@ void UltimateTexasHoldem::on_dealButton_clicked() {
         QMessageBox msgBox;
         msgBox.setText("You do not have enough money!");
         msgBox.exec();
+        return;
+    }
+    else if (totalBets + ui->anteSpinBox->value() > player.money) {
+        QMessageBox msgBox;
+        msgBox.setText("You do not have enough to make a 1x Bet with the current bet setup!");
+        msgBox.exec();
+        return;
+    }
+
+    if (ui->tripSpinBox->value() > 0 && (ui->anteSpinBox->value()) <= 0) {
+        qInfo() << "You can not only place the trips bet.";
+        return;
+    }
+
+    if (totalBets <= 1) {
+        qInfo() << "You must bet atleast 1 dollar.";
         return;
     }
 
@@ -150,8 +171,7 @@ void UltimateTexasHoldem::on_checkButton_clicked()
     {
         revealDealerCards();
 
-        RoundResult roundResult;
-        roundResult.winner = determineWinner();
+        RoundResult roundResult = useRoundResultService();
         //determinePayout(roundResult);
         //Create popup window that shows payouts and determine payout based on player's hand rank and who won.
         //Also update a label under player and house cards saying what hand they have
@@ -169,23 +189,76 @@ void UltimateTexasHoldem::on_checkButton_clicked()
 
 void UltimateTexasHoldem::on_bet4XButton_clicked()
 {
+    unsigned long playBetRequired = ui->anteSpinBox->value() * 4;
+    if (playBetRequired > player.money) {
+        qInfo() << "You do not have enough money to make this 4X bet!";
+        return;
+    }
+    player.money -= playBetRequired;
+    ui->playBet->setText(QString::number(ui->anteSpinBox->value() * 4));
+    ui->money->setText(QString::number(player.money));
     revealAllCommunityCards();
     revealDealerCards();
+
+    useRoundResultService();
+
     setUiToBetting(); // for now
 }
 
 void UltimateTexasHoldem::on_bet3XButton_clicked()
 {
+    unsigned long playBetRequired = ui->anteSpinBox->value() * 3;
+    if (playBetRequired > player.money) {
+        qInfo() << "You do not have enough money to make this 3X bet!";
+        return;
+    }
+    player.money -= playBetRequired;
+    ui->playBet->setText(QString::number(ui->anteSpinBox->value() * 3));
+    ui->money->setText(QString::number(player.money));
     revealAllCommunityCards();
     revealDealerCards();
+
+    useRoundResultService();
+
     setUiToBetting(); // for now
 }
+
+void UltimateTexasHoldem::on_bet2XButton_clicked()
+{
+    unsigned long playBetRequired = ui->anteSpinBox->value() * 2;
+    if (playBetRequired > player.money) {
+        qInfo() << "You do not have enough money to make this 2X bet!";
+        return;
+    }
+    player.money -= playBetRequired;
+    ui->playBet->setText(QString::number(ui->anteSpinBox->value() * 2));
+    ui->money->setText(QString::number(player.money));
+    revealAllCommunityCards();
+    revealDealerCards();
+
+    useRoundResultService();
+
+    setUiToBetting(); // for now
+}
+
+void UltimateTexasHoldem::on_foldButton_clicked()
+{
+    revealAllCommunityCards();
+    revealDealerCards();
+
+    useRoundResultService(true);
+
+    setUiToBetting(); // for now
+}
+
 
 void UltimateTexasHoldem::slotEqualAnteBlindBoxes(int arg1)
 {
     ui->anteSpinBox->setValue(arg1);
     ui->blindSpinBox->setValue(arg1);
 }
+
+
 
 //END OF SLOTS; START OF FUNCTIONS
 
@@ -257,47 +330,24 @@ void UltimateTexasHoldem::dealCards() {
     }
 }
 
-/**
- * @brief UltimateTexasHoldem::determineWinner determines the winner of the round.
- * @returns 0 if the result was a tie, 1 if the player won, 2 if the house won.
- */
-int UltimateTexasHoldem::determineWinner() {
-    handRanker.rankHand(player.hand);
-    handRanker.rankHand(house.hand);
-
-
-    if (player.hand.rank > house.hand.rank) {
-        qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
-        return 1;
-
-    } else if (player.hand.rank < house.hand.rank) {
-        qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
-        return 2;
-
-    } else {
-        qInfo() << "tie being tested: ";
-
-        if (player.hand.rank == 0 && house.hand.rank == 0) {
-            //special case where no one has anything
-            qInfo() << "tie with nothing.";
-            return 0;
-        }
-
-
-       int tieResult = handRanker.breakTie(player,house);
-       if (tieResult == 1)
-           qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
-       else if (tieResult == 2)
-           qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
-       else
-           qInfo() << "tie with a " + handRanker.rankToString(player.hand.rank) + ".";
-
-       return tieResult;
+RoundResult UltimateTexasHoldem::useRoundResultService(bool playFolded) {
+    static RoundResultService resultService(player, house); // variable only exists(staticly) in this scope
+    bool playOk = false;
+    int playAmount = ui->playBet->text().toInt(&playOk);
+    if (!playOk && ui->playBet->text() == "")
+        playAmount = 0;
+    else if (!playOk) {
+        qDebug() << "No play bet? play bet should be set...";
+        playAmount = 0;
     }
-
+    return resultService.determineWinners(ui->anteSpinBox->value(), ui->blindSpinBox->value(), ui->tripSpinBox->value(), playAmount, playFolded);
 }
+
 
 QPixmap UltimateTexasHoldem::getPixmapOfCard(Card card) {
     QPixmap pixmap(QStringLiteral(":/cards/resources/%1%2.png").arg(card.value).arg(card.suit));
     return pixmap.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
 }
+
+
+

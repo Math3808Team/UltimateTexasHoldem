@@ -28,7 +28,12 @@ private slots:
     void on_checkButton_clicked();
     void on_bet4XButton_clicked();
     void on_bet3XButton_clicked();
+    void on_bet2XButton_clicked();
     void slotEqualAnteBlindBoxes(int arg1);
+
+
+
+    void on_foldButton_clicked();
 
 private:
 
@@ -39,7 +44,6 @@ private:
     Player player;
     House house;
     HandRanker handRanker;
-
     int numOfChecks = 0;
     Ui::UltimateTexasHoldem *ui;
 
@@ -56,8 +60,9 @@ private:
 
     //GAME functions
     void dealCards();
-    int determineWinner();
     QPixmap getPixmapOfCard(Card card);
+
+    RoundResult useRoundResultService(bool playerFolded = false);
 
 };
 

@@ -310,7 +310,7 @@ QLabel#money{
        </item>
        <item>
         <property name="text">
-         <string>TRIPS................................. Push</string>
+         <string>OTHER HANDS.................... Push</string>
         </property>
        </item>
       </widget>
@@ -995,6 +995,12 @@ QLabel#money{
             </item>
             <item>
              <widget class="QLabel" name="playBet">
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -1029,7 +1035,7 @@ QLabel#money{
      <x>0</x>
      <y>0</y>
      <width>996</width>
-     <height>22</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>

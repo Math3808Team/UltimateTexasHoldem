@@ -13,7 +13,6 @@ public:
     virtual void verifyHand(Hand &hand) = 0;
     virtual int breakTie(Player player, House house) = 0;
     virtual ~TrickVerifier();
-
 protected:
     unsigned short rank;
     QHash <int,int> getTableOfValues(Hand &hand);

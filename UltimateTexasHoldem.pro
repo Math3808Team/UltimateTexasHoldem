@@ -32,6 +32,7 @@ SOURCES += \
         src/hand.cpp \
         src/main.cpp \
         src/handranker.cpp \
+        src/roundresultservice.cpp \
         src/ultimatetexasholdem.cpp \
         src/verifiers/pairverifier.cpp \
         src/verifiers/twopairverifier.cpp \
@@ -52,6 +53,7 @@ HEADERS += \
         include/hand.h \
         include/house.h \
         include/player.h \
+        include/roundresultservice.h \
         include/ultimatetexasholdem.h \
         include/verifiers/trickverifier.h \
         include/verifiers/pairverifier.h \
@@ -65,7 +67,7 @@ HEADERS += \
         include/verifiers/royalflushverifier.h \
         include/handranker.h \
         include/endofrounddialogwindow.h \
-    include/roundresult.h
+        include/roundresult.h
 
 FORMS += \
         forms/ultimatetexasholdem.ui \
