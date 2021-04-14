@@ -4,17 +4,18 @@
 #include <QString>
 
 struct RoundResult {
-    int winner;
-    int antePayout;
-    int blindPayout;
-    int playPayout;
-    int tripsPayout;
-    int totalPayout;
-    operator QString() const;
+    int winner = -1;
+    int antePayout = 0;
+    int blindPayout = 0;
+    int playPayout = 0;
+    int tripsPayout = 0;
+    int totalPayout = 0;
+    inline operator QString() const;
+    constexpr inline void setTotal();
 
 };
 
-RoundResult::operator QString() const {
+inline RoundResult::operator QString() const {
     QString ret;
     ret.append("winner: " + QString::number(winner) + "\n");
     ret.append("antePayout: " + QString::number(antePayout) + "\n");
@@ -23,6 +24,10 @@ RoundResult::operator QString() const {
     ret.append("tripsPayout: " + QString::number(tripsPayout) + "\n");
     ret.append("totalPayout: " + QString::number(totalPayout) + "\n");
     return ret;
+}
+
+constexpr inline void RoundResult::setTotal() {
+    totalPayout = antePayout + blindPayout + playPayout + totalPayout;
 }
 
 #endif // ROUNDRESULT_H

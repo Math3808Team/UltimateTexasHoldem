@@ -310,7 +310,7 @@ QLabel#money{
        </item>
        <item>
         <property name="text">
-         <string>TRIPS................................. Push</string>
+         <string>OTHER HANDS.................... Push</string>
         </property>
        </item>
       </widget>
