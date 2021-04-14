@@ -26,7 +26,7 @@ const QHash<int, float> RoundResultService::blindPayoutTable = QHash<int, float>
 RoundResultService::RoundResultService(Player& player, House& house)
     : player(player), house(house) {}
 
-inline int RoundResultService::getTripsPayout(const int& tripsAmount, RoundResult& result) const {
+int RoundResultService::getTripsPayout(const int& tripsAmount, RoundResult& result) const {
     if (tripsPayoutTable.contains(player.hand.rank)) {
         result.tripsPayout = tripsAmount*tripsPayoutTable[player.hand.rank];
         return tripsAmount + result.tripsPayout;
@@ -35,7 +35,7 @@ inline int RoundResultService::getTripsPayout(const int& tripsAmount, RoundResul
     return 0; // payoff
 }
 
-inline int RoundResultService::getBlindPayout(const int& blindAmount, RoundResult& result) const {
+int RoundResultService::getBlindPayout(const int& blindAmount, RoundResult& result) const {
     if (blindPayoutTable.contains(player.hand.rank)) {
         result.blindPayout = blindAmount*blindPayoutTable[player.hand.rank];
         return blindAmount + result.blindPayout;
@@ -115,6 +115,7 @@ RoundResult RoundResultService::determinePayoutPlayerWon(bool houseQualifies, co
     result.playPayout = playAmount;
     tripsPayback = getTripsPayout(tripsAmount, result);
 
+    result.setTotal();
     qInfo() << "Player's money: " << player.money;
     qInfo() << "Ante Payback " << (!houseQualifies ? "PUSH" : "") << antePayback;
     qInfo() << "Blind Payback " << blindPayback;
@@ -123,7 +124,8 @@ RoundResult RoundResultService::determinePayoutPlayerWon(bool houseQualifies, co
 
     player.money += antePayback + blindPayback + playPayback + tripsPayback;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
-
+    qInfo() << "Round Result:";
+    qInfo() << result;
     return result;
 }
 
@@ -139,6 +141,7 @@ RoundResult RoundResultService::determinePayoutPlayerLoss(bool houseQualifies, c
     int tripsPayout = getTripsPayout(tripsAmount, result);
     int antePayout = houseQualifies ? 0 : anteAmount;
     result.antePayout = houseQualifies ? 0 : -anteAmount;
+    result.setTotal();
 
     qInfo() << "Player's money: " << player.money;
     qInfo() << "TripsPayout " << tripsPayout;
@@ -146,6 +149,8 @@ RoundResult RoundResultService::determinePayoutPlayerLoss(bool houseQualifies, c
 
     player.money += tripsPayout;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
+    qInfo() << "Round Result:";
+    qInfo() << result;
     return result;
 }
 
@@ -161,6 +166,7 @@ RoundResult RoundResultService::determinePayoutTie(bool houseQualifies, const in
     result.antePayout = result.blindPayout = result.playPayout = 0;
 
     int tripsPayout = getTripsPayout(tripsAmount, result);
+    result.setTotal();
 
     qInfo() << "Player's money: " << player.money;
     qInfo() << "AntePayout " << antePayout;
@@ -170,6 +176,8 @@ RoundResult RoundResultService::determinePayoutTie(bool houseQualifies, const in
 
     player.money += antePayout + blindPayout + playPayout + tripsPayout;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
+    qInfo() << "Round Result:";
+    qInfo() << result;
 
     return result;
 }
