@@ -44,7 +44,6 @@ private:
     Player player;
     House house;
     HandRanker handRanker;
-
     int numOfChecks = 0;
     Ui::UltimateTexasHoldem *ui;
 
@@ -61,15 +60,9 @@ private:
 
     //GAME functions
     void dealCards();
-    RoundResult determineWinner(bool playerFolded = false);
     QPixmap getPixmapOfCard(Card card);
 
-    RoundResult determinePayoutPlayerWon(bool houseQualifies);
-    RoundResult determinePayoutPlayerLoss(bool houseQualifies);
-    RoundResult determinePayoutTie(bool houseQualifies);
-
-    QHash<int, int> tripsPayoutTable;
-    QHash<int, float> blindPayoutTable;
+    RoundResult useRoundResultService(bool playerFolded = false);
 
 };
 
