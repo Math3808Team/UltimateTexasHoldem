@@ -27,7 +27,7 @@ inline RoundResult::operator QString() const {
 }
 
 constexpr inline void RoundResult::setTotal() {
-    totalPayout = antePayout + blindPayout + playPayout + totalPayout;
+    totalPayout = antePayout + blindPayout + playPayout + tripsPayout;
 }
 
 #endif // ROUNDRESULT_H

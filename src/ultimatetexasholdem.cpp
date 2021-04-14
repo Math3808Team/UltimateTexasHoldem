@@ -195,9 +195,7 @@ void UltimateTexasHoldem::on_bet4XButton_clicked()
         return;
     }
     player.money -= playBetRequired;
-    qInfo() << QString::number(ui->anteSpinBox->value() * 4);
     ui->playBet->setText(QString::number(ui->anteSpinBox->value() * 4));
-    qInfo() << ui->playBet->text();
     ui->money->setText(QString::number(player.money));
     revealAllCommunityCards();
     revealDealerCards();

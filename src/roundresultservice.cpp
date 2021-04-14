@@ -31,7 +31,7 @@ int RoundResultService::getTripsPayout(const int& tripsAmount, RoundResult& resu
         result.tripsPayout = tripsAmount*tripsPayoutTable[player.hand.rank];
         return tripsAmount + result.tripsPayout;
     }
-    result.tripsPayout = -tripsAmount; // payback
+    result.tripsPayout = -tripsAmount; // payback (we lost the trips bet)
     return 0; // payoff
 }
 
@@ -40,8 +40,8 @@ int RoundResultService::getBlindPayout(const int& blindAmount, RoundResult& resu
         result.blindPayout = blindAmount*blindPayoutTable[player.hand.rank];
         return blindAmount + result.blindPayout;
     }
-    result.blindPayout = -blindAmount;
-    return 0;
+    result.blindPayout = 0; // push
+    return blindAmount;
 }
 
 RoundResult RoundResultService::determineWinners(const int& anteAmount, const int& blindAmount, const int& tripsAmount, const int& playAmount, bool playerFolded) {
@@ -125,7 +125,7 @@ RoundResult RoundResultService::determinePayoutPlayerWon(bool houseQualifies, co
     player.money += antePayback + blindPayback + playPayback + tripsPayback;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
     qInfo() << "Round Result:";
-    qInfo() << result;
+    qInfo().noquote() << result;
     return result;
 }
 
@@ -140,7 +140,7 @@ RoundResult RoundResultService::determinePayoutPlayerLoss(bool houseQualifies, c
 
     int tripsPayout = getTripsPayout(tripsAmount, result);
     int antePayout = houseQualifies ? 0 : anteAmount;
-    result.antePayout = houseQualifies ? 0 : -anteAmount;
+    result.antePayout = houseQualifies ? -anteAmount : 0;
     result.setTotal();
 
     qInfo() << "Player's money: " << player.money;
@@ -150,7 +150,7 @@ RoundResult RoundResultService::determinePayoutPlayerLoss(bool houseQualifies, c
     player.money += tripsPayout;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
     qInfo() << "Round Result:";
-    qInfo() << result;
+    qInfo().noquote() << result;
     return result;
 }
 
@@ -177,7 +177,7 @@ RoundResult RoundResultService::determinePayoutTie(bool houseQualifies, const in
     player.money += antePayout + blindPayout + playPayout + tripsPayout;
     qInfo() << "Player's money AFTER : " << player.money << "\n";
     qInfo() << "Round Result:";
-    qInfo() << result;
+    qInfo().noquote() << result;
 
     return result;
 }
