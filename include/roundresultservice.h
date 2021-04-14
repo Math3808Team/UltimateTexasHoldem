@@ -27,8 +27,8 @@ private:
     RoundResult determinePayoutPlayerLoss(bool houseQualifies, const int& anteAmount, const int& blindAmount, const int& tripsAmount, const int& playAmount) const;
     RoundResult determinePayoutTie(bool, const int& anteAmount, const int& blindAmount, const int& tripsAmount, const int& playAmount) const;
 
-    inline int getTripsPayout(const int& tripsAmount) const;
-    inline int getBlindPayout(const int& blindAmount) const;
+    inline int getTripsPayout(const int& tripsAmount, RoundResult& result) const;
+    inline int getBlindPayout(const int& blindAmount, RoundResult& result) const;
 };
 
 

@@ -3,8 +3,7 @@
 
 #include <QString>
 
-class RoundResult {
-public:
+struct RoundResult {
     int winner;
     int antePayout;
     int blindPayout;
