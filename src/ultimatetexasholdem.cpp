@@ -7,7 +7,7 @@
 #include <string>
 #include <QTime>
 
-#include "RoundResultService.h"
+#include "roundresultservice.h"
 #include "include/handranker.h"
 #include "include/endofrounddialogwindow.h"
 
