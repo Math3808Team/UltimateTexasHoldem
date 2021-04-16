@@ -37,6 +37,8 @@ private slots:
 
     void on_bet1XButton_clicked();
 
+    void on_pushButton_clicked();
+
 private:
 
     const int CARD_WIDTH  = 100;
