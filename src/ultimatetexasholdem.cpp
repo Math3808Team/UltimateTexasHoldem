@@ -17,7 +17,7 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     backcard((":/cards/resources/backcard.png")),
     ui(new Ui::UltimateTexasHoldem)
 {
-    filterObj = new FilterObj(this);
+    filterMouseEvents = new FilterMouseEvents(this);
     backcard = backcard.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
     ui->setupUi(this);
     setUiConnections();
@@ -270,77 +270,66 @@ void sleep(int msc = 1000) {
 
 //END OF SLOTS; START OF FUNCTIONS
 
-void UltimateTexasHoldem::revealThreeCommunityCard(bool hasFilter) {
+void UltimateTexasHoldem::revealThreeCommunityCard() {
     const std::vector<Card>& playerCards = player.hand.getCards();
 
-    if (ui->CommunityCard1->pixmap().cacheKey() != backcard.cacheKey()) {
-        qInfo() << "Already revealed!";
-        // we've already revealed these cards...
-        return;
-    }
-    if (!hasFilter)
-        installEventFilter(filterObj);
+    if (ui->CommunityCard1->pixmap().cacheKey() != backcard.cacheKey()) return;
+
+    installEventFilter(filterMouseEvents);
+
     ui->CommunityCard1->setPixmap(getPixmapOfCard(playerCards[2]));
     sleep();
     ui->CommunityCard2->setPixmap(getPixmapOfCard(playerCards[3]));
     sleep();
     ui->CommunityCard3->setPixmap(getPixmapOfCard(playerCards[4]));
-    if (!hasFilter)
-        removeEventFilter(filterObj);
+
+    removeEventFilter(filterMouseEvents);
 }
 
-void UltimateTexasHoldem::revealFourthCommunityCard(bool hasFilter) {
-    if (ui->CommunityCard4->pixmap().cacheKey() != backcard.cacheKey()){
-        qInfo() << "Already revealed!";
-        // already revealed
-        return;
-    }
-    if (!hasFilter)
-        installEventFilter(filterObj);
-    installEventFilter(filterObj);
+void UltimateTexasHoldem::revealFourthCommunityCard() {
+    if (ui->CommunityCard4->pixmap().cacheKey() != backcard.cacheKey()) return;
+    installEventFilter(filterMouseEvents);
+
     sleep();
     ui->CommunityCard4->setPixmap(getPixmapOfCard(player.hand.getCards()[5]));
-    if (!hasFilter)
-        removeEventFilter(filterObj);
+
+    removeEventFilter(filterMouseEvents);
 }
 
-void UltimateTexasHoldem::revealFifthCommunityCard(bool hasFilter) {
-    if (ui->CommunityCard5->pixmap().cacheKey() != backcard.cacheKey()){
-        // already revealed
-        return;
-    }
+void UltimateTexasHoldem::revealFifthCommunityCard() {
+    if (ui->CommunityCard5->pixmap().cacheKey() != backcard.cacheKey()) return;
 
-    if (!hasFilter)
-        installEventFilter(filterObj);
+    installEventFilter(filterMouseEvents);
+
     sleep();
     ui->CommunityCard5->setPixmap(getPixmapOfCard(player.hand.getCards()[6]));
-    if (!hasFilter)
-        removeEventFilter(filterObj);
+
+    removeEventFilter(filterMouseEvents);
 }
 
 void UltimateTexasHoldem::revealAllCommunityCards() {
-    installEventFilter(filterObj);
-    revealThreeCommunityCard(true);
-    revealFourthCommunityCard(true);
-    revealFifthCommunityCard(true);
-    removeEventFilter(filterObj);
+    installEventFilter(filterMouseEvents);
+    revealThreeCommunityCard();
+    revealFourthCommunityCard();
+    revealFifthCommunityCard();
+    removeEventFilter(filterMouseEvents);
 
 }
 void UltimateTexasHoldem::revealUserCards() {
-    installEventFilter(filterObj);
+    installEventFilter(filterMouseEvents);
     ui->PlayerCard1->setPixmap(getPixmapOfCard(player.hand.getCards()[0]));
     sleep();
     ui->PlayerCard2->setPixmap(getPixmapOfCard(player.hand.getCards()[1]));
-    removeEventFilter(filterObj);
+    removeEventFilter(filterMouseEvents);
 }
 void UltimateTexasHoldem::revealDealerCards() {
-    installEventFilter(filterObj);
+    installEventFilter(filterMouseEvents);
     sleep();
     ui->DealerCard1->setPixmap(getPixmapOfCard(house.hand.getCards()[0]));
     sleep();
     ui->DealerCard2->setPixmap(getPixmapOfCard(house.hand.getCards()[1]));
     sleep();
-    removeEventFilter(filterObj);
+    removeEventFilter(filterMouseEvents);
 }
 void UltimateTexasHoldem::hideAllCards() {
     ui->CommunityCard1->setPixmap(backcard);

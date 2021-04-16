@@ -18,7 +18,7 @@ class UltimateTexasHoldem : public QMainWindow
 {
     Q_OBJECT
 
-    class FilterObj;
+    class FilterMouseEvents;
 public:
     explicit UltimateTexasHoldem(QWidget *parent = 0);
     ~UltimateTexasHoldem();
@@ -47,14 +47,14 @@ private:
     HandRanker handRanker;
     int numOfChecks = 0;
     Ui::UltimateTexasHoldem *ui;
-    FilterObj* filterObj;
+    FilterMouseEvents* filterMouseEvents;
 
     void setUiConnections();
 
     // UI functions
-    void revealThreeCommunityCard( bool hasFilter = false);
-    void revealFourthCommunityCard( bool hasFilter = false);
-    void revealFifthCommunityCard( bool hasFilter = false);
+    void revealThreeCommunityCard();
+    void revealFourthCommunityCard();
+    void revealFifthCommunityCard();
     void revealAllCommunityCards();
     void revealUserCards();
     void revealDealerCards();
@@ -67,11 +67,11 @@ private:
     RoundResult useRoundResultService(bool playerFolded = false);
 };
 
-class UltimateTexasHoldem::FilterObj : public QObject {
+class UltimateTexasHoldem::FilterMouseEvents : public QObject {
     Q_OBJECT
 public:
-    FilterObj(QObject* obj) : QObject(obj) {}
-    ~FilterObj() {}
+    FilterMouseEvents(QObject* obj) : QObject(obj) {}
+    ~FilterMouseEvents() {}
 protected:
     virtual bool eventFilter(QObject*, QEvent* event) override {
         if (event->type() == QEvent::MouseButtonPress) return true; // ignore all mouse events
