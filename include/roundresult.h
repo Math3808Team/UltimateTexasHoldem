@@ -10,6 +10,8 @@ struct RoundResult {
     int playPayout = 0;
     int tripsPayout = 0;
     int totalPayout = 0;
+    int playerRank = 0;
+    int dealerRank = 0;
     inline operator QString() const;
     constexpr inline void setTotal();
 

@@ -57,18 +57,14 @@ RoundResult RoundResultService::determineWinners(const int& anteAmount, const in
         determinePayoutPlayerLoss(true, anteAmount, blindAmount, tripsAmount, playAmount); // always true?
     }
 
-    if (player.hand.rank > house.hand.rank) {
-        qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
+    if (player.hand.rank > house.hand.rank) {      
         result = determinePayoutPlayerWon(houseQualifies, anteAmount, blindAmount, tripsAmount, playAmount);
     } else if (player.hand.rank < house.hand.rank) {
-        qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
         result = determinePayoutPlayerLoss(houseQualifies, anteAmount, blindAmount, tripsAmount, playAmount);
     } else {
-        qInfo() << "tie being tested: ";
 
         if (player.hand.rank == 0 && house.hand.rank == 0) {
             //special case where no one has anything
-            qInfo() << "tie with nothing.";
             result.winner = 0;
             return result;
         }
@@ -76,15 +72,12 @@ RoundResult RoundResultService::determineWinners(const int& anteAmount, const in
 
        int tieResult = handRanker.breakTie(player,house);
        if (tieResult == 1) {
-           qInfo() << "player won with a " + handRanker.rankToString(player.hand.rank) + ".";
            result = determinePayoutPlayerWon(houseQualifies, anteAmount, blindAmount, tripsAmount, playAmount);
        }
        else if (tieResult == 2) {
-           qInfo() << "house won with a " + handRanker.rankToString(house.hand.rank) + ".";
            result = determinePayoutPlayerLoss(houseQualifies, anteAmount, blindAmount, tripsAmount, playAmount);
        }
        else {
-           qInfo() << "tie with a " + handRanker.rankToString(player.hand.rank) + ".";
            result = determinePayoutTie(houseQualifies, anteAmount, blindAmount, tripsAmount, playAmount);
        }
 

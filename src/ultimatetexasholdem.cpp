@@ -340,7 +340,10 @@ RoundResult UltimateTexasHoldem::useRoundResultService(bool playFolded) {
         qDebug() << "No play bet? play bet should be set...";
         playAmount = 0;
     }
-    return resultService.determineWinners(ui->anteSpinBox->value(), ui->blindSpinBox->value(), ui->tripSpinBox->value(), playAmount, playFolded);
+    RoundResult roundResult = resultService.determineWinners(ui->anteSpinBox->value(), ui->blindSpinBox->value(), ui->tripSpinBox->value(), playAmount, playFolded);
+    roundResult.playerRank = player.hand.rank;
+    roundResult.dealerRank = house.hand.rank;
+    return roundResult;
 }
 
 
