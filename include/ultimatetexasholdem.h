@@ -36,6 +36,10 @@ private slots:
 
     void on_foldButton_clicked();
 
+    void on_bet1XButton_clicked();
+
+    void on_pushButton_clicked();
+
 private:
     QPixmap backcard;
     const int CARD_WIDTH  = 100;
@@ -53,19 +57,21 @@ private:
 
     // UI functions
     void revealThreeCommunityCard();
-    void revealFourthCommunityCard();
-    void revealFifthCommunityCard();
+    void revealLastTwoCommunityCard();
     void revealAllCommunityCards();
     void revealUserCards();
     void revealDealerCards();
     void hideAllCards();
+    void betPlayAmount(unsigned int playBetAmount);
 
     //GAME functions
     void dealCards();
+    void endRound(bool folded = false);
     QPixmap getPixmapOfCard(Card card);
 
     RoundResult useRoundResultService(bool playerFolded = false);
 };
+
 
 class UltimateTexasHoldem::FilterMouseEvents : public QObject {
     Q_OBJECT
