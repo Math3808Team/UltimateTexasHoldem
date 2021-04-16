@@ -332,11 +332,11 @@ void UltimateTexasHoldem::dealCards() {
 
 RoundResult UltimateTexasHoldem::useRoundResultService(bool playFolded) {
     static RoundResultService resultService(player, house); // variable only exists(staticly) in this scope
-    bool playOk = false;
-    int playAmount = ui->playBet->text().toInt(&playOk);
-    if (!playOk && ui->playBet->text() == "")
+    bool playBetExists = false;
+    int playAmount = ui->playBet->text().toInt(&playBetExists);
+    if (!playBetExists && ui->playBet->text() == "")
         playAmount = 0;
-    else if (!playOk) {
+    else if (!playBetExists) {
         qDebug() << "No play bet? play bet should be set...";
         playAmount = 0;
     }
