@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "roundresult.h"
+#include <QLabel>
 
 namespace Ui {
 class EndOfRoundDialogWindow;
@@ -21,6 +22,8 @@ private slots:
 
 private:
     Ui::EndOfRoundDialogWindow *ui;
+    void setPayout(QLabel* label, int payout);
+    QString rankToString(int rank);
 };
 
 #endif // ENDOFROUNDDIALOGWINDOW_H
