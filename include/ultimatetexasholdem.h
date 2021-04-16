@@ -35,6 +35,8 @@ private slots:
 
     void on_foldButton_clicked();
 
+    void on_bet1XButton_clicked();
+
 private:
 
     const int CARD_WIDTH  = 100;
@@ -60,6 +62,7 @@ private:
 
     //GAME functions
     void dealCards();
+    void endRound(bool folded = false);
     QPixmap getPixmapOfCard(Card card);
 
     RoundResult useRoundResultService(bool playerFolded = false);

@@ -89,7 +89,7 @@ RoundResult RoundResultService::determineWinners(const int& anteAmount, const in
 
 RoundResult RoundResultService::determinePayoutPlayerWon(bool houseQualifies, const int& anteAmount, const int& blindAmount, const int& tripsAmount, const int& playAmount) const {
     RoundResult result;
-    result.winner = 2;
+    result.winner = 1;
 
     // payback = The amount given to the player NOT the net sum of doing the bet.
     int antePayback = 0, blindPayback = 0, tripsPayback = 0, playPayback = 0;
@@ -124,7 +124,7 @@ RoundResult RoundResultService::determinePayoutPlayerWon(bool houseQualifies, co
 
 RoundResult RoundResultService::determinePayoutPlayerLoss(bool houseQualifies, const int& anteAmount, const int& blindAmount, const int& tripsAmount, const int& playAmount) const {
     RoundResult result;
-    result.winner = 1;
+    result.winner = 2;
     // even if the house does/doesn't qualify, we still lose the blind and play bets.
     result.playPayout = -playAmount;
     result.blindPayout = -blindAmount;

@@ -53,15 +53,15 @@ UltimateTexasHoldem::~UltimateTexasHoldem()
     delete ui;
 }
 
+void UltimateTexasHoldem::setUiConnections() {
+    connect(ui->anteSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
+    connect(ui->blindSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
+}
+
 void createEndOfRoundDialog(RoundResult roundResult) {
     EndOfRoundDialogWindow dialog(roundResult);
     dialog.setModal(true); //dont allow context switching
     dialog.exec();
-}
-
-void UltimateTexasHoldem::setUiConnections() {
-    connect(ui->anteSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
-    connect(ui->blindSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
 }
 
 /**
@@ -169,14 +169,7 @@ void UltimateTexasHoldem::on_checkButton_clicked()
         break;
     case 2:
     {
-        revealDealerCards();
-
-        RoundResult roundResult = useRoundResultService();
-        //determinePayout(roundResult);
-        //Create popup window that shows payouts and determine payout based on player's hand rank and who won.
-        //Also update a label under player and house cards saying what hand they have
-        createEndOfRoundDialog(roundResult);
-        setUiToBetting();
+        endRound();
         deck = Deck(); //reset the contents of the deck
         break;
     }
@@ -200,7 +193,7 @@ void UltimateTexasHoldem::on_bet4XButton_clicked()
     revealAllCommunityCards();
     revealDealerCards();
 
-    useRoundResultService();
+    createEndOfRoundDialog(useRoundResultService());
 
     setUiToBetting(); // for now
 }
@@ -218,7 +211,7 @@ void UltimateTexasHoldem::on_bet3XButton_clicked()
     revealAllCommunityCards();
     revealDealerCards();
 
-    useRoundResultService();
+    createEndOfRoundDialog(useRoundResultService());
 
     setUiToBetting(); // for now
 }
@@ -236,19 +229,32 @@ void UltimateTexasHoldem::on_bet2XButton_clicked()
     revealAllCommunityCards();
     revealDealerCards();
 
-    useRoundResultService();
+    createEndOfRoundDialog(useRoundResultService());
+
+    setUiToBetting(); // for now
+}
+
+void UltimateTexasHoldem::on_bet1XButton_clicked()
+{
+    unsigned long playBetRequired = ui->anteSpinBox->value() * 1;
+    if (playBetRequired > player.money) {
+        qInfo() << "You do not have enough money to make this 1X bet!";
+        return;
+    }
+    player.money -= playBetRequired;
+    ui->playBet->setText(QString::number(ui->anteSpinBox->value() * 1));
+    ui->money->setText(QString::number(player.money));
+    revealAllCommunityCards();
+    revealDealerCards();
+
+    createEndOfRoundDialog(useRoundResultService());
 
     setUiToBetting(); // for now
 }
 
 void UltimateTexasHoldem::on_foldButton_clicked()
 {
-    revealAllCommunityCards();
-    revealDealerCards();
-
-    useRoundResultService(true);
-
-    setUiToBetting(); // for now
+    endRound(true);
 }
 
 
@@ -346,11 +352,19 @@ RoundResult UltimateTexasHoldem::useRoundResultService(bool playFolded) {
     return roundResult;
 }
 
+void UltimateTexasHoldem::endRound(bool folded) {
+    revealDealerCards();
+    RoundResult roundResult = useRoundResultService(folded);
+    createEndOfRoundDialog(roundResult);
+
+    //update the ui with the player's calculated money
+    ui->money->setText(QString::number(player.money));
+
+    setUiToBetting();
+}
+
 
 QPixmap UltimateTexasHoldem::getPixmapOfCard(Card card) {
     QPixmap pixmap(QStringLiteral(":/cards/resources/%1%2.png").arg(card.value).arg(card.suit));
     return pixmap.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
 }
-
-
-

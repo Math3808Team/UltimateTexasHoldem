@@ -11,8 +11,8 @@ EndOfRoundDialogWindow::EndOfRoundDialogWindow(RoundResult roundResult) :
     setPayout(ui->TripsPayout,roundResult.tripsPayout);
     setPayout(ui->PlayPayout,roundResult.playPayout);
     setPayout(ui->TotalResult,roundResult.totalPayout);
-    ui->PlayerResult->setText(QStringLiteral("%1 $%2").arg("Player has ").arg(rankToString(roundResult.playerRank)));
-    ui->DealerResult->setText(QStringLiteral("%1 $%2").arg("Dealer has ").arg(rankToString(roundResult.dealerRank)));
+    ui->PlayerResult->setText(QStringLiteral("%1%2").arg("Player has ").arg(rankToString(roundResult.playerRank)));
+    ui->DealerResult->setText(QStringLiteral("%1%2").arg("Dealer has ").arg(rankToString(roundResult.dealerRank)));
 
     switch (roundResult.winner) {
         case 0:
@@ -59,6 +59,8 @@ void EndOfRoundDialogWindow :: setPayout(QLabel* label, int payout){
 
 QString EndOfRoundDialogWindow::rankToString(int rank) {
     switch(rank) {
+        case 0:
+            return "nothing";
         case 1:
            return "pair";
         case 2:
