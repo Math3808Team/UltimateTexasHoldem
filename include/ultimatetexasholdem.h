@@ -53,12 +53,12 @@ private:
 
     // UI functions
     void revealThreeCommunityCard();
-    void revealFourthCommunityCard();
-    void revealFifthCommunityCard();
+    void revealLastTwoCommunityCard();
     void revealAllCommunityCards();
     void revealUserCards();
     void revealDealerCards();
     void hideAllCards();
+    void betPlayAmount(unsigned int playBetAmount);
 
     //GAME functions
     void dealCards();
