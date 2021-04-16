@@ -211,7 +211,7 @@ QLabel#money{
         </font>
        </property>
        <property name="text">
-        <string>1000</string>
+        <string>10000</string>
        </property>
       </widget>
      </item>
@@ -903,6 +903,9 @@ QLabel#money{
             <property name="text">
              <string>=</string>
             </property>
+            <property name="alignment">
+             <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+            </property>
            </widget>
           </item>
          </layout>
@@ -986,8 +989,19 @@ QLabel#money{
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_17">
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <item>
              <widget class="QLabel" name="label_4">
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);</string>
+              </property>
               <property name="text">
                <string>$</string>
               </property>
@@ -1000,6 +1014,14 @@ QLabel#money{
                 <width>50</width>
                 <height>0</height>
                </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(255, 255, 255);</string>
               </property>
               <property name="text">
                <string/>
@@ -1035,7 +1057,7 @@ QLabel#money{
      <x>0</x>
      <y>0</y>
      <width>996</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

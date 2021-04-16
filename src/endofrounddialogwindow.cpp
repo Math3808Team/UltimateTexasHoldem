@@ -11,20 +11,20 @@ EndOfRoundDialogWindow::EndOfRoundDialogWindow(RoundResult roundResult) :
     setPayout(ui->TripsPayout,roundResult.tripsPayout);
     setPayout(ui->PlayPayout,roundResult.playPayout);
     setPayout(ui->TotalResult,roundResult.totalPayout);
-    ui->PlayerResult->setText(QStringLiteral("%1%2").arg("Player has ").arg(rankToString(roundResult.playerRank)));
-    ui->DealerResult->setText(QStringLiteral("%1%2").arg("Dealer has ").arg(rankToString(roundResult.dealerRank)));
+    ui->PlayerResult->setText(QStringLiteral("%1%2").arg("Player had ").arg(rankToString(roundResult.playerRank)));
+    ui->DealerResult->setText(QStringLiteral("%1%2").arg("Dealer had ").arg(rankToString(roundResult.dealerRank)));
 
     switch (roundResult.winner) {
         case 0:
-            ui->ResultLabel->setText("You Tie");
+            ui->ResultLabel->setText("You Tied");
 
             break;
         case 1:
-            ui->ResultLabel->setText("YOU WIN!");
+            ui->ResultLabel->setText("YOU WON!");
 
             break;
         case 2:
-            ui->ResultLabel->setText("You Lose");
+            ui->ResultLabel->setText("You Lost");
 
             break;
     }
