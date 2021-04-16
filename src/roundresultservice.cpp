@@ -152,7 +152,7 @@ RoundResult RoundResultService::determinePayoutTie(bool houseQualifies, const in
 
     RoundResult result;
     result.winner = 0;
-    // regardless of the house qualifiing, all bets are pushed.
+    // regardless of the house qualifing, all bets are pushed.
     // but trips is optional, so it can change.
 
     int antePayout = anteAmount, blindPayout = blindAmount, playPayout = playAmount; // push ante, blind and play

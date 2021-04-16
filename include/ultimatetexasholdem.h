@@ -68,23 +68,4 @@ private:
     RoundResult useRoundResultService(bool playerFolded = false);
 
 };
-
-/*
-// Sequence:
-// BETTING -> INITALDEAL always, then
-//  if Betx3 or Bet4x -> Done
-//  if Check (3 card on community shown)
-//        if Bet2X -> Done
-//        if Check ->
-//                5 community cards shown
-//                if Fold -> Done
-//                if Bet1X -> Done
-// Then Done -> Betting
-//
-// Class represents states that the UI and the game can take on
-enum class UltimateTexasHoldem::State {
-    BETTING = 0, // where the user can place bets, can set trips, ante and blind
-    INITALDEAL = 0, // where the user is dealt the first two cards with both community and dealer cards down.
-};
-*/
 #endif // ULTIMATETEXASHOLDEM_H
