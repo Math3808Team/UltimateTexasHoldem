@@ -139,7 +139,7 @@ void UltimateTexasHoldem::on_dealButton_clicked() {
     }
 
     if (totalBets <= 1) {
-        createWarningDialog("You must bet atleast 1 dollar.");
+        createWarningDialog("You must bet at least 1 dollar.");
         return;
     }
 
@@ -227,7 +227,7 @@ void UltimateTexasHoldem::slotEqualAnteBlindBoxes(int arg1)
 
 void UltimateTexasHoldem::betPlayAmount(unsigned int playBetAmount) {
     if (playBetAmount > player.money) {
-        qInfo() << "You do not have enough money to make this bet!";
+        createWarningDialog("You do not have enough money to make this bet!");
         return;
     }
 
