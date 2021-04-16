@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <string>
 #include <QTime>
+#include <stdexcept>
 
 #include "roundresultservice.h"
 #include "include/handranker.h"
@@ -14,8 +15,11 @@
 
 UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     QMainWindow(parent),
+    backcard((":/cards/resources/backcard.png")),
     ui(new Ui::UltimateTexasHoldem)
 {
+    filterMouseEvents = new FilterMouseEvents(this);
+    backcard = backcard.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
     ui->setupUi(this);
     setUiConnections();
 
@@ -203,7 +207,6 @@ void UltimateTexasHoldem::on_pushButton_clicked()
     ui->money->setText("10000");
 }
 
-
 //END OF SLOTS; START OF FUNCTIONS
 
 void UltimateTexasHoldem::betPlayAmount(unsigned int playBetAmount) {
@@ -217,44 +220,72 @@ void UltimateTexasHoldem::betPlayAmount(unsigned int playBetAmount) {
     ui->money->setText(QString::number(player.money));
 }
 
+void sleep(int msc = 850) {
+    QTime dieTime= QTime::currentTime().addMSecs(msc);
+    while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents, 100);
+}
+
 void UltimateTexasHoldem::revealThreeCommunityCard() {
-    ui->CommunityCard1->setPixmap(getPixmapOfCard(player.hand.getCards()[2]));
-    ui->CommunityCard2->setPixmap(getPixmapOfCard(player.hand.getCards()[3]));
-    ui->CommunityCard3->setPixmap(getPixmapOfCard(player.hand.getCards()[4]));
+    const std::vector<Card>& playerCards = player.hand.getCards();
+
+    if (ui->CommunityCard1->pixmap().cacheKey() != backcard.cacheKey()) return;
+
+    installEventFilter(filterMouseEvents);
+
+    ui->CommunityCard1->setPixmap(getPixmapOfCard(playerCards[2]));
+    sleep();
+    ui->CommunityCard2->setPixmap(getPixmapOfCard(playerCards[3]));
+    sleep();
+    ui->CommunityCard3->setPixmap(getPixmapOfCard(playerCards[4]));
+
+    removeEventFilter(filterMouseEvents);
 }
 
 void UltimateTexasHoldem::revealLastTwoCommunityCard() {
+    if (ui->CommunityCard4->pixmap().cacheKey() != backcard.cacheKey()) return;
+
+    installEventFilter(filterMouseEvents);
+    sleep();
     ui->CommunityCard4->setPixmap(getPixmapOfCard(player.hand.getCards()[5]));
+    sleep();
     ui->CommunityCard5->setPixmap(getPixmapOfCard(player.hand.getCards()[6]));
+    sleep();
+
+    removeEventFilter(filterMouseEvents);
 }
 
 void UltimateTexasHoldem::revealAllCommunityCards() {
+    installEventFilter(filterMouseEvents);
     revealThreeCommunityCard();
     revealLastTwoCommunityCard();
-
+    removeEventFilter(filterMouseEvents);
 }
 void UltimateTexasHoldem::revealUserCards() {
+    installEventFilter(filterMouseEvents);
     ui->PlayerCard1->setPixmap(getPixmapOfCard(player.hand.getCards()[0]));
+    sleep();
     ui->PlayerCard2->setPixmap(getPixmapOfCard(player.hand.getCards()[1]));
+    removeEventFilter(filterMouseEvents);
 }
 void UltimateTexasHoldem::revealDealerCards() {
+    installEventFilter(filterMouseEvents);
     ui->DealerCard1->setPixmap(getPixmapOfCard(house.hand.getCards()[0]));
+    sleep();
     ui->DealerCard2->setPixmap(getPixmapOfCard(house.hand.getCards()[1]));
+    sleep(1250);
+    removeEventFilter(filterMouseEvents);
 }
 void UltimateTexasHoldem::hideAllCards() {
-    QPixmap pixmap(":/cards/resources/backcard.png");
-
-    pixmap = pixmap.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
-
-    ui->CommunityCard1->setPixmap(pixmap);
-    ui->CommunityCard2->setPixmap(pixmap);
-    ui->CommunityCard3->setPixmap(pixmap);
-    ui->CommunityCard4->setPixmap(pixmap);
-    ui->CommunityCard5->setPixmap(pixmap);
-    ui->DealerCard1->setPixmap(pixmap);
-    ui->DealerCard2->setPixmap(pixmap);
-    ui->PlayerCard1->setPixmap(pixmap);
-    ui->PlayerCard2->setPixmap(pixmap);
+    ui->CommunityCard1->setPixmap(backcard);
+    ui->CommunityCard2->setPixmap(backcard);
+    ui->CommunityCard3->setPixmap(backcard);
+    ui->CommunityCard4->setPixmap(backcard);
+    ui->CommunityCard5->setPixmap(backcard);
+    ui->DealerCard1->setPixmap(backcard);
+    ui->DealerCard2->setPixmap(backcard);
+    ui->PlayerCard1->setPixmap(backcard);
+    ui->PlayerCard2->setPixmap(backcard);
 }
 
 void UltimateTexasHoldem::dealCards() {
