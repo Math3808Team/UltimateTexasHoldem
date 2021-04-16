@@ -221,6 +221,11 @@ void UltimateTexasHoldem::slotEqualAnteBlindBoxes(int arg1)
     ui->blindSpinBox->setValue(arg1);
 }
 
+void UltimateTexasHoldem::on_pushButton_clicked()
+{
+    player.money = 10000;
+    ui->money->setText("10000");
+}
 
 
 //END OF SLOTS; START OF FUNCTIONS
@@ -333,3 +338,4 @@ QPixmap UltimateTexasHoldem::getPixmapOfCard(Card card) {
     QPixmap pixmap(QStringLiteral(":/cards/resources/%1%2.png").arg(card.value).arg(card.suit));
     return pixmap.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
 }
+
