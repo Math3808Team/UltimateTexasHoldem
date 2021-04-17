@@ -13,6 +13,7 @@
 #include "roundresultservice.h"
 #include "include/handranker.h"
 #include "include/endofrounddialogwindow.h"
+#include "warningdialog.h"
 
 UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     QMainWindow(parent),
@@ -28,30 +29,6 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     setUiToBetting();
 
     ui->money->setText(QString::number(player.money));
-
-    Player player;
-    player.hand.addCard(Card('c', 10));
-    player.hand.addCard(Card('c', 3));
-    House house;
-    house.hand.addCard(Card('c', 11));
-    house.hand.addCard(Card('c', 10));
-
-    auto addSame = [](Hand& hand) {
-      hand.addCard(Card('d', 8));
-      hand.addCard(Card('c', 2));
-      hand.addCard(Card('h', 13));
-      hand.addCard(Card('c', 14));
-      hand.addCard(Card('k', 6));
-    };
-    addSame(player.hand);
-    addSame(house.hand);
-
-    HandRanker ranker;
-    ranker.rankHand(player.hand);
-    ranker.rankHand(house.hand);
-    qInfo() << player.hand.rank << " " << house.hand.rank;
-    int p = ranker.breakTie(player, house);
-    qInfo() << p;
 }
 
 UltimateTexasHoldem::~UltimateTexasHoldem()
@@ -66,6 +43,12 @@ void UltimateTexasHoldem::setUiConnections() {
 
 void createEndOfRoundDialog(RoundResult roundResult) {
     EndOfRoundDialogWindow dialog(roundResult);
+    dialog.setModal(true); //dont allow context switching
+    dialog.exec();
+}
+
+void createWarningMessage(QString message) {
+    WarningDialog dialog(message);
     dialog.setModal(true); //dont allow context switching
     dialog.exec();
 }
@@ -123,25 +106,21 @@ void UltimateTexasHoldem::on_dealButton_clicked() {
     unsigned long long totalBets = ui->anteSpinBox->value() + ui->blindSpinBox->value() + ui->tripSpinBox->value();
     // may not be a good idea to have the game logic in here.
     if (totalBets > player.money) {
-        QMessageBox msgBox;
-        msgBox.setText("You do not have enough money!");
-        msgBox.exec();
+        createWarningMessage("You do not have enough money!");
         return;
     }
     else if (totalBets + ui->anteSpinBox->value() > player.money) {
-        QMessageBox msgBox;
-        msgBox.setText("You do not have enough to make a 1x Bet with the current bet setup!");
-        msgBox.exec();
+        createWarningMessage("You do not have enough to make a 1x Bet with the current bet setup!");
         return;
     }
 
     if (ui->tripSpinBox->value() > 0 && (ui->anteSpinBox->value()) <= 0) {
-        qInfo() << "You can not only place the trips bet.";
+        createWarningMessage("You can not only place the trips bet.");
         return;
     }
 
     if (totalBets <= 1) {
-        qInfo() << "You must bet atleast 1 dollar.";
+        createWarningMessage("You must bet atleast 1 dollar.");
         return;
     }
 
@@ -223,12 +202,18 @@ void UltimateTexasHoldem::slotEqualAnteBlindBoxes(int arg1)
     ui->blindSpinBox->setValue(arg1);
 }
 
+void UltimateTexasHoldem::on_ResetMoney_clicked()
+{
+    player.money = 10000;
+    ui->money->setText("10000");
+}
+
 
 //END OF SLOTS; START OF FUNCTIONS
 
 void UltimateTexasHoldem::betPlayAmount(unsigned int playBetAmount) {
     if (playBetAmount > player.money) {
-        qInfo() << "You do not have enough money to make this bet!";
+        createWarningMessage("You do not have enough money to make this bet!");
         return;
     }
 

@@ -31,15 +31,10 @@ private slots:
     void on_bet4XButton_clicked();
     void on_bet3XButton_clicked();
     void on_bet2XButton_clicked();
-    void slotEqualAnteBlindBoxes(int arg1);
-
-
-
-    void on_foldButton_clicked();
-
     void on_bet1XButton_clicked();
-
-    void on_pushButton_clicked();
+    void on_foldButton_clicked();
+    void on_ResetMoney_clicked();
+    void slotEqualAnteBlindBoxes(int arg1);
 
 private:
     QPixmap backcard;

@@ -63,13 +63,6 @@ RoundResult RoundResultService::determineWinners(const int& anteAmount, const in
         result = determinePayoutPlayerLoss(houseQualifies, anteAmount, blindAmount, tripsAmount, playAmount);
     } else {
 
-        if (player.hand.rank == 0 && house.hand.rank == 0) {
-            //special case where no one has anything
-            result.winner = 0;
-            return result;
-        }
-
-
        int tieResult = handRanker.breakTie(player,house);
        if (tieResult == 1) {
            result = determinePayoutPlayerWon(houseQualifies, anteAmount, blindAmount, tripsAmount, playAmount);

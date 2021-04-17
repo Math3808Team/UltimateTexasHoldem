@@ -26,6 +26,10 @@ void HandRanker::rankHand(Hand &hand) {
 }
 
 int HandRanker::breakTie(Player player, House house) {
+
+    if (player.hand.rank == 0 && house.hand.rank == 0)
+        return breakRankZeroTie(player, house); //since there are no specific tie breakers for rank 0
+
     return trickVerifiers.at(player.hand.rank  - 1)->breakTie(player, house);
 }
 
@@ -37,11 +41,11 @@ int HandRanker::breakTie(Player player, House house) {
  * @return 0 if the hands are identical in value, 1 if player won tie, 2 if the house won tie.
  */
 int HandRanker::breakRankZeroTie(Player player, House house) {
-    std::vector<Card> playersCards = player.hand.getTopFiveCards();
-    std::vector<Card> housesCards = house.hand.getTopFiveCards();
+    std::vector<Card> playersCards = player.hand.getCards();
+    std::vector<Card> housesCards = house.hand.getCards();
 
-    //std::sort(playersCards.begin(), playersCards.end(), [](Card& cardL, Card& cardR){cardL.value > cardR.value; });
-    //std::sort(housesCards.begin(), housesCards.end(), [](Card& cardL, Card& cardR){cardL.value > cardR.value; });
+    std::sort(playersCards.begin(), playersCards.end(), [](Card& cardL, Card& cardR){return cardL.value > cardR.value; });
+    std::sort(housesCards.begin(), housesCards.end(), [](Card& cardL, Card& cardR){return cardL.value > cardR.value; });
 
     for (int i = 0; i < 5; i++) {
         if (playersCards[i].value > housesCards[i].value)

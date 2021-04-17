@@ -1050,7 +1050,7 @@ QLabel#money{
      </layout>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="ResetMoney">
     <property name="geometry">
      <rect>
       <x>10</x>
