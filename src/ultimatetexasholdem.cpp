@@ -4,9 +4,11 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QPixmap>
+#include <QLabel>
 #include <string>
 #include <QTime>
 #include <stdexcept>
+#include <type_traits>
 
 #include "roundresultservice.h"
 #include "include/handranker.h"
@@ -226,10 +228,18 @@ void sleep(int msc = 850) {
         QCoreApplication::processEvents(QEventLoop::ExcludeUserInputEvents, 100);
 }
 
+// Loop around for multiple qt versions either returning a qpixmap by a pointer or by a value
+qint64 getCommunityCacheKey(const QPixmap& map) {
+    return map.cacheKey();
+}
+qint64 getCommunityCacheKey(const QPixmap* const map) {
+    return map->cacheKey();
+}
+
 void UltimateTexasHoldem::revealThreeCommunityCard() {
     const std::vector<Card>& playerCards = player.hand.getCards();
 
-    if (ui->CommunityCard1->pixmap().cacheKey() != backcard.cacheKey()) return;
+    if (getCommunityCacheKey(ui->CommunityCard1->pixmap()) != backcard.cacheKey()) return;
 
     installEventFilter(filterMouseEvents);
 
@@ -243,7 +253,7 @@ void UltimateTexasHoldem::revealThreeCommunityCard() {
 }
 
 void UltimateTexasHoldem::revealLastTwoCommunityCard() {
-    if (ui->CommunityCard4->pixmap().cacheKey() != backcard.cacheKey()) return;
+    if (getCommunityCacheKey(ui->CommunityCard4->pixmap()) != backcard.cacheKey()) return;
 
     installEventFilter(filterMouseEvents);
     sleep();
