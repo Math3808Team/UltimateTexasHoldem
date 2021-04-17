@@ -58,7 +58,7 @@ private:
     void revealUserCards();
     void revealDealerCards();
     void hideAllCards();
-    void betPlayAmount(unsigned int playBetAmount);
+    bool betPlayAmount(unsigned int playBetAmount);
 
     //GAME functions
     void dealCards();

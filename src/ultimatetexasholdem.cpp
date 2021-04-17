@@ -30,29 +30,6 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
 
     ui->money->setText(QString::number(player.money));
 
-    /*Player player;
-    player.hand.addCard(Card('c', 10));
-    player.hand.addCard(Card('c', 11));
-    House house;
-    house.hand.addCard(Card('c', 11));
-    house.hand.addCard(Card('c', 10));
-
-    auto addSame = [](Hand& hand) {
-      hand.addCard(Card('d', 8));
-      hand.addCard(Card('c', 2));
-      hand.addCard(Card('h', 13));
-      hand.addCard(Card('c', 14));
-      hand.addCard(Card('d', 6));
-    };
-    addSame(player.hand);
-    addSame(house.hand);
-
-    HandRanker ranker;
-    ranker.rankHand(player.hand);
-    ranker.rankHand(house.hand);
-    qInfo() << player.hand.rank << " " << house.hand.rank;
-    int p = ranker.breakTie(player, house);
-    qInfo() << p;*/
 }
 
 UltimateTexasHoldem::~UltimateTexasHoldem()
@@ -97,8 +74,6 @@ void UltimateTexasHoldem::setUiToBetting() {
     ui->anteSpinBox->setEnabled(true);
     ui->blindSpinBox->setEnabled(true);
     ui->tripSpinBox->setEnabled(true);
-
-    // reset cards here to all back cards
 
     numOfChecks = 0;
 
@@ -170,6 +145,7 @@ void UltimateTexasHoldem::on_checkButton_clicked()
         break;
     case 1:
         ui->bet2XButton->setEnabled(false);
+        ui->checkButton->setEnabled(false);
         ui->bet1XButton->setEnabled(true);
         ui->foldButton->setEnabled(true);
         revealLastTwoCommunityCard();
@@ -189,29 +165,33 @@ void UltimateTexasHoldem::on_checkButton_clicked()
 
 void UltimateTexasHoldem::on_bet4XButton_clicked()
 {
-    betPlayAmount(ui->anteSpinBox->value() * 4);
-    revealAllCommunityCards();
-    endRound();
+    if (betPlayAmount(ui->anteSpinBox->value() * 4)) {
+        revealAllCommunityCards();
+        endRound();
+    }
 }
 
 void UltimateTexasHoldem::on_bet3XButton_clicked()
 {
-    betPlayAmount(ui->anteSpinBox->value() * 3);
-    revealAllCommunityCards();
-    endRound();
+    if (betPlayAmount(ui->anteSpinBox->value() * 3)) {
+        revealAllCommunityCards();
+        endRound();
+    }
 }
 
 void UltimateTexasHoldem::on_bet2XButton_clicked()
 {
-    betPlayAmount(ui->anteSpinBox->value() * 2);
-    revealLastTwoCommunityCard();
-    endRound();
+    if (betPlayAmount(ui->anteSpinBox->value() * 2)) {
+        revealLastTwoCommunityCard();
+        endRound();
+    }
 }
 
 void UltimateTexasHoldem::on_bet1XButton_clicked()
 {
-    betPlayAmount(ui->anteSpinBox->value() * 1);
-    endRound();
+    if (betPlayAmount(ui->anteSpinBox->value() * 1)) {
+        endRound();
+    }
 }
 
 void UltimateTexasHoldem::on_foldButton_clicked()
@@ -235,15 +215,16 @@ void UltimateTexasHoldem::on_ResetMoney_clicked()
 
 //END OF SLOTS; START OF FUNCTIONS
 
-void UltimateTexasHoldem::betPlayAmount(unsigned int playBetAmount) {
+bool UltimateTexasHoldem::betPlayAmount(unsigned int playBetAmount) {
     if (playBetAmount > player.money) {
         createWarningMessage("You do not have enough money to make this bet!");
-        return;
+        return false;
     }
 
     player.money -= playBetAmount;
     ui->playBet->setText(QString::number(playBetAmount));
     ui->money->setText(QString::number(player.money));
+    return true;
 }
 
 void sleep(int msc = 850) {

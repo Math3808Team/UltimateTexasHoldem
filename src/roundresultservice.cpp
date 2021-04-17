@@ -88,11 +88,9 @@ RoundResult RoundResultService::determinePayoutPlayerWon(bool houseQualifies, co
     int antePayback = 0, blindPayback = 0, tripsPayback = 0, playPayback = 0;
 
     if (houseQualifies) {
-        qInfo() << "Dealer qualifies";
         antePayback = anteAmount * 2;
         result.antePayout = anteAmount;
     } else {
-        qInfo() << "Dealer did not qualify";
         antePayback = anteAmount; // push
         result.antePayout = 0;
     }
@@ -101,17 +99,9 @@ RoundResult RoundResultService::determinePayoutPlayerWon(bool houseQualifies, co
     result.playPayout = playAmount;
     tripsPayback = getTripsPayout(tripsAmount, result);
 
-    result.setTotal();
-    qInfo() << "Player's money: " << player.money;
-    qInfo() << "Ante Payback " << (!houseQualifies ? "PUSH" : "") << antePayback;
-    qInfo() << "Blind Payback " << blindPayback;
-    qInfo() << "Play Payback " << playPayback;
-    qInfo() << "Trips Payback " << tripsPayback;
-
     player.money += antePayback + blindPayback + playPayback + tripsPayback;
-    qInfo() << "Player's money AFTER : " << player.money << "\n";
-    qInfo() << "Round Result:";
-    qInfo().noquote() << result;
+
+    result.setTotal();
     return result;
 }
 
@@ -122,21 +112,14 @@ RoundResult RoundResultService::determinePayoutPlayerLoss(bool houseQualifies, c
     result.playPayout = -playAmount;
     result.blindPayout = -blindAmount;
 
-    qInfo() << "Dealer does " << (!houseQualifies ? "not " : "") << "qualify";
+    result.antePayout = houseQualifies ? -anteAmount : 0;
 
     int tripsPayout = getTripsPayout(tripsAmount, result);
     int antePayout = houseQualifies ? 0 : anteAmount;
-    result.antePayout = houseQualifies ? -anteAmount : 0;
+
+    player.money += tripsPayout + antePayout;
+
     result.setTotal();
-
-    qInfo() << "Player's money: " << player.money;
-    qInfo() << "TripsPayout " << tripsPayout;
-    qInfo() << "AntePayout " << antePayout;
-
-    player.money += tripsPayout;
-    qInfo() << "Player's money AFTER : " << player.money << "\n";
-    qInfo() << "Round Result:";
-    qInfo().noquote() << result;
     return result;
 }
 
@@ -145,25 +128,15 @@ RoundResult RoundResultService::determinePayoutTie(bool houseQualifies, const in
 
     RoundResult result;
     result.winner = 0;
-    // regardless of the house qualifing, all bets are pushed.
-    // but trips is optional, so it can change.
 
-    int antePayout = anteAmount, blindPayout = blindAmount, playPayout = playAmount; // push ante, blind and play
     result.antePayout = result.blindPayout = result.playPayout = 0;
 
+    // regardless of the house qualifing, all bets are pushed.
+    int antePayout = anteAmount, blindPayout = blindAmount, playPayout = playAmount; // push ante, blind and play
     int tripsPayout = getTripsPayout(tripsAmount, result);
-    result.setTotal();
-
-    qInfo() << "Player's money: " << player.money;
-    qInfo() << "AntePayout " << antePayout;
-    qInfo() << "BlindPayout " << blindPayout;
-    qInfo() << "PlayPayout " << playPayout;
-    qInfo() << "tripsPayout " << tripsPayout;
 
     player.money += antePayout + blindPayout + playPayout + tripsPayout;
-    qInfo() << "Player's money AFTER : " << player.money << "\n";
-    qInfo() << "Round Result:";
-    qInfo().noquote() << result;
 
+    result.setTotal();
     return result;
 }

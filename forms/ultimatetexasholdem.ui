@@ -832,6 +832,12 @@ QLabel#money{
             <property name="maximum">
              <number>1000</number>
             </property>
+            <property name="singleStep">
+             <number>5</number>
+            </property>
+            <property name="value">
+             <number>25</number>
+            </property>
            </widget>
           </item>
          </layout>
@@ -890,6 +896,12 @@ QLabel#money{
               <property name="maximum">
                <number>1000</number>
               </property>
+              <property name="singleStep">
+               <number>5</number>
+              </property>
+              <property name="value">
+               <number>25</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -946,6 +958,12 @@ QLabel#money{
               </property>
               <property name="maximum">
                <number>1000</number>
+              </property>
+              <property name="singleStep">
+               <number>5</number>
+              </property>
+              <property name="value">
+               <number>25</number>
               </property>
              </widget>
             </item>
