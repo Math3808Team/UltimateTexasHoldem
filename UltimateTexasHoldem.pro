@@ -80,3 +80,5 @@ INCLUDEPATH += include/
 
 RESOURCES += \
     resources.qrc
+
+RC_ICONS = resources/UltimateTexasHoldem-icon.ico
