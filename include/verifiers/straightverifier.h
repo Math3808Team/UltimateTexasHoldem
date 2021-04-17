@@ -8,7 +8,7 @@ class StraightVerifier: public TrickVerifier {
 public:
     StraightVerifier();
     virtual void verifyHand(Hand &hand) override;
-    virtual int breakTie(Player player, House house) override;
+    virtual int breakTie(const Player player, const House house) const override;
 };
 
 #endif // STRAIGHTVERIFIER_H

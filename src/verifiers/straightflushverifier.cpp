@@ -59,6 +59,6 @@ void StraightFlushVerifier::verifyHand(Hand &hand) {
  *  @param house a House instance, contains the needed hand to compare
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
-int StraightFlushVerifier::breakTie(Player player, House house) {
+int StraightFlushVerifier::breakTie(const Player player, const House house) const {
     return breakStraightTypeTie(player, house);
 }

@@ -56,15 +56,6 @@ void ThreeOfAKindVerifier::verifyHand(Hand &hand) {
  *  @param house a House instance, contains the needed hand to compare
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
-int ThreeOfAKindVerifier::breakTie(Player player, House house) {
-    std::vector<Card> playersCards = player.hand.getTopFiveCards();
-    std::vector<Card> housesCards = house.hand.getTopFiveCards();
-
-    for (int i = 0; i < 5; i++) {
-        if (playersCards[i].value > housesCards[i].value)
-            return 1;
-        else if (playersCards[i].value < housesCards[i].value)
-            return 2;
-    }
-    return 0;
+int ThreeOfAKindVerifier::breakTie(const Player player, const House house) const {
+    breakNormalTypeTie(player, house);
 }

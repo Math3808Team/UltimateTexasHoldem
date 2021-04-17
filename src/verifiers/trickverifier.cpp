@@ -69,3 +69,22 @@ int TrickVerifier::breakStraightTypeTie(const Player& player, const House& house
     else if (playerFirst.value < houseFirst.value) return 2;
     return 0;
 }
+
+/**
+ * @brief Helper function for each verifier to call if their tie breaking is simple.
+ *        Simply checks for who's top five cards are best from first card in list to last.
+ * @param player instance with a TopFiveCards which should be IN ORDER from best card to worst based on trick it has
+ * @param house  instance with a TopFiveCards which should be IN ORDER from best card to worst based on trick it has
+ * @return 0 iff results in a complete tie, 1 if the player won, 2 if the house won
+ */
+int TrickVerifier::breakNormalTypeTie(const Player& player, const House& house) const {
+    std::vector<Card> playersCards = player.hand.getTopFiveCards();
+    std::vector<Card> housesCards = house.hand.getTopFiveCards();
+    for (int i = 0; i < 5; i++) {
+        if (playersCards[i].value > housesCards[i].value)
+            return 1;
+        else if (playersCards[i].value < housesCards[i].value)
+            return 2;
+    }
+    return 0;
+}

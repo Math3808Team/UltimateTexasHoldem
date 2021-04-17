@@ -53,7 +53,7 @@ void FullHouseVerifier::verifyHand(Hand &hand) {
  *  @param house a House instance, contains the needed hand to compare
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
-int FullHouseVerifier::breakTie(Player player, House house) {
+int FullHouseVerifier::breakTie(const Player player, const House house) const {
     std::vector<Card> playersCards = player.hand.getTopFiveCards();
     std::vector<Card> housesCards = house.hand.getTopFiveCards();
 

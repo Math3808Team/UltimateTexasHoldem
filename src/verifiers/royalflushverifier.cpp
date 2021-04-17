@@ -29,7 +29,7 @@ void RoyalFlushVerifier::verifyHand(Hand &hand) {
  *  @param house a House instance, contains the needed hand to compare
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
-int RoyalFlushVerifier::breakTie(Player player, House house) {
+int RoyalFlushVerifier::breakTie(const Player player, const House house) const {
     Q_UNUSED(player);
     Q_UNUSED(house);
     return 0; //will always be a tie... also this legit never happens haha.
