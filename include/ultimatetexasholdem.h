@@ -2,6 +2,7 @@
 #define ULTIMATETEXASHOLDEM_H
 
 #include <QMainWindow>
+#include <QObject>
 #include "player.h"
 #include "house.h"
 #include "deck.h"

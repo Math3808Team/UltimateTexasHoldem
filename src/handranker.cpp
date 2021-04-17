@@ -30,3 +30,26 @@ int HandRanker::breakTie(Player player, House house) {
 }
 
 
+/**
+ * @brief tie breaker for case where both player and house has nothing.
+ * @param player the Player instance
+ * @param house the House instance
+ * @return 0 if the hands are identical in value, 1 if player won tie, 2 if the house won tie.
+ */
+int HandRanker::breakRankZeroTie(Player player, House house) {
+    std::vector<Card> playersCards = player.hand.getTopFiveCards();
+    std::vector<Card> housesCards = house.hand.getTopFiveCards();
+
+    //std::sort(playersCards.begin(), playersCards.end(), [](Card& cardL, Card& cardR){cardL.value > cardR.value; });
+    //std::sort(housesCards.begin(), housesCards.end(), [](Card& cardL, Card& cardR){cardL.value > cardR.value; });
+
+    for (int i = 0; i < 5; i++) {
+        if (playersCards[i].value > housesCards[i].value)
+            return 1;
+        else if (playersCards[i].value < housesCards[i].value)
+            return 2;
+    }
+    return 0;
+}
+
+
