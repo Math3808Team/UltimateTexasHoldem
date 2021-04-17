@@ -30,5 +30,7 @@ void RoyalFlushVerifier::verifyHand(Hand &hand) {
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
 int RoyalFlushVerifier::breakTie(Player player, House house) {
+    Q_UNUSED(player);
+    Q_UNUSED(house);
     return 0; //will always be a tie... also this legit never happens haha.
 }
