@@ -72,5 +72,5 @@ void TwoPairVerifier::verifyHand(Hand &hand) {
  *  @returns 1 if the player won, 2 if the house won else 0 if it was a tie.
  */
 int TwoPairVerifier::breakTie(const Player player, const House house) const {
-    breakNormalTypeTie(player, house);
+    return breakNormalTypeTie(player, house);
 }
