@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>996</width>
-    <height>592</height>
+    <width>991</width>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1087,23 +1087,11 @@ QLabel#money{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>996</width>
-     <height>22</height>
+     <width>991</width>
+     <height>20</height>
     </rect>
    </property>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

@@ -27,6 +27,8 @@ UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     ui->setupUi(this);
     setUiConnections();
 
+    setWindowFlags(Qt::Window | Qt::MSWindowsFixedSizeDialogHint);// no resizing
+
     hideAllCards();
     setUiToBetting();
 
