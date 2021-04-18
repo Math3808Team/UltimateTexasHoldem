@@ -6,4 +6,5 @@
     <Publisher>Aaron Buitenwerf, Joshua Challenger, Adrian Cheung, Mathew Bayne</Publisher>
     <StartMenuDir>UltimateTexasHoldem</StartMenuDir>
     <TargetDir>@HomeDir@/UltimateTexasHoldem</TargetDir>
+    <InstallerApplicationIcon>UltimateTexasHoldem-icon</InstallerApplicationIcon>
 </Installer>
