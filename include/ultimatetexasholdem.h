@@ -68,7 +68,11 @@ private:
     RoundResult useRoundResultService(bool playerFolded = false);
 };
 
-
+/**
+ * @brief The UltimateTexasHoldem::FilterMouseEvents class
+ *  Class is a filter event object that filters all mouse events to be discarded.
+ *  The object is used during a installEventFilter() and removeEventFilter() calls to allow the filter to operate
+ */
 class UltimateTexasHoldem::FilterMouseEvents : public QObject {
     Q_OBJECT
 public:

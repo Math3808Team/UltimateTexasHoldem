@@ -215,6 +215,12 @@ void UltimateTexasHoldem::on_ResetMoney_clicked()
 
 //END OF SLOTS; START OF FUNCTIONS
 
+/**
+ * @brief UltimateTexasHoldem::betPlayAmount Function determine if the user is able to make the playBetAmount specified by it's argument
+ *  If the player does the player's money is decreased by said amount, if not then a warning popup is given
+ * @param playBetAmount The amount the player is trying to bet for the play back
+ * @return A boolean indicating if the player was able to make the bet(true) or not(false)
+ */
 bool UltimateTexasHoldem::betPlayAmount(unsigned int playBetAmount) {
     if (playBetAmount > player.money) {
         createWarningMessage("You do not have enough money to make this bet!");
@@ -227,6 +233,12 @@ bool UltimateTexasHoldem::betPlayAmount(unsigned int playBetAmount) {
     return true;
 }
 
+
+/**
+ * @brief sleep Function sleeps the application for 850 seconds, note that all user inputs are delayed, they are not discarded.
+ *   During this sleep period, the application still processes events, but delayed. Ensure to use filter objects before using this function.
+ * @param msc The amount of miliseconds to sleep, default 850
+ */
 void sleep(int msc = 850) {
     QTime dieTime= QTime::currentTime().addMSecs(msc);
     while (QTime::currentTime() < dieTime)
@@ -241,11 +253,17 @@ qint64 getCommunityCacheKey(const QPixmap* const map) {
     return map->cacheKey();
 }
 
+/**
+ * @brief UltimateTexasHoldem::revealThreeCommunityCard Function reveals the first three community cards in the UI
+ * If the first card is set already on the UI, this function does nothing.
+ */
 void UltimateTexasHoldem::revealThreeCommunityCard() {
     const std::vector<Card>& playerCards = player.hand.getCards();
 
+    // Already revealed, skip over this reveal.
     if (getCommunityCacheKey(ui->CommunityCard1->pixmap()) != backcard.cacheKey()) return;
 
+    // Prevent any users from pressing any buttons while sleeping
     installEventFilter(filterMouseEvents);
 
     ui->CommunityCard1->setPixmap(getPixmapOfCard(playerCards[2]));
@@ -257,10 +275,16 @@ void UltimateTexasHoldem::revealThreeCommunityCard() {
     removeEventFilter(filterMouseEvents);
 }
 
+/**
+ * @brief UltimateTexasHoldem::revealLastTwoCommunityCard Function reveals the last two community cards in the UI
+ * If the fourth card is already set on the UI, this function does nothing.
+ */
 void UltimateTexasHoldem::revealLastTwoCommunityCard() {
+    // Already revealed, skip over this reveal.
     if (getCommunityCacheKey(ui->CommunityCard4->pixmap()) != backcard.cacheKey()) return;
-
+    // Prevent any users from pressing any buttons while sleeping
     installEventFilter(filterMouseEvents);
+
     sleep();
     ui->CommunityCard4->setPixmap(getPixmapOfCard(player.hand.getCards()[5]));
     sleep();
@@ -270,27 +294,51 @@ void UltimateTexasHoldem::revealLastTwoCommunityCard() {
     removeEventFilter(filterMouseEvents);
 }
 
+/**
+ * @brief UltimateTexasHoldem::revealAllCommunityCards Function reveals all community cards in the UI
+ */
 void UltimateTexasHoldem::revealAllCommunityCards() {
+    // Prevent any users from pressing any buttons during the sleep calls
     installEventFilter(filterMouseEvents);
+
     revealThreeCommunityCard();
     revealLastTwoCommunityCard();
+
     removeEventFilter(filterMouseEvents);
 }
+
+/**
+ * @brief UltimateTexasHoldem::revealUserCards Function reveals all user cards in the UI
+ */
 void UltimateTexasHoldem::revealUserCards() {
+    // Prevent any users
     installEventFilter(filterMouseEvents);
+
     ui->PlayerCard1->setPixmap(getPixmapOfCard(player.hand.getCards()[0]));
     sleep();
     ui->PlayerCard2->setPixmap(getPixmapOfCard(player.hand.getCards()[1]));
+
     removeEventFilter(filterMouseEvents);
 }
+
+/**
+ * @brief UltimateTexasHoldem::revealDealerCards Function reveals all Dealer cards in the UI
+ */
 void UltimateTexasHoldem::revealDealerCards() {
+    // Prevent any user's button presses
     installEventFilter(filterMouseEvents);
+
     ui->DealerCard1->setPixmap(getPixmapOfCard(house.hand.getCards()[0]));
     sleep();
     ui->DealerCard2->setPixmap(getPixmapOfCard(house.hand.getCards()[1]));
-    sleep(1250);
+    sleep(1250); // sleep for a bit longer before showing the user who won
     removeEventFilter(filterMouseEvents);
 }
+
+/**
+ * @brief UltimateTexasHoldem::hideAllCards Function hides all cards in the UI
+ *  Each card (Community, Dealer, Player) cards are set to the backcard in the UI
+ */
 void UltimateTexasHoldem::hideAllCards() {
     ui->CommunityCard1->setPixmap(backcard);
     ui->CommunityCard2->setPixmap(backcard);
@@ -303,6 +351,10 @@ void UltimateTexasHoldem::hideAllCards() {
     ui->PlayerCard2->setPixmap(backcard);
 }
 
+/**
+ * @brief UltimateTexasHoldem::dealCards Function first resets all hands of the dealer and house (rank + cards),
+ *  and the deck gives out the cards to the house and player hands.
+ */
 void UltimateTexasHoldem::dealCards() {
 
     player.hand.clear();
@@ -327,8 +379,17 @@ void UltimateTexasHoldem::dealCards() {
     }
 }
 
+/**
+ * @brief UltimateTexasHoldem::useRoundResultService Function uses the round result service to determine who won and
+ * the respective payoffs of winning/losing the round. Note that the round result service modifies player.money's
+ * amount after winning/losing the round
+ * @param playFolded Boolean flag indicating if the player folded his hand
+ * @return A RoundResult object containing the information of who won and the payoffs applied to the player
+ */
 RoundResult UltimateTexasHoldem::useRoundResultService(bool playFolded) {
     static RoundResultService resultService(player, house); // variable only exists(staticly) in this scope
+
+    // Play bet is in a generic text label, first must perform parsing to get the actual integral amount
     bool playBetExists = false;
     int playAmount = ui->playBet->text().toInt(&playBetExists);
     if (!playBetExists && ui->playBet->text() == "")
@@ -337,12 +398,20 @@ RoundResult UltimateTexasHoldem::useRoundResultService(bool playFolded) {
         qDebug() << "No play bet? play bet should be set...";
         playAmount = 0;
     }
+
+    // Delegate our ui elements's amounts to the service
     RoundResult roundResult = resultService.determineWinners(ui->anteSpinBox->value(), ui->blindSpinBox->value(), ui->tripSpinBox->value(), playAmount, playFolded);
     roundResult.playerRank = player.hand.rank;
     roundResult.dealerRank = house.hand.rank;
     return roundResult;
 }
 
+/**
+ * @brief UltimateTexasHoldem::endRound Function peforms the sequential UI components that must be applied onto the UI
+ *  When the round ends. It is expected for all community cards to be revealed(without dealers!), and
+ *  functionr returns the UI back to the betting stage
+ * @param folded Indicator variable if the player folded his hand
+ */
 void UltimateTexasHoldem::endRound(bool folded) {
     revealDealerCards();
     RoundResult roundResult = useRoundResultService(folded);
@@ -355,7 +424,12 @@ void UltimateTexasHoldem::endRound(bool folded) {
     setUiToBetting();
 }
 
-
+/**
+ * @brief UltimateTexasHoldem::getPixmapOfCard Function gets a QPixMap from a corresponding Card object. It is assumed the
+ * card object is valid and the respective QPixmap is in the resource file.
+ * @param card The card to get the respective pixmap of
+ * @return  The pixmap of the card supplied
+ */
 QPixmap UltimateTexasHoldem::getPixmapOfCard(Card card) {
     QPixmap pixmap(QStringLiteral(":/cards/resources/%1%2.png").arg(card.value).arg(card.suit));
     return pixmap.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
