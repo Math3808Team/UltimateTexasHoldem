@@ -37,10 +37,7 @@ private slots:
     void slotEqualAnteBlindBoxes(int arg1);
 
 private:
-    QPixmap backcard;
-    const int CARD_WIDTH  = 100;
-    const int CARD_HEIGHT = 140;
-
+    // Data members
     Deck deck;
     Player player;
     House house;
@@ -49,9 +46,13 @@ private:
     Ui::UltimateTexasHoldem *ui;
     FilterMouseEvents* filterMouseEvents;
 
-    void setUiConnections();
+    // Card variables
+    QPixmap backcard;
+    static constexpr int CARD_WIDTH  = 100;
+    static constexpr int CARD_HEIGHT = 140;
 
     // UI functions
+    void setUiConnections();
     void revealThreeCommunityCard();
     void revealLastTwoCommunityCard();
     void revealAllCommunityCards();
@@ -64,11 +65,14 @@ private:
     void dealCards();
     void endRound(bool folded = false);
     QPixmap getPixmapOfCard(Card card);
-
     RoundResult useRoundResultService(bool playerFolded = false);
 };
 
-
+/**
+ * @brief The UltimateTexasHoldem::FilterMouseEvents class
+ *  Class is a filter event object that filters all mouse events to be discarded.
+ *  The object is used during a installEventFilter() and removeEventFilter() calls to allow the filter to operate
+ */
 class UltimateTexasHoldem::FilterMouseEvents : public QObject {
     Q_OBJECT
 public:

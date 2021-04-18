@@ -11,9 +11,6 @@ class RoundResultService {
 public:
     RoundResultService(Player& player, House& house);
 
-
-
-
     RoundResult determineWinners(const int& anteAmount, const int& blindAmount, const int& tripsAmount, const int& playAmount, bool = false);
 private:
     Player& player;

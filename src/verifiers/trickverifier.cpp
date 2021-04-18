@@ -10,6 +10,11 @@ TrickVerifier::~TrickVerifier() {
 
 }
 
+/**
+ * @brief TrickVerifier::getTableOfValues Helper function to get a table of values per a hand
+ * @param hand A hand instance to supply to grain the table of values
+ * @return A hash table of key=cardValue, data=frequency of the value in the hand
+ */
 QHash<int,int> TrickVerifier::getTableOfValues(Hand &hand) {
 
     QHash<int, int> valueTable;
@@ -28,9 +33,9 @@ QHash<int,int> TrickVerifier::getTableOfValues(Hand &hand) {
 }
 
 /**
- * @brief TrickVerifier::getTableOfSuits
+ * @brief TrickVerifier::getTableOfSuits Helper function to get a table of suits per a hand
  * @param hand The hand being verified
- * @return
+ * @return A hash table of key=suit, data=frequency of the suit in the hand
  */
 QHash<char,int> TrickVerifier::getTableOfSuits(Hand &hand) {
     QHash<char, int> suitTable;
@@ -48,7 +53,13 @@ QHash<char,int> TrickVerifier::getTableOfSuits(Hand &hand) {
     return suitTable;
 }
 
-
+/**
+ * @brief TrickVerifier::breakStraightTypeTie Helper function to break a tie between the player and the house
+ *  under the condition that both hands are straights(4) or straight flushes(8)
+ * @param player player instance to break the straight between, in where TopFiveCards are IN ORDER of best card to worst
+ * @param house house instance to break the straight between, in where TopFiveCards are IN ORDER of best card to worst
+ * @return 0 iff results in a complete tie, 1 if the player won, 2 if the house won
+ */
 int TrickVerifier::breakStraightTypeTie(const Player& player, const House& house) const {
 
     if (player.hand.rank != house.hand.rank ||

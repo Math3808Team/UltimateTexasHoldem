@@ -13,15 +13,18 @@ const std::vector<Card>& Hand::getCards() const {
     return cards;
 }
 
-
+/**
+ * @brief Hand::setTopFiveCards Function sets the top five cards
+ * @param topFive The top 5 cards to set
+ */
 void Hand::setTopFiveCards(std::vector<Card> topFive) {
     // copy swap idiom
     std::swap(topFiveCards, topFive);
 }
 
 /**
- * @brief
- * @return
+ * @brief Function returns the top 5 cards
+ * @return The top 5 cards
 */
 const std::vector<Card>& Hand::getTopFiveCards() const {
     return topFiveCards;

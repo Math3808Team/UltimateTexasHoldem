@@ -40,7 +40,13 @@ void EndOfRoundDialogWindow::on_pushButton_clicked()
     this->close();
 }
 
-void EndOfRoundDialogWindow :: setPayout(QLabel* label, int payout){
+/**
+ * @brief EndOfRoundDialogWindow::setPayout Helper function sets the color and text of the label provided given a payout
+ * @param label The label to modify
+ * @param payout The payout used to determine how it will modify,
+ *  if payout < 0 color is red, if payout > 0 color is green, if payout = 0 color is white
+ */
+void EndOfRoundDialogWindow::setPayout(QLabel* label, int payout){
     if(payout > 0){
         label->setStyleSheet("color: rgb(7,121,55); font: 14pt 'URW Bookman L';");
         label->setText(QStringLiteral("%1 $%2").arg('+').arg(std::abs(payout)));
@@ -57,6 +63,11 @@ void EndOfRoundDialogWindow :: setPayout(QLabel* label, int payout){
     }
 }
 
+/**
+ * @brief EndOfRoundDialogWindow::rankToString Helper function converts a rank to a qstring representing the rank of said hand
+ * @param rank The rank to supply, in range 0-9
+ * @return A QString representation of the rank
+ */
 QString EndOfRoundDialogWindow::rankToString(int rank) {
     switch(rank) {
         case 0:
