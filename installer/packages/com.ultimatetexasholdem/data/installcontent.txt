@@ -1,0 +1,4 @@
+Any content here will be put on the target computer
+For windows: run this command on the executable after building it on a RELEASE build
+	$ windeployqt.exe UltimateTeaxsHoldem
+Then move everything(or perform the command) in this directory

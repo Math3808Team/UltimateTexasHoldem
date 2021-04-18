@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Ultimate Texas Holdem</Name>
+    <Version>1.0.0</Version>
+    <Title>Ultimate Texas Holdem Installer</Title>
+    <Publisher>Aaron Buitenwerf, Joshua Challenger, Adrian Cheung, Mathew Bayne</Publisher>
+    <StartMenuDir>UltimateTexasHoldem</StartMenuDir>
+    <TargetDir>@HomeDir@/UltimateTexasHoldem</TargetDir>
+    <InstallerApplicationIcon>UltimateTexasHoldem-icon</InstallerApplicationIcon>
+</Installer>
