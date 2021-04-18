@@ -37,17 +37,29 @@ UltimateTexasHoldem::~UltimateTexasHoldem()
     delete ui;
 }
 
+/**
+ * @brief UltimateTexasHoldem::setUiConnections Function sets any ui connects required for this object
+ */
 void UltimateTexasHoldem::setUiConnections() {
     connect(ui->anteSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
     connect(ui->blindSpinBox, SIGNAL(valueChanged(int)), this, SLOT(slotEqualAnteBlindBoxes(int)));
 }
 
+/**
+ * @brief createEndOfRoundDialog Function creates a dialog representing the end of the round
+ *   The dialog is blocking dialog.
+ * @param roundResult The round result object to supply to the dialog
+ */
 void createEndOfRoundDialog(RoundResult roundResult) {
     EndOfRoundDialogWindow dialog(roundResult);
     dialog.setModal(true); //dont allow context switching
     dialog.exec();
 }
 
+/**
+ * @brief createWarningMessage Function creates a warning dialog
+ * @param message The warning to display on the dialog
+ */
 void createWarningMessage(QString message) {
     WarningDialog dialog(message);
     dialog.setModal(true); //dont allow context switching
@@ -103,7 +115,7 @@ void UltimateTexasHoldem::setUiToInitalDeal() {
 
 void UltimateTexasHoldem::on_dealButton_clicked() {
     unsigned long long totalBets = ui->anteSpinBox->value() + ui->blindSpinBox->value() + ui->tripSpinBox->value();
-    // may not be a good idea to have the game logic in here.
+
     if (totalBets > player.money) {
         createWarningMessage("You do not have enough money!");
         return;
@@ -209,7 +221,7 @@ void UltimateTexasHoldem::slotEqualAnteBlindBoxes(int arg1)
 void UltimateTexasHoldem::on_ResetMoney_clicked()
 {
     player.money = 10000;
-    ui->money->setText("10000");
+    ui->money->setText(QString::number(player.money));
 }
 
 
@@ -258,10 +270,10 @@ qint64 getCommunityCacheKey(const QPixmap* const map) {
  * If the first card is set already on the UI, this function does nothing.
  */
 void UltimateTexasHoldem::revealThreeCommunityCard() {
-    const std::vector<Card>& playerCards = player.hand.getCards();
-
     // Already revealed, skip over this reveal.
     if (getCommunityCacheKey(ui->CommunityCard1->pixmap()) != backcard.cacheKey()) return;
+
+    const std::vector<Card>& playerCards = player.hand.getCards();
 
     // Prevent any users from pressing any buttons while sleeping
     installEventFilter(filterMouseEvents);
@@ -282,13 +294,16 @@ void UltimateTexasHoldem::revealThreeCommunityCard() {
 void UltimateTexasHoldem::revealLastTwoCommunityCard() {
     // Already revealed, skip over this reveal.
     if (getCommunityCacheKey(ui->CommunityCard4->pixmap()) != backcard.cacheKey()) return;
+
+    const std::vector<Card>& playerCards = player.hand.getCards();
+
     // Prevent any users from pressing any buttons while sleeping
     installEventFilter(filterMouseEvents);
 
     sleep();
-    ui->CommunityCard4->setPixmap(getPixmapOfCard(player.hand.getCards()[5]));
+    ui->CommunityCard4->setPixmap(getPixmapOfCard(playerCards[5]));
     sleep();
-    ui->CommunityCard5->setPixmap(getPixmapOfCard(player.hand.getCards()[6]));
+    ui->CommunityCard5->setPixmap(getPixmapOfCard(playerCards[6]));
     sleep();
 
     removeEventFilter(filterMouseEvents);
@@ -314,9 +329,11 @@ void UltimateTexasHoldem::revealUserCards() {
     // Prevent any users
     installEventFilter(filterMouseEvents);
 
-    ui->PlayerCard1->setPixmap(getPixmapOfCard(player.hand.getCards()[0]));
+    const std::vector<Card>& playerCards = player.hand.getCards();
+
+    ui->PlayerCard1->setPixmap(getPixmapOfCard(playerCards[0]));
     sleep();
-    ui->PlayerCard2->setPixmap(getPixmapOfCard(player.hand.getCards()[1]));
+    ui->PlayerCard2->setPixmap(getPixmapOfCard(playerCards[1]));
 
     removeEventFilter(filterMouseEvents);
 }
@@ -328,9 +345,11 @@ void UltimateTexasHoldem::revealDealerCards() {
     // Prevent any user's button presses
     installEventFilter(filterMouseEvents);
 
-    ui->DealerCard1->setPixmap(getPixmapOfCard(house.hand.getCards()[0]));
+    const std::vector<Card>& houseCards = house.hand.getCards();
+
+    ui->DealerCard1->setPixmap(getPixmapOfCard(houseCards[0]));
     sleep();
-    ui->DealerCard2->setPixmap(getPixmapOfCard(house.hand.getCards()[1]));
+    ui->DealerCard2->setPixmap(getPixmapOfCard(houseCards[1]));
     sleep(1250); // sleep for a bit longer before showing the user who won
     removeEventFilter(filterMouseEvents);
 }
