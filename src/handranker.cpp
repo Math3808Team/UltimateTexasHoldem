@@ -25,6 +25,13 @@ void HandRanker::rankHand(Hand &hand) {
 
 }
 
+/**
+ * @brief HandRanker::breakTie Function breaks a tie between the player and the house
+ *  A tie occurs when player.rank == house.rank
+ * @param player The player object to break the tie between
+ * @param house The house object to break the tie between
+ * @return An integer indicator of who won, where 0= hands are identical, 1= player won, 2= house won
+ */
 int HandRanker::breakTie(Player player, House house) {
 
     if (player.hand.rank == 0 && house.hand.rank == 0)

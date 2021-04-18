@@ -15,10 +15,12 @@
 #include "include/endofrounddialogwindow.h"
 #include "warningdialog.h"
 
+
+
 UltimateTexasHoldem::UltimateTexasHoldem(QWidget *parent) :
     QMainWindow(parent),
-    backcard((":/cards/resources/backcard.png")),
-    ui(new Ui::UltimateTexasHoldem)
+    ui(new Ui::UltimateTexasHoldem),
+    backcard((":/cards/resources/backcard.png"))
 {
     filterMouseEvents = new FilterMouseEvents(this);
     backcard = backcard.scaled(CARD_WIDTH, CARD_HEIGHT, Qt::KeepAspectRatio);
@@ -50,7 +52,7 @@ void UltimateTexasHoldem::setUiConnections() {
  *   The dialog is blocking dialog.
  * @param roundResult The round result object to supply to the dialog
  */
-void createEndOfRoundDialog(RoundResult roundResult) {
+void createEndOfRoundDialog(const RoundResult& roundResult) {
     EndOfRoundDialogWindow dialog(roundResult);
     dialog.setModal(true); //dont allow context switching
     dialog.exec();
@@ -60,7 +62,7 @@ void createEndOfRoundDialog(RoundResult roundResult) {
  * @brief createWarningMessage Function creates a warning dialog
  * @param message The warning to display on the dialog
  */
-void createWarningMessage(QString message) {
+void createWarningMessage(const QString& message) {
     WarningDialog dialog(message);
     dialog.setModal(true); //dont allow context switching
     dialog.exec();
